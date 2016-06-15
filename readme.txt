@@ -20,7 +20,7 @@ This plugin adds the Venobox Responsive Lightbox to links, displaying videos, im
 
 == Description ==
 
-This plugin adds the Venobox Responsive Lightbox to links, displaying videos, images, iframe or inline content in a lightbox display.
+This plugin adds the Venobox Responsive Lightbox to links, displaying videos; YouTube, Vimeo, images, iframe, Google Maps or other inline content in a responsive lightbox display.
 
 
 == Installation ==
