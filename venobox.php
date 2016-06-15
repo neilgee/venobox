@@ -5,7 +5,7 @@ Plugin Name: Venobox Lightbox
 Plugin URI: http://wpbeaches.com/
 Description: Venobox Lightbox - responsive lightbox for video, iframe and images
 Author: Neil Gee
-Version: 1.1.0
+Version: 1.0.0
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
