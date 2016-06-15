@@ -22,9 +22,6 @@ This plugin adds the Venobox Responsive Lightbox to links, displaying videos, im
 
 This plugin adds the Venobox Responsive Lightbox to links, displaying videos, images, iframe or inline content in a lightbox display.
 
-Demo and more info - http://themes.wpbeaches.com/navgoco/
-
-
 
 == Installation ==
 
