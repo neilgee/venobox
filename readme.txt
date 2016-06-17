@@ -15,7 +15,7 @@ Author URI: http://wpbeaches.com/
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-This plugin adds the VenoBox Responsive Lightbox to links, displaying videos, images, iframe or inline content in a lightbox display.
+This plugin adds the VenoBox Responsive Lightbox to links to display Vimeo and YouTube videos, images, iframe or inline content in a lightbox display.
 
 
 == Description ==

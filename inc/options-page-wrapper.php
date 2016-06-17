@@ -44,7 +44,7 @@
 
 						<div class="inside">
               <p>Below are instructions for using the VenoBox Lightbox for your code, typically for the lightbox to work  you wrap a link around a text or image element.
-              <pre>&lt;a class="venobox" data-type="vimeo" href="https://vimeo.com/1084537"&gt;&lt;img src="..." /&gt;&lt;/a&gt;
+              <pre style="white-space:pre-wrap;">&lt;a class="venobox" data-type="vimeo" href="https://vimeo.com/1084537"&gt;&lt;img src="..." /&gt;&lt;/a&gt;
               </pre>
 							<h4>Video - Vimeo Example</h4>
               <a class="venobox" data-type="vimeo" href="https://vimeo.com/1084537">
@@ -59,13 +59,13 @@
               <p>If the content is not an image you have to specify its type via data attribute <code>data-type</code></p>
               <p>Available data-type values: <code>youtube</code> <code>vimeo</code> <code>iframe</code> <code>inline</code> <code>ajax</code> </p>
 
-      <pre data-initialized="true" data-gclp-id="4">
-      &lt;a class="venobox" data-type="iframe" href="http://www.veno.es"&gt;Open Iframe&lt;/a&gt;
-      &lt;a class="venobox" data-type="inline" title="My Description" href="#inline"&gt;Open inline content&lt;/a&gt;
-      &lt;a class="venobox" data-type="ajax" href="ajax-call.php"&gt;Retrieve data via Ajax&lt;/a&gt;
-      &lt;a class="venobox" data-type="youtube" href="http://youtu.be/d85gkOXeXG4"&gt;YouTube&lt;/a&gt;
-      &lt;a class="venobox" data-type="vimeo" href="http://vimeo.com/75976293"&gt;Vimeo&lt;/a&gt;
-      </pre>
+<pre data-initialized="true" data-gclp-id="4" style="white-space:pre-wrap;">
+&lt;a class="venobox" data-type="iframe" href="http://www.veno.es"&gt;Open Iframe&lt;/a&gt;
+&lt;a class="venobox" data-type="inline" title="My Description" href="#inline"&gt;Open inline content&lt;/a&gt;
+&lt;a class="venobox" data-type="ajax" href="ajax-call.php"&gt;Retrieve data via Ajax&lt;/a&gt;
+&lt;a class="venobox" data-type="youtube" href="http://youtu.be/d85gkOXeXG4"&gt;YouTube&lt;/a&gt;
+&lt;a class="venobox" data-type="vimeo" href="http://vimeo.com/75976293"&gt;Vimeo&lt;/a&gt;
+</pre>
 			<h4>Image Example</h4>
 
 				<?php
@@ -80,17 +80,17 @@
 
         <h4>Title Attribute</h4>
               <p>Optional: set <code>title</code> attribute to show a description, it will appear at the top of the lightbox.</p>
-      <pre data-initialized="true" data-gclp-id="5">
-      &lt;a class="venobox" title="Here is your description" href="...
-      </pre>
+<pre data-initialized="true" data-gclp-id="5" style="white-space:pre-wrap;">
+&lt;a class="venobox" title="Here is your description" href="...
+</pre>
         <h4>Auto Play</h4>
 
               <p>Use <code>data-autoplay="true"</code> to automatically start Vimeo and YouTube videos once the text or image link is clicked</p>
 
-      <pre data-initialized="true" data-gclp-id="6">
-      &lt;a class="venobox" data-autoplay="true" data-type="vimeo" href="...
-      &lt;a class="venobox" data-autoplay="true" data-type="youtube" href="...
-      </pre>
+<pre data-initialized="true" data-gclp-id="6" style="white-space:pre-wrap;">
+&lt;a class="venobox" data-autoplay="true" data-type="vimeo" href="...
+&lt;a class="venobox" data-autoplay="true" data-type="youtube" href="...
+</pre>
         <h4>Overlay colors</h4>
         <p><strong>Examples:</strong><br>
             <a class="venobox btn btn-default vbox-item" data-type="inline" data-gall="colors" data-overlay="rgba(95,164,255,0.8)" href="#inline-1" style="background:rgba(95,164,255,0.8); color:#fff;">Color 1</a>
@@ -99,22 +99,23 @@
             <a class="venobox btn btn-default vbox-item" data-type="inline" data-gall="colors" data-overlay="#ffe74c" href="#inline-4" style="background:#ffe74c; color:#fff;">Color 4</a>
         </p>
         <p>
-        Just add a <code>data-overlay</code>attribute value to your links for dynamic backgrounds</p>
-      <pre data-initialized="true" data-gclp-id="9">
-      &lt;a class="venobox" data-overlay="rgba(95,164,255,0.8)" href="..."&gt;...&lt;/a&gt;
-      &lt;a class="venobox" data-overlay="#ca294b" href="..."&gt;...&lt;/a&gt;
-      </pre>
+        Just add a <code>data-overlay</code>attribute value to your links for colored backgrounds</p>
+<pre data-initialized="true" data-gclp-id="9" style="white-space:pre-wrap;">
+&lt;a class="venobox" data-overlay="rgba(95,164,255,0.8)" href="..."&gt;...&lt;/a&gt;
+&lt;a class="venobox" data-overlay="#ca294b" href="..."&gt;...&lt;/a&gt;
+</pre>
     </p>
 
       <h4>Gallery</h4>
 
-        <p>To activate navigation whilst in lighbox mode between every type of content assign the same data attribute <code>data-gall</code> to each link, like the example below, you can see this in the colors example above.</p>
+        <p>To activate navigation previous and next icons whilst in lighbox mode between multiple types of content on the same page, assign the same data attribute <code>data-gall</code> to each link, like the example below, you can see this in the colors example above.</p>
 
-		<pre data-initialized="true" data-gclp-id="8">
-	&lt;a class="venobox" data-gall="myGallery" href="image01-big.jpg"&gt;&lt;img src="image01-small.jpg" /&gt;&lt;/a&gt;
-	&lt;a class="venobox" data-gall="myGallery" href="image02-big.jpg"&gt;&lt;img src="image02-small.jpg" /&gt;&lt;/a&gt;
-	&lt;a class="venobox" data-gall="myGallery" href="image03-big.jpg"&gt;&lt;img src="image03-small.jpg" /&gt;&lt;/a&gt;
-		</pre>
+<pre data-initialized="true" data-gclp-id="8" style="white-space:pre-wrap;">
+&lt;a class="venobox" data-gall="myGallery" href="image01-big.jpg"&gt;&lt;img src="image01-small.jpg" /&gt;&lt;/a&gt;
+&lt;a class="venobox" data-gall="myGallery" href="image02-big.jpg"&gt;&lt;img src="image02-small.jpg" /&gt;&lt;/a&gt;
+&lt;a class="venobox" data-gall="myGallery" href="image03-big.jpg"&gt;&lt;img src="image03-small.jpg" /&gt;&lt;/a&gt;
+</pre>
+		<p>The Options page allows for toggling settings on Infinite Gallery and Lightbox Pagination</p>
 
 
         <div id="inline-1" style="display:none;">
