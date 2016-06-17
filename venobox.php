@@ -1,9 +1,9 @@
 <?php     namespace ng_venobox;
 
 /*
-Plugin Name: Venobox Lightbox
+Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com/
-Description: Venobox Lightbox - responsive lightbox for video, iframe and images
+Description: VenoBox Lightbox - responsive lightbox for video, iframe and images
 Author: Neil Gee
 Version: 1.0.0
 Author URI: http://wpbeaches.com
@@ -51,15 +51,24 @@ $options = get_option( 'venobox_settings' );
   wp_register_style ( 'venobox-css' , plugins_url( '/css/venobox.css',  __FILE__ ), '' , '1.6.0', 'all' );
   wp_register_script ( 'venobox-init' , plugins_url( '/js/venobox-init.js',  __FILE__ ), array( 'venobox-js' ), '1.6.0', false );
 
+// Add new plugin options defaults here, set them to blank, this will avoid PHP notices of undefined, if new options are introduced to the plugin and are not saved or udated then the setting will be defined.
+$options_default = array(
+
+    'ng_numeratio'  => '',
+    'ng_infinigall' => '',
+);
+$options = wp_parse_args( $options, $options_default );
 
 
   wp_enqueue_script( 'venobox-js' );
   wp_enqueue_style( 'venobox-css' );
 
+     // Creating our jQuery variables here from our database options, these will be passed to jQuery init script via wp_localize_script
      $data = array (
 
       'ng_venobox' => array(
-
+        'ng_numeratio'  => (bool)$options['ng_numeratio'],
+        'ng_infinigall' => (bool)$options['ng_infinigall'],
       ),
   );
 
@@ -88,7 +97,7 @@ function admin_venobox($hook) {
 
     wp_enqueue_script ( 'venobox-js' , plugins_url( '/js/venobox.min.js',  __FILE__ ), array( 'jquery' ), '1.6.0', false );
     wp_enqueue_style ( 'venobox-css' , plugins_url( '/css/venobox.css',  __FILE__ ), '' , '1.6.0', 'all' );
-    wp_enqueue_script ( 'venobox-init' , plugins_url( '/js/venobox-init.js',  __FILE__ ), array( 'venobox-js' ), '1.6.0', false );
+    wp_enqueue_script ( 'venobox-init-admin' , plugins_url( '/js/venobox-init-admin.js',  __FILE__ ), array( 'venobox-js' ), '1.6.0', false );
 }
 add_action( 'admin_enqueue_scripts',  __NAMESPACE__ . '\\admin_venobox' );
 
@@ -106,8 +115,8 @@ function plugin_page() {
      */
 
      add_options_page(
-        __( 'Venobox Lightbox Plugin','venobox' ), //$page_title
-        __( 'Venobox Lightbox', 'venobox' ), //$menu_title
+        __( 'VenoBox Lightbox Plugin','venobox' ), //$page_title
+        __( 'VenoBox Lightbox', 'venobox' ), //$menu_title
         'manage_options', //$capability
         'venobox', //$menu-slug
         __NAMESPACE__ . '\\plugin_options_page' //$function
@@ -129,4 +138,94 @@ function plugin_options_page() {
     }
 
    require( 'inc/options-page-wrapper.php' );
+}
+
+/**
+ * Register our option fields
+ *
+ * @since 1.0.0
+ */
+// Check validation
+function plugin_settings() {
+  register_setting(
+        'ng_settings_group', //option name
+        'venobox_settings'// option group setting name and option name
+     //  __NAMESPACE__ . '\\venobox_validate_input' //sanitize the inputs
+  );
+
+  add_settings_section(
+        'ng_venobox_section', //declare the section id
+        'VenoBox Settings', //page title
+         __NAMESPACE__ . '\\ng_venobox_section_callback', //callback function below
+        'venobox' //page that it appears on
+
+    );
+
+  add_settings_section(
+        'ng_venobox_section_markup', //declare the section id
+        'VenoBox Markup', //page title
+         __NAMESPACE__ . '\\ng_venobox_section_markup_callback', //callback function below
+        'venobox-markup' //page that it appears on
+
+    );
+
+  add_settings_field(
+        'ng_numeratio', //unique id of field
+        'Display Pagination', //title
+         __NAMESPACE__ . '\\ng_numeratio_callback', //callback function below
+        'venobox', //page that it appears on
+        'ng_venobox_section' //settings section declared in add_settings_section
+    );
+
+    add_settings_field(
+          'ng_infinigall', //unique id of field
+          'Infinite Gallery', //title
+           __NAMESPACE__ . '\\ng_infinigall_callback', //callback function below
+          'venobox', //page that it appears on
+          'ng_venobox_section' //settings section declared in add_settings_section
+      );
+}
+
+add_action('admin_init', __NAMESPACE__ . '\\plugin_settings');
+
+/**
+ * Register our section call back
+ * (not much happening here)
+ * @since 1.0.0
+ */
+
+function ng_venobox_section_callback() {
+
+}
+
+/**
+ *  Add Pagination to Lightbox Head for multiple items on page
+ *
+ * @since 1.0.0
+ */
+
+function ng_numeratio_callback() {
+$options = get_option( 'venobox_settings' );
+
+if( !isset( $options['ng_numeratio'] ) ) $options['ng_numeratio'] = '';
+
+  echo'<input type="checkbox" id="ng_numeratio" name="venobox_settings[ng_numeratio]" value="1"' . checked( 1, $options['ng_numeratio'], false ) . '/>';
+  echo'<label for="ng_numeratio">' . esc_attr_e( 'Show Pagination of Mulitple Items in Top Left in Title Bar','venobox') . '</label>';
+
+}
+
+/**
+ *  Add Infinite gallery previous and next to Lightbox Head for multiple items on page
+ *
+ * @since 1.0.0
+ */
+
+function ng_infinigall_callback() {
+$options = get_option( 'venobox_settings' );
+
+if( !isset( $options['ng_infinigall'] ) ) $options['ng_infinigall'] = '';
+
+  echo'<input type="checkbox" id="ng_infinigall" name="venobox_settings[ng_infinigall]" value="1"' . checked( 1, $options['ng_infinigall'], false ) . '/>';
+  echo'<label for="ng_infinigall">' . esc_attr_e( 'Add Infinite gallery previous and next to Lightbox for multiple items on page','venobox') . '</label>';
+
 }

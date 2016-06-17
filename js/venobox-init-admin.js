@@ -6,8 +6,8 @@ jQuery(document).ready(function($){
       // framewidth: '1600px',        // default: ''
       // frameheight: '1000px',       // default: ''
       // bgcolor: '#5dff5e',
-      numeratio: venoboxVars.ng_venobox.ng_numeratio,            // default: false
-      infinigall: venoboxVars.ng_venobox.ng_infinigall            // default: false
+      numeratio: true,            // default: false
+      infinigall: true           // default: false
 
     });
 

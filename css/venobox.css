@@ -8,7 +8,7 @@
 /* ------- overlay: change here background color and opacity ----- */
 .vbox-overlay{
     background: #fdfdfd;
-    background: rgba(0,0,0,0.85); 
+    background: rgba(0,0,0,0.85);
     width: 100%;
     height: auto;
     position: fixed;
@@ -26,12 +26,12 @@
 
 /* circle preloader */
 .vbox-preloader{
-    position:fixed; 
-    width:32px; 
+    position:fixed;
+    width:32px;
     height:32px;
-    left:50%; 
-    top:50%; 
-    margin-left:-16px; 
+    left:50%;
+    top:50%;
+    margin-left:-16px;
     margin-top:-16px;
     background-image: url(preload-circle.png);
     text-indent: -100px;
@@ -67,12 +67,12 @@
 /* IOS preloader */
 
 /*.vbox-preloader{
-    position:fixed; 
-    width:32px; 
+    position:fixed;
+    width:32px;
     height:32px;
-    left:50%; 
-    top:50%; 
-    margin-left:-16px; 
+    left:50%;
+    top:50%;
+    margin-left:-16px;
     margin-top:-16px;
     background-image: url(preload-ios.png);
     text-indent: -100px;
@@ -110,12 +110,12 @@
 /* dots preloader */
 /*
 .vbox-preloader{
-    position:fixed; 
-    width:32px; 
+    position:fixed;
+    width:32px;
     height:11px;
-    left:50%; 
-    top:50%; 
-    margin-left:-16px; 
+    left:50%;
+    top:50%;
+    margin-left:-16px;
     margin-top:-16px;
     background-image: url(preload-dots.png);
     text-indent: -100px;
@@ -153,12 +153,12 @@
 /* quads preloader */
 /*
 .vbox-preloader{
-    position:fixed; 
-    width:32px; 
+    position:fixed;
+    width:32px;
     height:10px;
-    left:50%; 
-    top:50%; 
-    margin-left:-16px; 
+    left:50%;
+    top:50%;
+    margin-left:-16px;
     margin-top:-16px;
     background-image: url(preload-quads.png);
     text-indent: -100px;
@@ -324,4 +324,23 @@
 .vbox-container img{
     max-width: 100%;
     height: auto;
+}
+/* Allow for logged in user */
+  .admin-bar .vbox-close,
+  .admin-bar .vbox-title,
+  .admin-bar .vbox-num {
+  top: 46px;
+}
+
+.admin-bar  .vbox-overlay{
+  top: 32px;
+}
+
+
+@media screen and (min-width: 783px) {
+  .admin-bar .vbox-close,
+  .admin-bar .vbox-title,
+  .admin-bar .vbox-num  {
+    top: 32px;
+  }
 }
