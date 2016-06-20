@@ -1,5 +1,19 @@
 jQuery(document).ready(function($){
 
+    $('a[href*=".png"], a[href*=".gif"], a[href*=".jpg"]').each(function() {
+        if (this.href.indexOf('?') < 0) {
+          if(venoboxVars.ng_venobox.ng_all_images) {
+            $(this).addClass('venobox');
+          }
+          if(venoboxVars.ng_venobox.ng_all_lightbox) {
+          $(this).attr('data-gall', 'gallery' );
+          }
+          if(venoboxVars.ng_venobox.ng_all_titles) {
+          $(this).attr("title", $(this).find("img").attr("alt"));
+           }
+        }
+    });
+
     /* default settings */
     $('.venobox').venobox({
       border: '0',
@@ -26,3 +40,5 @@ jQuery(document).ready(function($){
     /* auto-open #firstlink on page load */
     // $("#firstlink").venobox().trigger('click');
 });
+// http://stackoverflow.com/questions/14582724/jquery-to-add-a-class-to-image-links-without-messing-up-when-the-link-passes-var
+// http://stackoverflow.com/questions/11247658/use-alt-value-to-dynamically-set-title

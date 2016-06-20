@@ -5,12 +5,12 @@ Donate link: http://wpbeaches.com/
 Tags: lightbox, video, responsive, modal, pop-up
 Requires at least: 4.0
 Tested up to: 4.5
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com
 Description: Responsive video and image pop-up lightbox
 Author: Neil Gee
-Version: 1.0.0
+Version: 1.1.0
 Author URI: http://wpbeaches.com/
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -42,8 +42,13 @@ Comprehensive usage is documented in the WP Admin > Dashboard > Settings > VenoB
 
 == Screenshots ==
 
+1. VenoBox Lightbox Plugin Options
+
 
 == Changelog ==
+
+= 20/06/16 =
+* Add extra plugin options, make all existing and future linked images open in lightbox, use and display alt text from image as title displayed in lightbox, add all images on same page to paginate whilst in lightbox mode.
 
 * Initial release.
 15/06/16

@@ -5,7 +5,7 @@ Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com/
 Description: VenoBox Lightbox - responsive lightbox for video, iframe and images
 Author: Neil Gee
-Version: 1.0.0
+Version: 1.1.0
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -54,8 +54,11 @@ $options = get_option( 'venobox_settings' );
 // Add new plugin options defaults here, set them to blank, this will avoid PHP notices of undefined, if new options are introduced to the plugin and are not saved or udated then the setting will be defined.
 $options_default = array(
 
-    'ng_numeratio'  => '',
-    'ng_infinigall' => '',
+    'ng_numeratio'    => '',
+    'ng_infinigall'   => '',
+    'ng_all_images'   => '',
+    'ng_all_lightbox' => '',
+    'ng_all_titles'   => '',
 );
 $options = wp_parse_args( $options, $options_default );
 
@@ -67,8 +70,11 @@ $options = wp_parse_args( $options, $options_default );
      $data = array (
 
       'ng_venobox' => array(
-        'ng_numeratio'  => (bool)$options['ng_numeratio'],
-        'ng_infinigall' => (bool)$options['ng_infinigall'],
+        'ng_numeratio'    => (bool)$options['ng_numeratio'],
+        'ng_infinigall'   => (bool)$options['ng_infinigall'],
+        'ng_all_images'   => (bool)$options['ng_all_images'],
+        'ng_all_lightbox' => (bool)$options['ng_all_lightbox'],
+        'ng_all_titles'   => (bool)$options['ng_all_titles'],
       ),
   );
 
@@ -170,6 +176,30 @@ function plugin_settings() {
     );
 
   add_settings_field(
+        'ng_all_images', //unique id of field
+        'Add All Linked Images To LightBox', //title
+         __NAMESPACE__ . '\\ng_all_images_callback', //callback function below
+        'venobox', //page that it appears on
+        'ng_venobox_section' //settings section declared in add_settings_section
+    );
+
+  add_settings_field(
+        'ng_all_lightbox', //unique id of field
+        'Display Previous/Next Icons', //title
+         __NAMESPACE__ . '\\ng_all_lightbox_callback', //callback function below
+        'venobox', //page that it appears on
+        'ng_venobox_section' //settings section declared in add_settings_section
+    );
+
+  add_settings_field(
+        'ng_all_titles' , //unique id of field
+        'Add ALT text as Title in LightBox', //title
+         __NAMESPACE__ . '\\ng_all_titles_callback', //callback function below
+        'venobox', //page that it appears on
+        'ng_venobox_section' //settings section declared in add_settings_section
+    );
+
+  add_settings_field(
         'ng_numeratio', //unique id of field
         'Display Pagination', //title
          __NAMESPACE__ . '\\ng_numeratio_callback', //callback function below
@@ -177,13 +207,13 @@ function plugin_settings() {
         'ng_venobox_section' //settings section declared in add_settings_section
     );
 
-    add_settings_field(
-          'ng_infinigall', //unique id of field
-          'Infinite Gallery', //title
-           __NAMESPACE__ . '\\ng_infinigall_callback', //callback function below
-          'venobox', //page that it appears on
-          'ng_venobox_section' //settings section declared in add_settings_section
-      );
+  add_settings_field(
+        'ng_infinigall', //unique id of field
+        'Infinite Gallery', //title
+         __NAMESPACE__ . '\\ng_infinigall_callback', //callback function below
+        'venobox', //page that it appears on
+        'ng_venobox_section' //settings section declared in add_settings_section
+    );
 }
 
 add_action('admin_init', __NAMESPACE__ . '\\plugin_settings');
@@ -195,6 +225,54 @@ add_action('admin_init', __NAMESPACE__ . '\\plugin_settings');
  */
 
 function ng_venobox_section_callback() {
+
+}
+
+/**
+ *  Add Lightbox for all existing and future linked images
+ *
+ * @since 1.1.0
+ */
+
+function ng_all_images_callback() {
+$options = get_option( 'venobox_settings' );
+
+if( !isset( $options['ng_all_images'] ) ) $options['ng_all_images'] = '';
+
+  echo'<input type="checkbox" id="ng_all_images" name="venobox_settings[ng_all_images]" value="1"' . checked( 1, $options['ng_all_images'], false ) . '/>';
+  echo'<label for="ng_all_images">' . esc_attr_e( 'Add Lightbox for all existing and future linked images','venobox') . '</label>';
+
+}
+
+/**
+ *  Add Previous & Next icons in Lightbox
+ *
+ * @since 1.1.0
+ */
+
+function ng_all_lightbox_callback() {
+$options = get_option( 'venobox_settings' );
+
+if( !isset( $options['ng_all_lightbox'] ) ) $options['ng_all_lightbox'] = '';
+
+  echo'<input type="checkbox" id="ng_all_lightbox" name="venobox_settings[ng_all_lightbox]" value="1"' . checked( 1, $options['ng_all_lightbox'], false ) . '/>';
+  echo'<label for="ng_all_lightbox">' . esc_attr_e( 'Add Previous & Next icons in Lightbox, to navigate multiple items','venobox') . '</label>';
+
+}
+
+/**
+ *  Add Lightbox for all existing and future linked images
+ *
+ * @since 1.1.0
+ */
+
+function ng_all_titles_callback() {
+$options = get_option( 'venobox_settings' );
+
+if( !isset( $options['ng_all_titles'] ) ) $options['ng_all_titles'] = '';
+
+  echo'<input type="checkbox" id="ng_all_titles" name="venobox_settings[ng_all_titles]" value="1"' . checked( 1, $options['ng_all_titles'], false ) . '/>';
+  echo'<label for="ng_all_titles">' . esc_attr_e( 'Add ALT text from image as Title Text in LightBox','venobox') . '</label>';
 
 }
 
@@ -226,6 +304,6 @@ $options = get_option( 'venobox_settings' );
 if( !isset( $options['ng_infinigall'] ) ) $options['ng_infinigall'] = '';
 
   echo'<input type="checkbox" id="ng_infinigall" name="venobox_settings[ng_infinigall]" value="1"' . checked( 1, $options['ng_infinigall'], false ) . '/>';
-  echo'<label for="ng_infinigall">' . esc_attr_e( 'Add Infinite gallery previous and next to Lightbox for multiple items on page','venobox') . '</label>';
+  echo'<label for="ng_infinigall">' . esc_attr_e( 'Add Infinite gallery, which allows continous toggling of items on page in lightbox mode','venobox') . '</label>';
 
 }

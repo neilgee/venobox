@@ -43,7 +43,9 @@
 						<h3><span><?php esc_attr_e( 'Markup instructions on how to use the VenoBox Lightbox', 'venobox' ); ?></span></h3>
 
 						<div class="inside">
-              <p>Below are instructions for using the VenoBox Lightbox for your code, typically for the lightbox to work  you wrap a link around a text or image element.
+              <p>Below are manual instructions for using the VenoBox Lightbox for your code.<br> In the <strong>Plugin Options</strong> tab some of these tasks can be automated in particular for images</p>
+
+							<p>Typically for the lightbox to work  you wrap a link around a text or image element.</p>
               <pre style="white-space:pre-wrap;">&lt;a class="venobox" data-type="vimeo" href="https://vimeo.com/1084537"&gt;&lt;img src="..." /&gt;&lt;/a&gt;
               </pre>
 							<h4>Video - Vimeo Example</h4>
@@ -115,7 +117,7 @@
 &lt;a class="venobox" data-gall="myGallery" href="image02-big.jpg"&gt;&lt;img src="image02-small.jpg" /&gt;&lt;/a&gt;
 &lt;a class="venobox" data-gall="myGallery" href="image03-big.jpg"&gt;&lt;img src="image03-small.jpg" /&gt;&lt;/a&gt;
 </pre>
-		<p>The Options page allows for toggling settings on Infinite Gallery and Lightbox Pagination</p>
+	
 
 
         <div id="inline-1" style="display:none;">
