@@ -5,7 +5,7 @@ Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com/
 Description: VenoBox Lightbox - responsive lightbox for video, iframe and images
 Author: Neil Gee
-Version: 1.1.0
+Version: 1.2.1
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -58,7 +58,8 @@ $options_default = array(
     'ng_infinigall'   => '',
     'ng_all_images'   => '',
     'ng_all_lightbox' => '',
-    'ng_all_titles'   => '',
+    'ng_title_select' => 1,
+
 );
 $options = wp_parse_args( $options, $options_default );
 
@@ -74,7 +75,8 @@ $options = wp_parse_args( $options, $options_default );
         'ng_infinigall'   => (bool)$options['ng_infinigall'],
         'ng_all_images'   => (bool)$options['ng_all_images'],
         'ng_all_lightbox' => (bool)$options['ng_all_lightbox'],
-        'ng_all_titles'   => (bool)$options['ng_all_titles'],
+        'ng_title_select' => (int)$options['ng_title_select'],
+
       ),
   );
 
@@ -192,9 +194,9 @@ function plugin_settings() {
     );
 
   add_settings_field(
-        'ng_all_titles' , //unique id of field
-        'Add ALT text as Title in LightBox', //title
-         __NAMESPACE__ . '\\ng_all_titles_callback', //callback function below
+        'ng_title_select', //unique id of field
+        'Choose which Title text to use in LightBox', //title
+         __NAMESPACE__ . '\\ng_title_select_callback', //callback function below
         'venobox', //page that it appears on
         'ng_venobox_section' //settings section declared in add_settings_section
     );
@@ -240,7 +242,7 @@ $options = get_option( 'venobox_settings' );
 if( !isset( $options['ng_all_images'] ) ) $options['ng_all_images'] = '';
 
   echo'<input type="checkbox" id="ng_all_images" name="venobox_settings[ng_all_images]" value="1"' . checked( 1, $options['ng_all_images'], false ) . '/>';
-  echo'<label for="ng_all_images">' . esc_attr_e( 'Add Lightbox for all existing and future linked images','venobox') . '</label>';
+  echo'<label for="ng_all_images">' . esc_attr_e( 'Add Lightbox for all linked images','venobox') . '</label>';
 
 }
 
@@ -260,20 +262,28 @@ if( !isset( $options['ng_all_lightbox'] ) ) $options['ng_all_lightbox'] = '';
 
 }
 
+
 /**
- *  Add Lightbox for all existing and future linked images
+ *  Choose either alt or title attribute or caption value for lightbox title value
  *
- * @since 1.1.0
+ * @since 1.2.1
  */
 
-function ng_all_titles_callback() {
+function ng_title_select_callback() {
 $options = get_option( 'venobox_settings' );
 
-if( !isset( $options['ng_all_titles'] ) ) $options['ng_all_titles'] = '';
+if( !isset( $options['ng_title_select'] ) ) $options['ng_title_select'] = 1;
 
-  echo'<input type="checkbox" id="ng_all_titles" name="venobox_settings[ng_all_titles]" value="1"' . checked( 1, $options['ng_all_titles'], false ) . '/>';
-  echo'<label for="ng_all_titles">' . esc_attr_e( 'Add ALT text from image as Title Text in LightBox','venobox') . '</label>';
+    $html = '<input type="radio" id="use_alt_value" name="venobox_settings[ng_title_select]" value="1"' . checked( 1, $options['ng_title_select'], false ) . '/>';
+    $html .= '<label for="use_alt_value">ALT text value</label>';
 
+    $html .= '<input type="radio" id="use_title_value" name="venobox_settings[ng_title_select]" value="2"' . checked( 2, $options['ng_title_select'], false ) . '/>';
+    $html .= '<label for="use_title_value">Title text value</label>';
+
+    $html .= '<input type="radio" id="use_caption_value" name="venobox_settings[ng_title_select]" value="3"' . checked( 3, $options['ng_title_select'], false ) . '/>';
+    $html .= '<label for="use_caption_value">Caption text value</label>';
+
+    echo $html;
 }
 
 /**
@@ -307,3 +317,100 @@ if( !isset( $options['ng_infinigall'] ) ) $options['ng_infinigall'] = '';
   echo'<label for="ng_infinigall">' . esc_attr_e( 'Add Infinite gallery, which allows continous toggling of items on page in lightbox mode','venobox') . '</label>';
 
 }
+
+/**
+ *  Metabox markup per post/page
+ *
+ * @since 1.2.0
+ */
+
+function meta_box_markup($post) {
+  wp_nonce_field(basename(__FILE__), "venobox_nonce");
+  $venobox_stored_meta = get_post_meta( $post->ID );
+  ?>
+
+  <label for="_venobox_check">
+    <input type="checkbox" name="_venobox_check" id="_venobox_check" value="yes" <?php if ( isset ( $venobox_stored_meta ['_venobox_check'] ) ) checked( $venobox_stored_meta['_venobox_check'][0], 'yes' ); ?> />
+    <?php _e( 'Disable VenoBox', 'venobox' )?>
+  </label>
+
+  <?php
+}
+
+/**
+ *  Save metabox markup per post/page
+ *
+ * @since 1.2.0
+ */
+
+function save_custom_meta_box( $post_id ) {
+  // Checks save status
+ $is_autosave = wp_is_post_autosave( $post_id );
+ $is_revision = wp_is_post_revision( $post_id );
+ $is_valid_nonce = ( isset( $_POST[ 'venobox_nonce' ] ) && wp_verify_nonce( $_POST[ 'venobox_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+
+ // Exits script depending on save status
+   if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
+       return;
+   }
+
+ // Checks for input and sanitizes/saves if needed
+ // if( isset( $_POST[ '_venobox_check' ] ) ) {
+ //     update_post_meta( $post_id, '_venobox_check', sanitize_text_field( $_POST[ '_venobox_check' ] ) );
+ // }
+
+ // Checks for input and saves
+ // http://themefoundation.com/wordpress-meta-boxes-guide/
+  if( isset( $_POST[ '_venobox_check' ] ) ) {
+      update_post_meta( $post_id, '_venobox_check', 'yes' );
+  }
+  else {
+      update_post_meta( $post_id, '_venobox_check', '' );
+  }
+}
+add_action('save_post', __NAMESPACE__ . '\\save_custom_meta_box', 10, 2);
+
+/**
+ *  Add Metabox per post/page and any registered custom post type
+ *
+ * @since 1.2.0
+ */
+function add_custom_meta_box() {
+  $options = get_option( 'venobox_settings' );
+if( !empty( $options['ng_all_images'] ) ){
+//https://thomasgriffin.io/how-to-automatically-add-meta-boxes-to-custom-post-types/
+    $post_types = get_post_types();
+    foreach ( $post_types as $post_type ) {
+    add_meta_box('venobox-meta-box', __('Disable VenoBox Lightbox', 'venobox'), __NAMESPACE__ . '\\meta_box_markup', $post_type, 'side', 'default', null);
+    }
+  }
+}
+add_action('add_meta_boxes', __NAMESPACE__ . '\\add_custom_meta_box');
+
+
+/**
+ *  Remove Venobox per post/page/cpt setting
+ *
+ * @since 1.2.0
+ */
+
+function venobox_no_add( $classes ) {
+
+  /* Get the current post ID. */
+  $post_id = get_the_ID();
+
+  /* If we have a post ID, proceed. */
+  if ( !empty( $post_id ) ) {
+
+    /* Get the custom post class. */
+    $is_venobox_checked = get_post_meta( $post_id, '_venobox_check', true );
+
+    /* If a post class was input, sanitize it and add it to the post class array. */
+    if ( $is_venobox_checked )
+      $classes[] = 'novenobox';
+  }
+
+  return $classes;
+}
+
+add_filter( 'post_class', __NAMESPACE__ . '\\venobox_no_add' );
