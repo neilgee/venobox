@@ -45,6 +45,8 @@ jQuery(document).ready(function($){
 
     /* auto-open #firstlink on page load */
     // $("#firstlink").venobox().trigger('click');
+
+
 });
 // http://stackoverflow.com/questions/14582724/jquery-to-add-a-class-to-image-links-without-messing-up-when-the-link-passes-var
 // http://stackoverflow.com/questions/11247658/use-alt-value-to-dynamically-set-title

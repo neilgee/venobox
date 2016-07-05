@@ -5,7 +5,7 @@ Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com/
 Description: VenoBox Lightbox - responsive lightbox for video, iframe and images
 Author: Neil Gee
-Version: 1.2.1
+Version: 1.3.0
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -106,6 +106,8 @@ function admin_venobox($hook) {
     wp_enqueue_script ( 'venobox-js' , plugins_url( '/js/venobox.min.js',  __FILE__ ), array( 'jquery' ), '1.6.0', false );
     wp_enqueue_style ( 'venobox-css' , plugins_url( '/css/venobox.css',  __FILE__ ), '' , '1.6.0', 'all' );
     wp_enqueue_script ( 'venobox-init-admin' , plugins_url( '/js/venobox-init-admin.js',  __FILE__ ), array( 'venobox-js' ), '1.6.0', false );
+    wp_enqueue_style( 'wp-color-picker' );
+    wp_enqueue_script( 'wp-color-picker-alpha', plugins_url( '/js/wp-color-picker-alpha.min.js',  __FILE__ ), array( 'wp-color-picker' ), '1.3.0', true );
 }
 add_action( 'admin_enqueue_scripts',  __NAMESPACE__ . '\\admin_venobox' );
 
@@ -216,6 +218,14 @@ function plugin_settings() {
         'venobox', //page that it appears on
         'ng_venobox_section' //settings section declared in add_settings_section
     );
+
+  add_settings_field(
+      'ng_overlay', //unique id of field
+      'Default Overlay Background', //title
+       __NAMESPACE__ . '\\ng_overlay_callback', //callback function below
+      'venobox', //page that it appears on
+      'ng_venobox_section' //settings section declared in add_settings_section
+  );
 }
 
 add_action('admin_init', __NAMESPACE__ . '\\plugin_settings');
@@ -231,7 +241,7 @@ function ng_venobox_section_callback() {
 }
 
 /**
- *  Add Lightbox for all existing and future linked images
+ *  Add Lightbox for all images and galleries
  *
  * @since 1.1.0
  */
@@ -241,9 +251,14 @@ $options = get_option( 'venobox_settings' );
 
 if( !isset( $options['ng_all_images'] ) ) $options['ng_all_images'] = '';
 
-  echo'<input type="checkbox" id="ng_all_images" name="venobox_settings[ng_all_images]" value="1"' . checked( 1, $options['ng_all_images'], false ) . '/>';
-  echo'<label for="ng_all_images">' . esc_attr_e( 'Add Lightbox for all linked images','venobox') . '</label>';
-
+?>
+  <fieldset>
+  	<label for="ng_all_images">
+  		<input name="venobox_settings[ng_all_images]" type="checkbox" id="ng_all_images" value="1"<?php checked( 1, $options['ng_all_images'], true ); ?> />
+  		<span><?php esc_attr_e( 'Add Lightbox for all linked images & galleries', 'venobox' ); ?></span>
+  	</label>
+  </fieldset>
+<?php
 }
 
 /**
@@ -257,9 +272,14 @@ $options = get_option( 'venobox_settings' );
 
 if( !isset( $options['ng_all_lightbox'] ) ) $options['ng_all_lightbox'] = '';
 
-  echo'<input type="checkbox" id="ng_all_lightbox" name="venobox_settings[ng_all_lightbox]" value="1"' . checked( 1, $options['ng_all_lightbox'], false ) . '/>';
-  echo'<label for="ng_all_lightbox">' . esc_attr_e( 'Add Previous & Next icons in Lightbox, to navigate multiple items','venobox') . '</label>';
-
+?>
+  <fieldset>
+  	<label for="ng_all_lightbox">
+  		<input name="venobox_settings[ng_all_lightbox]" type="checkbox" id="ng_all_lightbox" value="1"<?php checked( 1, $options['ng_all_lightbox'], true ); ?> />
+  		<span><?php esc_attr_e( 'Add Previous & Next icons in Lightbox, to navigate multiple items', 'venobox' ); ?></span>
+  	</label>
+  </fieldset>
+<?php
 }
 
 
@@ -274,16 +294,23 @@ $options = get_option( 'venobox_settings' );
 
 if( !isset( $options['ng_title_select'] ) ) $options['ng_title_select'] = 1;
 
-    $html = '<input type="radio" id="use_alt_value" name="venobox_settings[ng_title_select]" value="1"' . checked( 1, $options['ng_title_select'], false ) . '/>';
-    $html .= '<label for="use_alt_value">ALT text value</label>';
+?>
+<fieldset>
+	<label title='g:i a'>
+		<input type="radio" name="venobox_settings[ng_title_select]" value="1"<?php checked( 1, $options['ng_title_select'], true ); ?> />
+		<span><?php esc_attr_e( 'ALT text value', 'venobox' ); ?></span>
+	</label><br>
+  <label title='g:i a'>
+		<input type="radio" name="venobox_settings[ng_title_select]" value="2"<?php checked( 2, $options['ng_title_select'], true ); ?> />
+		<span><?php esc_attr_e( 'Title text value', 'venobox' ); ?></span>
+	</label><br>
+  <label title='g:i a'>
+		<input type="radio" name="venobox_settings[ng_title_select]" value="3"<?php checked( 3, $options['ng_title_select'], true ); ?> />
+		<span><?php esc_attr_e( 'Caption text value', 'venobox' ); ?></span>
+	</label>
 
-    $html .= '<input type="radio" id="use_title_value" name="venobox_settings[ng_title_select]" value="2"' . checked( 2, $options['ng_title_select'], false ) . '/>';
-    $html .= '<label for="use_title_value">Title text value</label>';
-
-    $html .= '<input type="radio" id="use_caption_value" name="venobox_settings[ng_title_select]" value="3"' . checked( 3, $options['ng_title_select'], false ) . '/>';
-    $html .= '<label for="use_caption_value">Caption text value</label>';
-
-    echo $html;
+</fieldset>
+<?php
 }
 
 /**
@@ -297,9 +324,14 @@ $options = get_option( 'venobox_settings' );
 
 if( !isset( $options['ng_numeratio'] ) ) $options['ng_numeratio'] = '';
 
-  echo'<input type="checkbox" id="ng_numeratio" name="venobox_settings[ng_numeratio]" value="1"' . checked( 1, $options['ng_numeratio'], false ) . '/>';
-  echo'<label for="ng_numeratio">' . esc_attr_e( 'Show Pagination of Mulitple Items in Top Left in Title Bar','venobox') . '</label>';
-
+?>
+  <fieldset>
+  	<label for="ng_numeratio">
+  		<input name="venobox_settings[ng_numeratio]" type="checkbox" id="ng_numeratio" value="1"<?php checked( 1, $options['ng_numeratio'], true ); ?> />
+  		<span><?php esc_attr_e( 'Show Pagination of Multiple Items in Top Left in Title Bar', 'venobox' ); ?></span>
+  	</label>
+  </fieldset>
+<?php
 }
 
 /**
@@ -313,9 +345,14 @@ $options = get_option( 'venobox_settings' );
 
 if( !isset( $options['ng_infinigall'] ) ) $options['ng_infinigall'] = '';
 
-  echo'<input type="checkbox" id="ng_infinigall" name="venobox_settings[ng_infinigall]" value="1"' . checked( 1, $options['ng_infinigall'], false ) . '/>';
-  echo'<label for="ng_infinigall">' . esc_attr_e( 'Add Infinite gallery, which allows continous toggling of items on page in lightbox mode','venobox') . '</label>';
-
+?>
+  <fieldset>
+  	<label for="ng_infinigall">
+  		<input name="venobox_settings[ng_infinigall]" type="checkbox" id="ng_infinigall" value="1"<?php checked( 1, $options['ng_infinigall'], true ); ?> />
+  		<span><?php esc_attr_e( 'Add Infinite gallery, which allows continous toggling of items on page in lightbox mode', 'venobox' ); ?></span>
+  	</label>
+  </fieldset>
+<?php
 }
 
 /**
@@ -376,7 +413,9 @@ add_action('save_post', __NAMESPACE__ . '\\save_custom_meta_box', 10, 2);
  * @since 1.2.0
  */
 function add_custom_meta_box() {
+
   $options = get_option( 'venobox_settings' );
+
 if( !empty( $options['ng_all_images'] ) ){
 //https://thomasgriffin.io/how-to-automatically-add-meta-boxes-to-custom-post-types/
     $post_types = get_post_types();
@@ -414,3 +453,55 @@ function venobox_no_add( $classes ) {
 }
 
 add_filter( 'post_class', __NAMESPACE__ . '\\venobox_no_add' );
+
+
+
+/**
+ *  Add default rgba overlay color
+ *
+ * @link https://github.com/23r9i0/wp-color-picker-alpha/blob/master/dist/wp-color-picker-alpha.min.js
+ *
+ * @since 1.3.0
+ */
+
+function ng_overlay_callback() {
+$options = get_option( 'venobox_settings' );
+
+if( !isset( $options['ng_overlay'] ) ) $options['ng_overlay'] = 'rgba(0,0,0,0.85)';
+
+echo '<input type="text" class="color-picker" data-alpha="true" data-default-color="rgba(0,0,0,0.85)" name="venobox_settings[ng_overlay]" value="' . sanitize_text_field($options['ng_overlay']) . '"/>';
+
+}
+
+
+/**
+ *  Adding inline CSS
+ *
+ *
+ * @since 1.3.0
+ */
+function inline_veno() {
+
+      $options = get_option('venobox_settings');
+
+       $ng_overlay = $options['ng_overlay'];
+
+
+        //All the user input CSS settings as set in SLicknav settings
+        $venobox_custom_css = "
+        .vbox-overlay,
+        .vbox-num,
+        .vbox-title {
+          background: {$ng_overlay};
+        }
+        .vbox-close {
+          background: url(/wp-content/plugins/venobox-lightbox/css/close.gif) no-repeat {$ng_overlay};
+          background-position: 10px center;
+        }
+        ";
+
+  //add the above custom CSS via wp_add_inline_style
+  wp_add_inline_style( 'venobox-css', $venobox_custom_css );
+}
+
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\inline_veno' );
