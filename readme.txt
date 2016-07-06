@@ -5,12 +5,12 @@ Donate link: http://wpbeaches.com/
 Tags: lightbox, video, responsive, modal, pop-up
 Requires at least: 4.0
 Tested up to: 4.5
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com
 Description: Responsive video and image pop-up lightbox
 Author: Neil Gee
-Version: 1.3.0
+Version: 1.3.1
 Author URI: http://wpbeaches.com/
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -58,6 +58,10 @@ Ability to enable/disable VenoBox gallery for images on a per post/page/custom p
 
 
 == Changelog ==
+
+= 1.3.1 =
+* 06/07/16
+* Fix - set text domain correctly
 
 = 1.3.0 =
 * 05/07/16

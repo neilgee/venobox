@@ -5,11 +5,11 @@ Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com/
 Description: VenoBox Lightbox - responsive lightbox for video, iframe and images
 Author: Neil Gee
-Version: 1.3.0
+Version: 1.3.1
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
-Text Domain: venobox
+Text Domain: venobox-lightbox
 Domain Path: /languages/
 */
 
@@ -21,7 +21,7 @@ Domain Path: /languages/
 
 /* Assign global variables */
 
-$plugin_url = WP_PLUGIN_URL . '/venobox';
+$plugin_url = WP_PLUGIN_URL . '/venobox-lightbox';
 $options = array();
 
 /**
@@ -32,7 +32,7 @@ $options = array();
 
 
 function load_textdomain() {
-  load_plugin_textdomain( 'venobox', false, basename( dirname( __FILE__ ) ) . '/languages' );
+  load_plugin_textdomain( 'venobox-lightbox', false, basename( dirname( __FILE__ ) ) . '/languages' );
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_textdomain' );
 
@@ -125,8 +125,8 @@ function plugin_page() {
      */
 
      add_options_page(
-        __( 'VenoBox Lightbox Plugin','venobox' ), //$page_title
-        __( 'VenoBox Lightbox', 'venobox' ), //$menu_title
+        __( 'VenoBox Lightbox Plugin','venobox-lightbox' ), //$page_title
+        __( 'VenoBox Lightbox', 'venobox-lightbox' ), //$menu_title
         'manage_options', //$capability
         'venobox', //$menu-slug
         __NAMESPACE__ . '\\plugin_options_page' //$function
@@ -255,7 +255,7 @@ if( !isset( $options['ng_all_images'] ) ) $options['ng_all_images'] = '';
   <fieldset>
   	<label for="ng_all_images">
   		<input name="venobox_settings[ng_all_images]" type="checkbox" id="ng_all_images" value="1"<?php checked( 1, $options['ng_all_images'], true ); ?> />
-  		<span><?php esc_attr_e( 'Add Lightbox for all linked images & galleries', 'venobox' ); ?></span>
+  		<span><?php esc_attr_e( 'Add Lightbox for all linked images & galleries', 'venobox-lightbox' ); ?></span>
   	</label>
   </fieldset>
 <?php
@@ -276,7 +276,7 @@ if( !isset( $options['ng_all_lightbox'] ) ) $options['ng_all_lightbox'] = '';
   <fieldset>
   	<label for="ng_all_lightbox">
   		<input name="venobox_settings[ng_all_lightbox]" type="checkbox" id="ng_all_lightbox" value="1"<?php checked( 1, $options['ng_all_lightbox'], true ); ?> />
-  		<span><?php esc_attr_e( 'Add Previous & Next icons in Lightbox, to navigate multiple items', 'venobox' ); ?></span>
+  		<span><?php esc_attr_e( 'Add Previous & Next icons in Lightbox, to navigate multiple items', 'venobox-lightbox' ); ?></span>
   	</label>
   </fieldset>
 <?php
@@ -298,15 +298,15 @@ if( !isset( $options['ng_title_select'] ) ) $options['ng_title_select'] = 1;
 <fieldset>
 	<label title='g:i a'>
 		<input type="radio" name="venobox_settings[ng_title_select]" value="1"<?php checked( 1, $options['ng_title_select'], true ); ?> />
-		<span><?php esc_attr_e( 'ALT text value', 'venobox' ); ?></span>
+		<span><?php esc_attr_e( 'ALT text value', 'venobox-lightbox' ); ?></span>
 	</label><br>
   <label title='g:i a'>
 		<input type="radio" name="venobox_settings[ng_title_select]" value="2"<?php checked( 2, $options['ng_title_select'], true ); ?> />
-		<span><?php esc_attr_e( 'Title text value', 'venobox' ); ?></span>
+		<span><?php esc_attr_e( 'Title text value', 'venobox-lightbox' ); ?></span>
 	</label><br>
   <label title='g:i a'>
 		<input type="radio" name="venobox_settings[ng_title_select]" value="3"<?php checked( 3, $options['ng_title_select'], true ); ?> />
-		<span><?php esc_attr_e( 'Caption text value', 'venobox' ); ?></span>
+		<span><?php esc_attr_e( 'Caption text value', 'venobox-lightbox' ); ?></span>
 	</label>
 
 </fieldset>
@@ -328,7 +328,7 @@ if( !isset( $options['ng_numeratio'] ) ) $options['ng_numeratio'] = '';
   <fieldset>
   	<label for="ng_numeratio">
   		<input name="venobox_settings[ng_numeratio]" type="checkbox" id="ng_numeratio" value="1"<?php checked( 1, $options['ng_numeratio'], true ); ?> />
-  		<span><?php esc_attr_e( 'Show Pagination of Multiple Items in Top Left in Title Bar', 'venobox' ); ?></span>
+  		<span><?php esc_attr_e( 'Show Pagination of Multiple Items in Top Left in Title Bar', 'venobox-lightbox' ); ?></span>
   	</label>
   </fieldset>
 <?php
@@ -349,7 +349,7 @@ if( !isset( $options['ng_infinigall'] ) ) $options['ng_infinigall'] = '';
   <fieldset>
   	<label for="ng_infinigall">
   		<input name="venobox_settings[ng_infinigall]" type="checkbox" id="ng_infinigall" value="1"<?php checked( 1, $options['ng_infinigall'], true ); ?> />
-  		<span><?php esc_attr_e( 'Add Infinite gallery, which allows continous toggling of items on page in lightbox mode', 'venobox' ); ?></span>
+  		<span><?php esc_attr_e( 'Add Infinite gallery, which allows continous toggling of items on page in lightbox mode', 'venobox-lightbox' ); ?></span>
   	</label>
   </fieldset>
 <?php
@@ -368,7 +368,7 @@ function meta_box_markup($post) {
 
   <label for="_venobox_check">
     <input type="checkbox" name="_venobox_check" id="_venobox_check" value="yes" <?php if ( isset ( $venobox_stored_meta ['_venobox_check'] ) ) checked( $venobox_stored_meta['_venobox_check'][0], 'yes' ); ?> />
-    <?php _e( 'Disable VenoBox', 'venobox' )?>
+    <?php _e( 'Disable VenoBox', 'venobox-lightbox' )?>
   </label>
 
   <?php

@@ -3,9 +3,9 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: venobox\n"
+"Project-Id-Version: venobox-lightbox\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2016-07-05 13:09+1000\n"
+"POT-Creation-Date: 2016-07-06 10:06+1000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Neil Gee <ngowran@mac.com>\n"
 "Language-Team: WP Beaches <web@wpbeaches.com>\n"
@@ -23,7 +23,7 @@ msgstr ""
 "X-Generator: Poedit 1.7.6\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: inc/options-page-wrapper.php:3 venobox.php:126
+#: inc/options-page-wrapper.php:3 venobox.php:128
 msgid "VenoBox Lightbox Plugin"
 msgstr ""
 
@@ -188,44 +188,44 @@ msgstr ""
 msgid "VenoBox is the work of "
 msgstr ""
 
-#: venobox.php:127
+#: venobox.php:129
 msgid "VenoBox Lightbox"
 msgstr ""
 
-#: venobox.php:248
+#: venobox.php:258
 msgid "Add Lightbox for all linked images & galleries"
 msgstr ""
 
-#: venobox.php:269
+#: venobox.php:279
 msgid "Add Previous & Next icons in Lightbox, to navigate multiple items"
 msgstr ""
 
-#: venobox.php:291
+#: venobox.php:301
 msgid "ALT text value"
 msgstr ""
 
-#: venobox.php:295
+#: venobox.php:305
 msgid "Title text value"
 msgstr ""
 
-#: venobox.php:299
+#: venobox.php:309
 msgid "Caption text value"
 msgstr ""
 
-#: venobox.php:321
+#: venobox.php:331
 msgid "Show Pagination of Multiple Items in Top Left in Title Bar"
 msgstr ""
 
-#: venobox.php:342
+#: venobox.php:352
 msgid ""
 "Add Infinite gallery, which allows continous toggling of items on page in "
 "lightbox mode"
 msgstr ""
 
-#: venobox.php:361
+#: venobox.php:371
 msgid "Disable VenoBox"
 msgstr ""
 
-#: venobox.php:413
+#: venobox.php:423
 msgid "Disable VenoBox Lightbox"
 msgstr ""
