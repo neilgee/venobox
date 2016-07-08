@@ -1,20 +1,23 @@
 jQuery(document).ready(function($){
 
-  $('a[href*=".png"], a[href*=".gif"], a[href*=".jpg"]').not('.novenobox a[href*=".png"], .novenobox a[href*=".gif"], .novenobox a[href*=".jpg"]').each(function() {
+  $('a[href]').filter('[href$=".png"], [href$=".gif"], [href$=".jpg"], [href$=".jpeg"]').not('.novenobox a[href]').each(function() {
       if (this.href.indexOf('?') < 0) {
         if(venoboxVars.ng_venobox.ng_all_images) {
-          $(this).addClass('venobox');
+        $(this).addClass('venobox');
         }
-        if(venoboxVars.ng_venobox.ng_all_lightbox) {
+
+        // Dont replace the data-gall if already set
+        if(venoboxVars.ng_venobox.ng_all_lightbox && !$(this).attr('data-gall')) {
         $(this).attr('data-gall', 'gallery' );
         }
+        // Set Title from one of three options
         if(venoboxVars.ng_venobox.ng_title_select == 1) {
         $(this).attr("title", $(this).find("img").attr("alt"));
         }
-        if (venoboxVars.ng_venobox.ng_title_select == 2){
-         $(this).attr("title", $(this).find("img").attr("title"));
+        else if (venoboxVars.ng_venobox.ng_title_select == 2){
+        $(this).attr("title", $(this).find("img").attr("title"));
         }
-        if (venoboxVars.ng_venobox.ng_title_select == 3){
+        else {
         $(this).attr("title", $(this).closest('.wp-caption, .gallery-item').find(".wp-caption-text").text());
         }
       }
@@ -22,25 +25,13 @@ jQuery(document).ready(function($){
 
   /* default settings */
   $('.venobox').venobox({
-    border: '0',
+    border: venoboxVars.ng_venobox.ng_border_width,
     // framewidth: '1600px',        // default: ''
     // frameheight: '1000px',       // default: ''
-    // bgcolor: '#5dff5e',
+    bgcolor: venoboxVars.ng_venobox.ng_border_color,
     numeratio: venoboxVars.ng_venobox.ng_numeratio,            // default: false
     infinigall: venoboxVars.ng_venobox.ng_infinigall            // default: false
 
-  });
-
-
-  /* custom settings */
-  $('.venobox_custom').venobox({
-      framewidth: '400px',        // default: ''
-      frameheight: '300px',       // default: ''
-      border: '10px',             // default: '0'
-      bgcolor: '#5dff5e',         // default: '#fff'
-      titleattr: 'data-title',    // default: 'title'
-      numeratio: true,            // default: false
-      infinigall: true            // default: false
   });
 
     /* auto-open #firstlink on page load */

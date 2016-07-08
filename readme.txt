@@ -1,16 +1,16 @@
 === Plugin Name ===
 
 Contributors: neilgee
-Donate link: http://wpbeaches.com/
+Donate link: https://www.paypal.com/au/cgi-bin/webscr?cmd=_flow&SESSION=UTMvXh9tc4f-d1yspwlf9gW0wyybSe1mzkx1p1to3k1VqHoWE7AulrQABSi&dispatch=5885d80a13c0db1f8e263663d3faee8d64813b57e559a2578463e58274899069
 Tags: lightbox, video, responsive, modal, pop-up
 Requires at least: 4.0
 Tested up to: 4.5
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com
 Description: Responsive video and image pop-up lightbox
 Author: Neil Gee
-Version: 1.3.1
+Version: 1.3.2
 Author URI: http://wpbeaches.com/
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -26,6 +26,7 @@ Plugin option to open all linked images and galleries in WordPress in Lightbox m
 
 The big difference compared to many others plugins like this is that VenoBox calculates the max width of the image displayed and preserves its height if is taller than the window (so in small devices you can scroll down the content, avoiding vertical microscopic resized images).
 
+<a href="http://themes.wpbeaches.com/venobox/">Demo containing images and videos</a>
 
 == Installation ==
 
@@ -45,6 +46,8 @@ There are manual markup instructions for videos and iframes and automated option
 
 Ability to enable/disable VenoBox gallery for images on a per post/page/custom post type level.
 
+<a href="http://themes.wpbeaches.com/venobox/">Demo containing images and videos</a>
+
 
 == Screenshots ==
 
@@ -59,17 +62,24 @@ Ability to enable/disable VenoBox gallery for images on a per post/page/custom p
 
 == Changelog ==
 
+= 1.3.2 =
+* 08/07/16
+* Tweak - will not override attribute 'data-gall' if already set.
+* Tweak - add in .jpeg images, if all images options is enabled.
+* Link to more examples, online documentation.
+* Add options for lightbox content to have a border and a border color.
+
 = 1.3.1 =
 * 06/07/16
-* Fix - set text domain correctly
+* Fix - set text domain correctly.
 
 = 1.3.0 =
 * 05/07/16
-* I18n ready - plugin internationalised
-* Higher z-index on lightbox overlay
-* Used more up to date mark up on Settings API
-* Added a wp_add_inline_style css
-* Added a styling option to change the generic lightbox background color supporting alpha transparency, in a rgba format
+* I18n ready - plugin internationalised.
+* Higher z-index on lightbox overlay.
+* Used more up to date mark up on Settings API.
+* Added a wp_add_inline_style css.
+* Added a styling option to change the generic lightbox background color supporting alpha transparency, in a rgba format.
 
 = 1.2.1 =
 * 03/07/16

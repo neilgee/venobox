@@ -174,10 +174,8 @@
 								); ?></span></h2>
 
 						<div class="inside">
-							<p>
-								<?php esc_attr_e(
-											'VenoBox is the work of ', 'venobox-lightbox'
-										); ?> @NicolaFranchini<br>
+							<p><a href="http://themes.wpbeaches.com/venobox/"><?php esc_attr_e( 'Online examples and documentation', 'venobox-lightbox'); ?></a></p>
+							<p><?php esc_attr_e('VenoBox is the work of ', 'venobox-lightbox'); ?> @NicolaFranchini<br>
                   More here at <a href="http://lab.veno.it/venobox/" target="_blank">Plugin Home</a> and <a href="https://github.com/nicolafranchini/VenoBox/" target="_blank">Github</a>,
 							</p>
 						</div>

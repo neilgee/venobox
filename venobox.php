@@ -5,7 +5,7 @@ Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com/
 Description: VenoBox Lightbox - responsive lightbox for video, iframe and images
 Author: Neil Gee
-Version: 1.3.1
+Version: 1.3.2
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -59,6 +59,8 @@ $options_default = array(
     'ng_all_images'   => '',
     'ng_all_lightbox' => '',
     'ng_title_select' => 1,
+    'ng_border_width' => 0,
+    'ng_border_color' => '',
 
 );
 $options = wp_parse_args( $options, $options_default );
@@ -76,6 +78,8 @@ $options = wp_parse_args( $options, $options_default );
         'ng_all_images'   => (bool)$options['ng_all_images'],
         'ng_all_lightbox' => (bool)$options['ng_all_lightbox'],
         'ng_title_select' => (int)$options['ng_title_select'],
+        'ng_border_width' => (int)$options['ng_border_width'],
+        'ng_border_color' => $options['ng_border_color'],
 
       ),
   );
@@ -226,6 +230,22 @@ function plugin_settings() {
       'venobox', //page that it appears on
       'ng_venobox_section' //settings section declared in add_settings_section
   );
+
+  add_settings_field(
+      'ng_border_width', //unique id of field
+      'Frame Border Width', //title
+       __NAMESPACE__ . '\\ng_border_width_callback', //callback function below
+      'venobox', //page that it appears on
+      'ng_venobox_section' //settings section declared in add_settings_section
+  );
+
+  add_settings_field(
+      'ng_border_color', //unique id of field
+      'Frame Border Color', //title
+       __NAMESPACE__ . '\\ng_border_color_callback', //callback function below
+      'venobox', //page that it appears on
+      'ng_venobox_section' //settings section declared in add_settings_section
+  );
 }
 
 add_action('admin_init', __NAMESPACE__ . '\\plugin_settings');
@@ -356,6 +376,57 @@ if( !isset( $options['ng_infinigall'] ) ) $options['ng_infinigall'] = '';
 }
 
 /**
+ *  Add default rgba overlay color
+ *
+ * @link https://github.com/23r9i0/wp-color-picker-alpha/blob/master/dist/wp-color-picker-alpha.min.js
+ *
+ * @since 1.3.0
+ */
+
+function ng_overlay_callback() {
+$options = get_option( 'venobox_settings' );
+
+if( !isset( $options['ng_overlay'] ) ) $options['ng_overlay'] = 'rgba(0,0,0,0.85)';
+
+echo '<input type="text" class="color-picker" data-alpha="true" data-default-color="rgba(0,0,0,0.85)" name="venobox_settings[ng_overlay]" value="' . sanitize_text_field($options['ng_overlay']) . '"/>';
+
+}
+
+
+/**
+ *  Add default border width for content
+ *
+ *
+ * @since 1.3.2
+ */
+
+function ng_border_width_callback() {
+$options = get_option( 'venobox_settings' );
+
+if( !isset( $options['ng_border_width'] ) ) $options['ng_border_width'] = 0;
+
+echo '<input type="number" class="regular-text" name="venobox_settings[ng_border_width]" value="' . sanitize_text_field($options['ng_border_width']) . '"/>';
+
+}
+
+/**
+ *  Add default border color for content
+ *
+ * @link https://github.com/23r9i0/wp-color-picker-alpha/blob/master/dist/wp-color-picker-alpha.min.js
+ *
+ * @since 1.3.2
+ */
+
+function ng_border_color_callback() {
+$options = get_option( 'venobox_settings' );
+
+if( !isset( $options['ng_border_color'] ) ) $options['ng_border_color'] = 'rgba(0,0,0,0.85)';
+
+echo '<input type="text" class="color-picker" data-alpha="true" data-default-color="rgba(0,0,0,0.85)" name="venobox_settings[ng_border_color]" value="' . sanitize_text_field($options['ng_border_color']) . '"/>';
+
+}
+
+/**
  *  Metabox markup per post/page
  *
  * @since 1.2.0
@@ -453,25 +524,6 @@ function venobox_no_add( $classes ) {
 }
 
 add_filter( 'post_class', __NAMESPACE__ . '\\venobox_no_add' );
-
-
-
-/**
- *  Add default rgba overlay color
- *
- * @link https://github.com/23r9i0/wp-color-picker-alpha/blob/master/dist/wp-color-picker-alpha.min.js
- *
- * @since 1.3.0
- */
-
-function ng_overlay_callback() {
-$options = get_option( 'venobox_settings' );
-
-if( !isset( $options['ng_overlay'] ) ) $options['ng_overlay'] = 'rgba(0,0,0,0.85)';
-
-echo '<input type="text" class="color-picker" data-alpha="true" data-default-color="rgba(0,0,0,0.85)" name="venobox_settings[ng_overlay]" value="' . sanitize_text_field($options['ng_overlay']) . '"/>';
-
-}
 
 
 /**
