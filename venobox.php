@@ -5,7 +5,7 @@ Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com/
 Description: VenoBox Lightbox - responsive lightbox for video, iframe and images
 Author: Neil Gee
-Version: 1.3.2
+Version: 1.3.3
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -19,22 +19,19 @@ Domain Path: /languages/
           die;
   }
 
-/* Assign global variables */
-
-$plugin_url = WP_PLUGIN_URL . '/venobox-lightbox';
-$options = array();
 
 /**
  * Register our text domain.
  *
  * @since 1.0.0
  */
-
-
 function load_textdomain() {
   load_plugin_textdomain( 'venobox-lightbox', false, basename( dirname( __FILE__ ) ) . '/languages' );
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_textdomain' );
+
+// Get our gallery filter output
+require_once plugin_dir_path( __FILE__ ) . 'inc/gallery-format.php';
 
 /**
  * Register and Enqueue Scripts and Styles
@@ -296,7 +293,7 @@ if( !isset( $options['ng_all_lightbox'] ) ) $options['ng_all_lightbox'] = '';
   <fieldset>
   	<label for="ng_all_lightbox">
   		<input name="venobox_settings[ng_all_lightbox]" type="checkbox" id="ng_all_lightbox" value="1"<?php checked( 1, $options['ng_all_lightbox'], true ); ?> />
-  		<span><?php esc_attr_e( 'Add Previous & Next icons in Lightbox, to navigate multiple items', 'venobox-lightbox' ); ?></span>
+  		<span><?php esc_attr_e( 'Add Previous & Next icons in Lightbox, to navigate multiple items, (Galleries do this by default)', 'venobox-lightbox' ); ?></span>
   	</label>
   </fieldset>
 <?php
