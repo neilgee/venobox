@@ -279,6 +279,7 @@
     width: 960px;
     height: 720px;
 }
+
 @media (max-width: 992px) {
     .venoframe{
         width: 640px;
@@ -286,14 +287,34 @@
     }
 }
 @media (max-width: 767px) {
+
+	.venoframe-container {
+		-webkit-overflow-scrolling:touch;
+		overflow-y:scroll;
+		width:100%;
+		height:500px;
+		width: 420px;
+        height: 315px;
+	}
+
     .venoframe{
         width: 420px;
         height: 315px;
     }
 }
 @media (max-width: 460px) {
+
     .vbox-inline{
         width: 100%;
+    }
+
+    .venoframe-container {
+      -webkit-overflow-scrolling:touch;
+      overflow-y:scroll;
+      width:100%;
+      height:400px;
+      width: 100%;
+      height: 260px;
     }
 
     .venoframe{

@@ -76,19 +76,6 @@
                     core = '<div class="vbox-overlay ' + extraCss + '" style="background:'+ overlayColor +'"><div class="vbox-preloader">Loading...</div><div class="vbox-container"><div class="vbox-content"></div></div><div class="vbox-title"></div><div class="vbox-num">0/0</div><div class="vbox-close">X</div><div class="vbox-next">next</div><div class="vbox-prev">prev</div></div>';
 
                     $('body').append(core);
-                    //add in our z-index find and trump
-                    var index_highest = 0;
-
-                    $("*").each(function() {
-
-                        var index_current = parseInt($(this).css("zIndex"), 10);
-                        if (index_current > index_highest) {
-                            index_highest = index_current;
-                        }
-                    });
-
-                    $('.vbox-overlay').css({'z-index':index_highest+1});
-                    //end of z-Index trumping
 
                     overlay = $('.vbox-overlay');
                     container = $('.vbox-container');
@@ -373,7 +360,7 @@
 
     /* -------- LOAD IFRAME -------- */
     function loadIframe(){
-      content.html('<iframe class="venoframe" src="'+dest+'"></iframe>');
+      content.html('<div class="venoframe-container"><iframe class="venoframe" src="'+dest+'"></iframe></div>');
     //  $('.venoframe').load(function(){ // valid only for iFrames in same domain
       updateoverlay();
     //  });

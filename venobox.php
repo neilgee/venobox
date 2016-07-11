@@ -5,7 +5,7 @@ Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com/
 Description: VenoBox Lightbox - responsive lightbox for video, iframe and images
 Author: Neil Gee
-Version: 1.3.3
+Version: 1.3.4
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -45,7 +45,7 @@ function scripts_styles() {
 $options = get_option( 'venobox_settings' );
 
   wp_register_script ( 'venobox-js' , plugins_url( '/js/venobox.min.js',  __FILE__ ), array( 'jquery' ), '1.6.0', false );
-  wp_register_style ( 'venobox-css' , plugins_url( '/css/venobox.css',  __FILE__ ), '' , '1.6.0', 'all' );
+  wp_register_style ( 'venobox-css' , plugins_url( '/css/venobox.min.css',  __FILE__ ), '' , '1.6.0', 'all' );
   wp_register_script ( 'venobox-init' , plugins_url( '/js/venobox-init.js',  __FILE__ ), array( 'venobox-js' ), '1.6.0', false );
 
 // Add new plugin options defaults here, set them to blank, this will avoid PHP notices of undefined, if new options are introduced to the plugin and are not saved or udated then the setting will be defined.
@@ -544,7 +544,7 @@ function inline_veno() {
           background: {$ng_overlay};
         }
         .vbox-close {
-          background: url(/wp-content/plugins/venobox-lightbox/css/close.gif) no-repeat {$ng_overlay};
+          background: url(" . plugins_url(  "css/close.gif"  , __FILE__ ) . ") no-repeat {$ng_overlay};
           background-position: 10px center;
         }
         ";
