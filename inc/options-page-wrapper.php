@@ -9,7 +9,7 @@
 	<h1><?php esc_attr_e( 'VenoBox', 'venobox-lightbox' ); ?></h1>
 		<?php
 
-		   $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'markup_options';
+		   $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'plugin_options';
 
 		?>
 	<h2 class="nav-tab-wrapper">
@@ -44,7 +44,7 @@
 
 						<div class="inside">
               <p><?php esc_attr_e( 'Below are manual instructions for using the VenoBox Lightbox for your code.', 'venobox-lightbox' ); ?><br>
-								 <?php esc_attr_e( 'In the', 'venobox-lightbox' ); ?> <strong>Plugin Options</strong><?php esc_attr_e( ' tab some of these tasks can be automated, in particular for images.', 'venobox-lightbox' ); ?></p>
+								 <?php esc_attr_e( 'In the', 'venobox-lightbox' ); ?> <strong>Plugin Options</strong><?php esc_attr_e( ' tab some of these tasks can be automated, in particular for images and galleries.', 'venobox-lightbox' ); ?></p>
 
 							<p><?php esc_attr_e( 'Typically for the lightbox to work  you wrap a link around a text or image element.', 'venobox-lightbox' ); ?></p>
               <pre style="white-space:pre-wrap;">&lt;a class="venobox" data-type="vimeo" href="https://vimeo.com/1084537"&gt;&lt;img src="..." /&gt;&lt;/a&gt;
@@ -82,7 +82,7 @@
 					<p><?php esc_attr_e( 'Image example above has titles, pagination, gallery and infinite gallery', 'venobox-lightbox' ); ?>.</p>
 
         <h4><?php esc_attr_e( 'Title Attribute', 'venobox-lightbox' ); ?></h4>
-              <p><?php esc_attr_e( 'Optional: set ', 'venobox-lightbox' ); ?><code>title</code><?php esc_attr_e( ' attribute to show a description, it will appear at the top of the lightbox.', 'venobox-lightbox' ); ?></p>
+              <p><?php esc_attr_e( 'Optional: set ', 'venobox-lightbox' ); ?><code>title</code><?php esc_attr_e( ' attribute to show a description, it will appear at the top of the lightbox. You can set this automatically for images in the Plugin Options', 'venobox-lightbox' ); ?></p>
 <pre data-initialized="true" data-gclp-id="5" style="white-space:pre-wrap;">
 &lt;a class="venobox" title="Here is your description" href="...
 </pre>
@@ -111,7 +111,7 @@
 
       <h4><?php esc_attr_e( 'Gallery', 'venobox-lightbox' ); ?></h4>
 
-        <p><?php esc_attr_e( 'To activate navigation previous and next icons whilst in lighbox mode between multiple types of content on the same page, assign the same data attribute ', 'venobox-lightbox' ); ?><code>data-gall</code><?php esc_attr_e( ' to each link, like the example below, you can see this in the colors example above.', 'venobox-lightbox' ); ?></p>
+        <p><?php esc_attr_e( 'To activate navigation previous and next icons whilst in lighbox mode between multiple types of content on the same page, assign the same data attribute ', 'venobox-lightbox' ); ?><code>data-gall</code><?php esc_attr_e( ' to each link, like the example below, you can see this in the colors example above. This can be automatically done in the Plugin Options.', 'venobox-lightbox' ); ?></p>
 
 <pre data-initialized="true" data-gclp-id="8" style="white-space:pre-wrap;">
 &lt;a class="venobox" data-gall="myGallery" href="image01-big.jpg"&gt;&lt;img src="image01-small.jpg" /&gt;&lt;/a&gt;

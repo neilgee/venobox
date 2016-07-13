@@ -30,9 +30,6 @@ function load_textdomain() {
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_textdomain' );
 
-// Get our gallery filter output
-require_once plugin_dir_path( __FILE__ ) . 'inc/gallery-format.php';
-
 /**
  * Register and Enqueue Scripts and Styles
  *
@@ -81,12 +78,12 @@ $options = wp_parse_args( $options, $options_default );
       ),
   );
 
-     //add filter
+     // Add filter
     $data = apply_filters( 'ng_venoboxVars', $data );
 
     // Pass PHP variables to jQuery script
     wp_localize_script( 'venobox-init', 'venoboxVars', $data );
-    //Access jQuery variable using venoboxVars.ng_venobox
+    // Access jQuery variable using venoboxVars.ng_venobox
 
     wp_enqueue_script( 'venobox-init' );
 

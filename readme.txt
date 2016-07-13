@@ -8,19 +8,19 @@ Tested up to: 4.5
 Stable tag: 1.3.4
 Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com
-Description: Responsive video and image pop-up lightbox
+Description: Responsive video, image, galleries, iframe and inline pop-up lightbox
 Author: Neil Gee
 Version: 1.3.4
 Author URI: http://wpbeaches.com/
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-This plugin adds the VenoBox Responsive Lightbox to links to display Vimeo and YouTube videos, images, iframe or inline content in a lightbox display.
+This plugin adds the VenoBox Responsive Lightbox to links to display Vimeo and YouTube videos, images, galleries,  iframe or inline content in a lightbox display.
 
 
 == Description ==
 
-This plugin adds the VenoBox Responsive Lightbox to links, displaying videos; YouTube, Vimeo, images, iframe, Google Maps or other inline content in a responsive lightbox display.
+This plugin adds the VenoBox Responsive Lightbox to links, displaying YouTube and Vimeo videos, images, galleries, iframe, Google Maps or other inline content in a responsive lightbox display.
 
 Plugin option to open all linked images and galleries in WordPress in Lightbox mode.
 
@@ -65,6 +65,7 @@ Ability to enable/disable VenoBox gallery for images on a per post/page/custom p
 = 1.3.4 =
 * 12/07/16
 * Fix for iframes scrolling issue on ios.
+* Add support for Jetpack Tiled Galleries.
 
 = 1.3.3 =
 * 10/07/16
