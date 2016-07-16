@@ -5,7 +5,7 @@ Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com/
 Description: VenoBox Lightbox - responsive lightbox for video, iframe and images
 Author: Neil Gee
-Version: 1.3.4
+Version: 1.3.5
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -55,6 +55,7 @@ $options_default = array(
     'ng_title_select' => 1,
     'ng_border_width' => 0,
     'ng_border_color' => '',
+    'ng_all_videos'   => '',
 
 );
 $options = wp_parse_args( $options, $options_default );
@@ -74,6 +75,8 @@ $options = wp_parse_args( $options, $options_default );
         'ng_title_select' => (int)$options['ng_title_select'],
         'ng_border_width' => (int)$options['ng_border_width'],
         'ng_border_color' => $options['ng_border_color'],
+        'ng_all_videos'   => (bool)$options['ng_all_videos'],
+
 
       ),
   );
@@ -240,6 +243,14 @@ function plugin_settings() {
       'venobox', //page that it appears on
       'ng_venobox_section' //settings section declared in add_settings_section
   );
+
+  add_settings_field(
+        'ng_all_videos', //unique id of field
+        'Add YouTube and Vimeo videos To LightBox', //title
+         __NAMESPACE__ . '\\ng_all_videos_callback', //callback function below
+        'venobox', //page that it appears on
+        'ng_venobox_section' //settings section declared in add_settings_section
+    );
 }
 
 add_action('admin_init', __NAMESPACE__ . '\\plugin_settings');
@@ -270,6 +281,28 @@ if( !isset( $options['ng_all_images'] ) ) $options['ng_all_images'] = '';
   	<label for="ng_all_images">
   		<input name="venobox_settings[ng_all_images]" type="checkbox" id="ng_all_images" value="1"<?php checked( 1, $options['ng_all_images'], true ); ?> />
   		<span><?php esc_attr_e( 'Add Lightbox for all linked images & galleries', 'venobox-lightbox' ); ?></span>
+  	</label>
+  </fieldset>
+<?php
+}
+
+
+/**
+ *  Add Lightbox for all videos
+ *
+ * @since 1.3.5
+ */
+
+function ng_all_videos_callback() {
+$options = get_option( 'venobox_settings' );
+
+if( !isset( $options['ng_all_videos'] ) ) $options['ng_all_videos'] = '';
+
+?>
+  <fieldset>
+  	<label for="ng_all_videos">
+  		<input name="venobox_settings[ng_all_videos]" type="checkbox" id="ng_all_videos" value="1"<?php checked( 1, $options['ng_all_videos'], true ); ?> />
+  		<span><?php esc_attr_e( 'Add Lightbox for all YouTube and Vimeo videos', 'venobox-lightbox' ); ?></span>
   	</label>
   </fieldset>
 <?php

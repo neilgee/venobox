@@ -5,17 +5,17 @@ Donate link: https://www.paypal.com/au/cgi-bin/webscr?cmd=_flow&SESSION=UTMvXh9t
 Tags: lightbox, video, responsive, modal, pop-up
 Requires at least: 4.0
 Tested up to: 4.5
-Stable tag: 1.3.4
+Stable tag: 1.3.5
 Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com
-Description: Responsive video, image, galleries, iframe and inline pop-up lightbox
+Description: Responsive video and image pop-up lightbox
 Author: Neil Gee
-Version: 1.3.4
+Version: 1.3.5
 Author URI: http://wpbeaches.com/
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-This plugin adds the VenoBox Responsive Lightbox to links to display Vimeo and YouTube videos, images, galleries,  iframe or inline content in a lightbox display.
+This plugin adds the VenoBox Responsive Lightbox to links to display Vimeo and YouTube videos, images, galleries, iframe, inline content in a lightbox.
 
 
 == Description ==
@@ -61,6 +61,11 @@ Ability to enable/disable VenoBox gallery for images on a per post/page/custom p
 
 
 == Changelog ==
+
+= 1.3.5 =
+* 16/07/16
+* Add option for automatically enabling YouTube and Vimeo videos in lightbox mode.
+* Refactored jQuery code.
 
 = 1.3.4 =
 * 12/07/16
