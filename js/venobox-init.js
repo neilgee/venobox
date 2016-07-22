@@ -15,6 +15,7 @@ jQuery(document).ready(function($){
 			if(venoboxVars.ng_venobox.ng_all_lightbox && !$(this).attr('data-gall')) {
 			$(this).attr('data-gall', 'gallery' );
 			}
+
 			// Set Title from one of three options
 			if(venoboxVars.ng_venobox.ng_title_select == 1) {
 			  $(this).attr("title", $(this).find("img").attr("alt"));
@@ -22,8 +23,11 @@ jQuery(document).ready(function($){
 			else if (venoboxVars.ng_venobox.ng_title_select == 2){
 			  $(this).attr("title", $(this).find("img").attr("title"));
 			}
-			else {
+			else if (venoboxVars.ng_venobox.ng_title_select == 3){
 			  $(this).attr("title", $(this).closest('.wp-caption, .gallery-item').find(".wp-caption-text").text());
+			}
+			else {
+				return;
 			}
 
 		}
@@ -49,10 +53,10 @@ jQuery(document).ready(function($){
 
   // default settings
   $('.venobox').venobox({
-    border: venoboxVars.ng_venobox.ng_border_width,
+   // border: venoboxVars.ng_venobox.ng_border_width, doing this in CSS
     // framewidth: '1600px',        // default: ''
     // frameheight: '1000px',       // default: ''
-    bgcolor: venoboxVars.ng_venobox.ng_border_color,
+   // bgcolor: venoboxVars.ng_venobox.ng_border_color, doing this in CSS
     numeratio: venoboxVars.ng_venobox.ng_numeratio,            // default: false
     infinigall: venoboxVars.ng_venobox.ng_infinigall            // default: false
   });
@@ -69,6 +73,14 @@ jQuery(document).ready(function($){
   $('.gallery-row').each(function(index) {
     $(this).find('a').attr('data-gall', 'venoset-jp-'+index);
   });
+
+	// Jetpacks caption as title
+	$('.tiled-gallery-item a').each( function() {
+		if (venoboxVars.ng_venobox.ng_title_select == 3) {
+		$(this).attr("title", $(this).parent('.tiled-gallery-item').find(".tiled-gallery-caption").text());
+		}
+
+	});
 
 
 });

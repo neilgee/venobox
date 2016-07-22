@@ -405,7 +405,7 @@
 
       blocktitle.html(title);
       content.find(">:first-child").addClass('figlio');
-      $('.figlio').css('width', framewidth).css('height', frameheight).css('padding', border).css('background', bgcolor);
+      $('.figlio').css('width', framewidth).css('height', frameheight);
 
       sonH = content.outerHeight();
       finH = $(window).height();

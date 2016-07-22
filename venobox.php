@@ -5,7 +5,7 @@ Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com/
 Description: VenoBox Lightbox - responsive lightbox for video, iframe and images
 Author: Neil Gee
-Version: 1.3.5
+Version: 1.3.6
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -41,9 +41,9 @@ function scripts_styles() {
 
 $options = get_option( 'venobox_settings' );
 
-  wp_register_script ( 'venobox-js' , plugins_url( '/js/venobox.min.js',  __FILE__ ), array( 'jquery' ), '1.6.0', false );
-  wp_register_style ( 'venobox-css' , plugins_url( '/css/venobox.min.css',  __FILE__ ), '' , '1.6.0', 'all' );
-  wp_register_script ( 'venobox-init' , plugins_url( '/js/venobox-init.js',  __FILE__ ), array( 'venobox-js' ), '1.6.0', false );
+  wp_register_script( 'venobox-js' , plugins_url( '/js/venobox.js',  __FILE__ ), array( 'jquery' ), '1.6.0', false );
+  wp_register_style( 'venobox-css' , plugins_url( '/css/venobox.min.css',  __FILE__ ), '' , '1.6.0', 'all' );
+  wp_register_script( 'venobox-init' , plugins_url( '/js/venobox-init.js',  __FILE__ ), array( 'venobox-js' ), '1.6.0', false );
 
 // Add new plugin options defaults here, set them to blank, this will avoid PHP notices of undefined, if new options are introduced to the plugin and are not saved or udated then the setting will be defined.
 $options_default = array(
@@ -53,8 +53,8 @@ $options_default = array(
     'ng_all_images'   => '',
     'ng_all_lightbox' => '',
     'ng_title_select' => 1,
-    'ng_border_width' => 0,
-    'ng_border_color' => '',
+    //'ng_border_width' => 0,
+   // 'ng_border_color' => '',
     'ng_all_videos'   => '',
 
 );
@@ -73,8 +73,8 @@ $options = wp_parse_args( $options, $options_default );
         'ng_all_images'   => (bool)$options['ng_all_images'],
         'ng_all_lightbox' => (bool)$options['ng_all_lightbox'],
         'ng_title_select' => (int)$options['ng_title_select'],
-        'ng_border_width' => (int)$options['ng_border_width'],
-        'ng_border_color' => $options['ng_border_color'],
+       // 'ng_border_width' => (int)$options['ng_border_width'],
+       // 'ng_border_color' => $options['ng_border_color'],
         'ng_all_videos'   => (bool)$options['ng_all_videos'],
 
 
@@ -104,9 +104,9 @@ function admin_venobox($hook) {
         return;
     }
 
-    wp_enqueue_script ( 'venobox-js' , plugins_url( '/js/venobox.min.js',  __FILE__ ), array( 'jquery' ), '1.6.0', false );
-    wp_enqueue_style ( 'venobox-css' , plugins_url( '/css/venobox.css',  __FILE__ ), '' , '1.6.0', 'all' );
-    wp_enqueue_script ( 'venobox-init-admin' , plugins_url( '/js/venobox-init-admin.js',  __FILE__ ), array( 'venobox-js' ), '1.6.0', false );
+    wp_enqueue_script( 'venobox-js' , plugins_url( '/js/venobox.min.js',  __FILE__ ), array( 'jquery' ), '1.6.0', false );
+    wp_enqueue_style( 'venobox-css' , plugins_url( '/css/venobox.css',  __FILE__ ), '' , '1.6.0', 'all' );
+    wp_enqueue_script( 'venobox-init-admin' , plugins_url( '/js/venobox-init-admin.js',  __FILE__ ), array( 'venobox-js' ), '1.6.0', false );
     wp_enqueue_style( 'wp-color-picker' );
     wp_enqueue_script( 'wp-color-picker-alpha', plugins_url( '/js/wp-color-picker-alpha.min.js',  __FILE__ ), array( 'wp-color-picker' ), '1.3.0', true );
 }
@@ -169,16 +169,7 @@ function plugin_settings() {
         'VenoBox Settings', //page title
          __NAMESPACE__ . '\\ng_venobox_section_callback', //callback function below
         'venobox' //page that it appears on
-
-    );
-
-  add_settings_section(
-        'ng_venobox_section_markup', //declare the section id
-        'VenoBox Markup', //page title
-         __NAMESPACE__ . '\\ng_venobox_section_markup_callback', //callback function below
-        'venobox-markup' //page that it appears on
-
-    );
+  );
 
   add_settings_field(
         'ng_all_images', //unique id of field
@@ -186,7 +177,7 @@ function plugin_settings() {
          __NAMESPACE__ . '\\ng_all_images_callback', //callback function below
         'venobox', //page that it appears on
         'ng_venobox_section' //settings section declared in add_settings_section
-    );
+  );
 
   add_settings_field(
         'ng_all_lightbox', //unique id of field
@@ -194,7 +185,7 @@ function plugin_settings() {
          __NAMESPACE__ . '\\ng_all_lightbox_callback', //callback function below
         'venobox', //page that it appears on
         'ng_venobox_section' //settings section declared in add_settings_section
-    );
+  );
 
   add_settings_field(
         'ng_title_select', //unique id of field
@@ -202,7 +193,7 @@ function plugin_settings() {
          __NAMESPACE__ . '\\ng_title_select_callback', //callback function below
         'venobox', //page that it appears on
         'ng_venobox_section' //settings section declared in add_settings_section
-    );
+  );
 
   add_settings_field(
         'ng_numeratio', //unique id of field
@@ -210,7 +201,7 @@ function plugin_settings() {
          __NAMESPACE__ . '\\ng_numeratio_callback', //callback function below
         'venobox', //page that it appears on
         'ng_venobox_section' //settings section declared in add_settings_section
-    );
+  );
 
   add_settings_field(
         'ng_infinigall', //unique id of field
@@ -218,7 +209,7 @@ function plugin_settings() {
          __NAMESPACE__ . '\\ng_infinigall_callback', //callback function below
         'venobox', //page that it appears on
         'ng_venobox_section' //settings section declared in add_settings_section
-    );
+  );
 
   add_settings_field(
       'ng_overlay', //unique id of field
@@ -229,8 +220,16 @@ function plugin_settings() {
   );
 
   add_settings_field(
+      'ng_inline_background', //unique id of field
+      'Default Inline Background Color', //title
+       __NAMESPACE__ . '\\ng_inline_background_callback', //callback function below
+      'venobox', //page that it appears on
+      'ng_venobox_section' //settings section declared in add_settings_section
+  );
+
+  add_settings_field(
       'ng_border_width', //unique id of field
-      'Frame Border Width', //title
+      'Frame Border Width - Images', //title
        __NAMESPACE__ . '\\ng_border_width_callback', //callback function below
       'venobox', //page that it appears on
       'ng_venobox_section' //settings section declared in add_settings_section
@@ -238,7 +237,7 @@ function plugin_settings() {
 
   add_settings_field(
       'ng_border_color', //unique id of field
-      'Frame Border Color', //title
+      'Frame Border Color - Images', //title
        __NAMESPACE__ . '\\ng_border_color_callback', //callback function below
       'venobox', //page that it appears on
       'ng_venobox_section' //settings section declared in add_settings_section
@@ -250,7 +249,7 @@ function plugin_settings() {
          __NAMESPACE__ . '\\ng_all_videos_callback', //callback function below
         'venobox', //page that it appears on
         'ng_venobox_section' //settings section declared in add_settings_section
-    );
+  );
 }
 
 add_action('admin_init', __NAMESPACE__ . '\\plugin_settings');
@@ -354,6 +353,10 @@ if( !isset( $options['ng_title_select'] ) ) $options['ng_title_select'] = 1;
   <label title='g:i a'>
 		<input type="radio" name="venobox_settings[ng_title_select]" value="3"<?php checked( 3, $options['ng_title_select'], true ); ?> />
 		<span><?php esc_attr_e( 'Caption text value', 'venobox-lightbox' ); ?></span>
+	</label><br>
+  <label title='g:i a'>
+		<input type="radio" name="venobox_settings[ng_title_select]" value="4"<?php checked( 4, $options['ng_title_select'], true ); ?> />
+		<span><?php esc_attr_e( 'None', 'venobox-lightbox' ); ?></span>
 	</label>
 
 </fieldset>
@@ -416,6 +419,22 @@ $options = get_option( 'venobox_settings' );
 if( !isset( $options['ng_overlay'] ) ) $options['ng_overlay'] = 'rgba(0,0,0,0.85)';
 
 echo '<input type="text" class="color-picker" data-alpha="true" data-default-color="rgba(0,0,0,0.85)" name="venobox_settings[ng_overlay]" value="' . sanitize_text_field($options['ng_overlay']) . '"/>';
+
+}
+
+/**
+ *  Add default inline background color
+ *
+ *
+ * @since 1.3.6
+ */
+
+function ng_inline_background_callback() {
+$options = get_option( 'venobox_settings' );
+
+if( !isset( $options['ng_inline_background'] ) ) $options['ng_inline_background'] = '#fff';
+
+echo '<input type="text" class="color-picker" data-alpha="true" data-default-color="#fff" name="venobox_settings[ng_inline_background]" value="' . sanitize_text_field($options['ng_inline_background']) . '"/>';
 
 }
 
@@ -563,10 +582,26 @@ function inline_veno() {
 
       $options = get_option('venobox_settings');
 
-       $ng_overlay = $options['ng_overlay'];
+      $options_default = array(
+         'ng_overlay'           => '',
+         'ng_inline_background' => '#fff',
+         'ng_border_color'      => '',
+         'ng_border_width'      => '',
 
 
-        //All the user input CSS settings as set in SLicknav settings
+      );
+
+      $options = wp_parse_args( $options, $options_default );
+
+       $ng_overlay           = $options['ng_overlay'];
+       $ng_inline_background = $options['ng_inline_background'];
+       $ng_overlay           = $options['ng_overlay'];
+       $ng_border_color      = $options['ng_border_color'];
+       $ng_border_width      = $options['ng_border_width'];
+
+
+
+        // Inline CSS & close image call
         $venobox_custom_css = "
         .vbox-overlay,
         .vbox-num,
@@ -577,6 +612,14 @@ function inline_veno() {
           background: url(" . plugins_url(  "css/close.gif"  , __FILE__ ) . ") no-repeat {$ng_overlay};
           background-position: 10px center;
         }
+        .vbox-inline {
+		      background-color: {$ng_inline_background};
+		      padding: 2%;
+    		}
+    		.vbox-content > img{
+    			background-color: {$ng_border_color};
+    		  padding: {$ng_border_width}px;
+    		}
         ";
 
   //add the above custom CSS via wp_add_inline_style
