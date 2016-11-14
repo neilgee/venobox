@@ -2,9 +2,9 @@ jQuery(document).ready(function($){
 
 
 	//Images
-	$('a[href]').filter('[href$=".png"], [href$=".gif"], [href$=".jpg"], [href$=".jpeg"]').not('.novenobox a').each(function() {
+	$('a[href]').filter('[href$=".png"], [href$=".gif"], [href$=".jpg"], [href$=".jpeg"]').each(function() {
 
-			var boxlinks =  $('a[href]').filter('[href$=".png"], [href$=".gif"], [href$=".jpg"], [href$=".jpeg"]').not('.novenobox a');
+			var boxlinks =  $('a[href]').filter('[href$=".png"], [href$=".gif"], [href$=".jpg"], [href$=".jpeg"]');
 
 		if (this.href.indexOf('?') < 0) {
 			if(venoboxVars.ng_venobox.ng_all_images) {
@@ -35,9 +35,9 @@ jQuery(document).ready(function($){
 	});
 
 	// Videos
-	$('a[href]').filter('[href*="//vimeo.com"], [href*="//youtu"]').not('.novenobox a').each(function() {
+	$('a[href]').filter('[href*="//vimeo.com"], [href*="//youtu"]').each(function() {
 
-	var vidlinks =  $('a[href]').filter('[href*="//vimeo.com"], [href*="//youtu"]').not('.novenobox a');
+	var vidlinks =  $('a[href]').filter('[href*="//vimeo.com"], [href*="//youtu"]');
 
 	 if(venoboxVars.ng_venobox.ng_all_videos) {
 	    vidlinks.addClass('venobox').filter('[href*="//vimeo.com"]').attr( 'data-type', 'vimeo');

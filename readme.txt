@@ -4,13 +4,13 @@ Contributors: neilgee
 Donate link: https://www.paypal.com/au/cgi-bin/webscr?cmd=_flow&SESSION=UTMvXh9tc4f-d1yspwlf9gW0wyybSe1mzkx1p1to3k1VqHoWE7AulrQABSi&dispatch=5885d80a13c0db1f8e263663d3faee8d64813b57e559a2578463e58274899069
 Tags: lightbox, video, responsive, modal, pop-up
 Requires at least: 4.0
-Tested up to: 4.5
-Stable tag: 1.3.6
+Tested up to: 4.6
+Stable tag: 1.3.7
 Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com
 Description: Responsive video and image pop-up lightbox
 Author: Neil Gee
-Version: 1.3.6
+Version: 1.3.7
 Author URI: http://wpbeaches.com/
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -61,6 +61,10 @@ Ability to enable/disable VenoBox gallery for images on a per post/page/custom p
 
 
 == Changelog ==
+
+= 1.3.7 =
+* 12/11/16
+* Changed the way the 'Disable VenoBox' metabox works from the post editor, now when VenoBox is disabled the styles and scripts won't load for that post/page, so better page load overall.
 
 = 1.3.6 =
 * 22/07/16

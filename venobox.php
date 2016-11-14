@@ -5,7 +5,7 @@ Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com/
 Description: VenoBox Lightbox - responsive lightbox for video, iframe and images
 Author: Neil Gee
-Version: 1.3.6
+Version: 1.3.7
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -34,6 +34,9 @@ add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_textdomain' );
  * Register and Enqueue Scripts and Styles
  *
  * @since 1.0.0
+ *
+ * Conditionally load scripts only if metabox _venobox_check is unchecked
+ * @since 1.6.1
  */
 
 //Script-tac-ulous -> All the Scripts and Styles Registered and Enqueued
@@ -41,9 +44,17 @@ function scripts_styles() {
 
 $options = get_option( 'venobox_settings' );
 
+/* Get the current post ID. */
+$post_id = get_the_ID();
+$is_venobox_checked = get_post_meta( $post_id, '_venobox_check', true );
+
+if ( !$is_venobox_checked ) {
+
   wp_register_script( 'venobox-js' , plugins_url( '/js/venobox.js',  __FILE__ ), array( 'jquery' ), '1.6.0', false );
   wp_register_style( 'venobox-css' , plugins_url( '/css/venobox.min.css',  __FILE__ ), '' , '1.6.0', 'all' );
   wp_register_script( 'venobox-init' , plugins_url( '/js/venobox-init.js',  __FILE__ ), array( 'venobox-js' ), '1.6.0', false );
+
+  }
 
 // Add new plugin options defaults here, set them to blank, this will avoid PHP notices of undefined, if new options are introduced to the plugin and are not saved or udated then the setting will be defined.
 $options_default = array(
@@ -533,43 +544,15 @@ function add_custom_meta_box() {
 
   $options = get_option( 'venobox_settings' );
 
-if( !empty( $options['ng_all_images'] ) ){
+//if( !empty( $options['ng_all_images'] ) ){
 //https://thomasgriffin.io/how-to-automatically-add-meta-boxes-to-custom-post-types/
     $post_types = get_post_types();
     foreach ( $post_types as $post_type ) {
     add_meta_box('venobox-meta-box', __('Disable VenoBox Lightbox', 'venobox'), __NAMESPACE__ . '\\meta_box_markup', $post_type, 'side', 'default', null);
     }
-  }
+ // }
 }
 add_action('add_meta_boxes', __NAMESPACE__ . '\\add_custom_meta_box');
-
-
-/**
- *  Remove Venobox per post/page/cpt setting
- *
- * @since 1.2.0
- */
-
-function venobox_no_add( $classes ) {
-
-  /* Get the current post ID. */
-  $post_id = get_the_ID();
-
-  /* If we have a post ID, proceed. */
-  if ( !empty( $post_id ) ) {
-
-    /* Get the custom post class. */
-    $is_venobox_checked = get_post_meta( $post_id, '_venobox_check', true );
-
-    /* If a post class was input, sanitize it and add it to the post class array. */
-    if ( $is_venobox_checked )
-      $classes[] = 'novenobox';
-  }
-
-  return $classes;
-}
-
-add_filter( 'post_class', __NAMESPACE__ . '\\venobox_no_add' );
 
 
 /**
