@@ -67,6 +67,7 @@ $options_default = array(
     //'ng_border_width' => 0,
    // 'ng_border_color' => '',
     'ng_all_videos'   => '',
+    'ng_autoplay'     => ''
 
 );
 $options = wp_parse_args( $options, $options_default );
@@ -87,6 +88,7 @@ $options = wp_parse_args( $options, $options_default );
        // 'ng_border_width' => (int)$options['ng_border_width'],
        // 'ng_border_color' => $options['ng_border_color'],
         'ng_all_videos'   => (bool)$options['ng_all_videos'],
+        'ng_autoplay'   => (bool)$options['ng_autoplay'],
 
 
       ),
@@ -261,6 +263,14 @@ function plugin_settings() {
         'venobox', //page that it appears on
         'ng_venobox_section' //settings section declared in add_settings_section
   );
+
+  add_settings_field(
+        'ng_autoplay', //unique id of field
+        'Autoplay videos', //title
+         __NAMESPACE__ . '\\ng_autoplay_callback', //callback function below
+        'venobox', //page that it appears on
+        'ng_venobox_section' //settings section declared in add_settings_section
+  );
 }
 
 add_action('admin_init', __NAMESPACE__ . '\\plugin_settings');
@@ -310,10 +320,30 @@ if( !isset( $options['ng_all_videos'] ) ) $options['ng_all_videos'] = '';
 
 ?>
   <fieldset>
-  	<label for="ng_all_videos">
-  		<input name="venobox_settings[ng_all_videos]" type="checkbox" id="ng_all_videos" value="1"<?php checked( 1, $options['ng_all_videos'], true ); ?> />
-  		<span><?php esc_attr_e( 'Add Lightbox for all YouTube and Vimeo videos', 'venobox-lightbox' ); ?></span>
-  	</label>
+    <label for="ng_all_videos">
+      <input name="venobox_settings[ng_all_videos]" type="checkbox" id="ng_all_videos" value="1"<?php checked( 1, $options['ng_all_videos'], true ); ?> />
+      <span><?php esc_attr_e( 'Add Lightbox for all YouTube and Vimeo videos', 'venobox-lightbox' ); ?></span>
+    </label>
+  </fieldset>
+<?php
+}
+
+/**
+ *  Autoplay for all videos
+ *
+ */
+
+function ng_autoplay_callback() {
+$options = get_option( 'venobox_settings' );
+
+if( !isset( $options['ng_autoplay'] ) ) $options['ng_autoplay'] = '';
+
+?>
+  <fieldset>
+    <label for="ng_autoplay">
+      <input name="venobox_settings[ng_autoplay]" type="checkbox" id="ng_autoplay" value="1"<?php checked( 1, $options['ng_autoplay'], true ); ?> />
+      <span><?php esc_attr_e( 'Autoplay all videos', 'venobox-lightbox' ); ?></span>
+    </label>
   </fieldset>
 <?php
 }

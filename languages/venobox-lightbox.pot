@@ -159,7 +159,7 @@ msgid "attribute value to your links for colored backgrounds"
 msgstr ""
 
 #: inc/options-page-wrapper.php:112
-msgid "Gallery"
+msgid "Gallery"/Users/victor/Projects/GitHub/venobox/languages/venobox-lightbox.pot
 msgstr ""
 
 #: inc/options-page-wrapper.php:114

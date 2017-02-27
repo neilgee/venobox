@@ -30,7 +30,8 @@
               titleattr: 'title', // specific attribute to get a title (e.g. [data-title]) - thanx @mendezcode
               numeratio: false,
               infinigall: false,
-              overlayclose: true // disable overlay click-close - thanx @martybalandis
+              overlayclose: true, // disable overlay click-close - thanx @martybalandis
+              autoplay: false
           };
 
           var option = $.extend(defaults, options);
@@ -61,7 +62,7 @@
                     framewidth = obj.data('framewidth');
                     frameheight = obj.data('frameheight');
                     // set data-autoplay="true" for vimeo and youtube videos - thanx @zehfernandes
-                    autoplay = obj.data('autoplay') || false;
+                    autoplay = obj.data('autoplay') || option.autoplay;
                     border = obj.data('border');
                     bgcolor = obj.data('bgcolor');
                     nextok = false;
