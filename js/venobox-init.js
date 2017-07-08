@@ -59,6 +59,7 @@ jQuery(document).ready(function($){
    // bgcolor: venoboxVars.ng_venobox.ng_border_color, doing this in CSS
     numeratio: venoboxVars.ng_venobox.ng_numeratio,            // default: false
     infinigall: venoboxVars.ng_venobox.ng_infinigall            // default: false
+    autoplay: venoboxVars.ng_venobox.ng_autoplay            // default: false
   });
 
     /* auto-open #firstlink on page load */
