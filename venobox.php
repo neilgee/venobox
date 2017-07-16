@@ -5,7 +5,7 @@ Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com/
 Description: VenoBox Lightbox - responsive lightbox for video, iframe and images
 Author: Neil Gee
-Version: 1.4.0
+Version: 1.4.1
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -50,11 +50,11 @@ $is_venobox_checked = get_post_meta( $post_id, '_venobox_check', true );
 
 if ( !$is_venobox_checked ) {
   // wp_register_script( 'venobox-js' , plugins_url( '/js/venobox.js',  __FILE__ ), array( 'jquery' ), '1.8.2', false );
-  wp_register_script( 'venobox-js' , plugins_url( '/js/venobox.min.js',  __FILE__ ), array( 'jquery' ), '1.6.0', false );
+  wp_register_script( 'venobox-js' , plugins_url( '/js/venobox.min.js',  __FILE__ ), array( 'jquery' ), '1.8.2', false );
   // wp_register_style( 'venobox-css' , plugins_url( '/css/venobox.css',  __FILE__ ), '' , '1.8.2', 'all' );
   wp_register_style( 'venobox-css' , plugins_url( '/css/venobox.min.css',  __FILE__ ), '' , '1.8.2', 'all' );
-  wp_register_script( 'venobox-init' , plugins_url( '/js/venobox-init.js',  __FILE__ ), array( 'venobox-js' ), '1.4.0', false );
-  wp_register_script( 'legacy-js' , plugins_url( '/js/venobox-legacy.js',  __FILE__ ), array( 'jquery' ), '1.8.2', true );
+  wp_register_script( 'venobox-init' , plugins_url( '/js/venobox-init.js',  __FILE__ ), array( 'venobox-js' ), '1.4.1', false );
+  wp_register_script( 'legacy-js' , plugins_url( '/js/venobox-legacy.js',  __FILE__ ), array( 'jquery' ), '1.4.1', true );
 
   }
 
@@ -133,10 +133,10 @@ function admin_venobox($hook) {
         return;
     }
 
-    //wp_enqueue_script( 'venobox-js' , plugins_url( '/js/venobox.min.js',  __FILE__ ), array( 'jquery' ), '1.8.2', false );
-    wp_enqueue_script( 'venobox-js' , plugins_url( '/js/venobox.js',  __FILE__ ), array( 'jquery' ), '1.8.2', false );
-    wp_enqueue_style( 'venobox-css' , plugins_url( '/css/venobox.css',  __FILE__ ), '' , '1.8.2', 'all' );
-   // wp_enqueue_style( 'venobox-css' , plugins_url( '/css/venobox.min.css',  __FILE__ ), '' , '1.8.2', 'all' );
+    wp_enqueue_script( 'venobox-js' , plugins_url( '/js/venobox.min.js',  __FILE__ ), array( 'jquery' ), '1.8.2', false );
+    // wp_enqueue_script( 'venobox-js' , plugins_url( '/js/venobox.js',  __FILE__ ), array( 'jquery' ), '1.8.2', false );
+    // wp_enqueue_style( 'venobox-css' , plugins_url( '/css/venobox.css',  __FILE__ ), '' , '1.8.2', 'all' );
+    wp_enqueue_style( 'venobox-css' , plugins_url( '/css/venobox.min.css',  __FILE__ ), '' , '1.8.2', 'all' );
     wp_enqueue_script( 'venobox-init-admin' , plugins_url( '/js/venobox-init-admin.js',  __FILE__ ), array( 'venobox-js' ), '1.8.2', false );
     wp_enqueue_style( 'wp-color-picker' );
     wp_enqueue_script( 'wp-color-picker-alpha', plugins_url( '/js/wp-color-picker-alpha.min.js',  __FILE__ ), array( 'wp-color-picker' ), '1.3.0', true );
@@ -682,76 +682,63 @@ if( !isset( $options['ng_vb_legacy_markup'] ) ) $options['ng_vb_legacy_markup'] 
 }
 
 
+
+
+add_action('post_submitbox_misc_actions',  __NAMESPACE__ . '\\vbmeta_create');
 /**
- *  Metabox markup per post/page
+ * Create VenoBox Meta
+ * @since 1.4.1
+ * @link https://gist.github.com/emilysnothere/943ea6274dc160cec271
  *
- * @since 1.2.0
  */
+function vbmeta_create() {
+    $post_id = get_the_ID();
 
-function meta_box_markup($post) {
-  wp_nonce_field(basename(__FILE__), "venobox_nonce");
-  $venobox_stored_meta = get_post_meta( $post->ID );
-  ?>
+    // if (get_post_type($post_id) != 'post') {
+    //     return;
+    // }
 
-  <label for="_venobox_check">
-    <input type="checkbox" name="_venobox_check" id="_venobox_check" value="yes" <?php if ( isset ( $venobox_stored_meta ['_venobox_check'] ) ) checked( $venobox_stored_meta['_venobox_check'][0], 'yes' ); ?> />
-    <?php _e( 'Disable VenoBox', 'venobox-lightbox' )?>
-  </label>
+    $value = get_post_meta( $post_id, '_venobox_check', true );
+    wp_nonce_field( 'venobox_nonce_' . $post_id, 'venobox_nonce' );
+    ?>
+    <div class="misc-pub-section misc-pub-section-last">
+        <label><input type="checkbox" value="1" <?php checked( $value, true, true ); ?> name="_venobox_check" /><?php _e( 'Disable VenoBox', 'venobox' ); ?></label>
+    </div>
+    <?php
 
-  <?php
 }
 
+add_action( 'save_post', __NAMESPACE__ . '\\vbmeta_save' );
 /**
- *  Save metabox markup per post/page
+ * Save VenoBox Meta
+ * @since 1.4.1
  *
- * @since 1.2.0
  */
 
-function save_custom_meta_box( $post_id ) {
-  // Checks save status
- $is_autosave = wp_is_post_autosave( $post_id );
- $is_revision = wp_is_post_revision( $post_id );
- $is_valid_nonce = ( isset( $_POST[ 'venobox_nonce' ] ) && wp_verify_nonce( $_POST[ 'venobox_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+function vbmeta_save($post_id) {
 
- // Exits script depending on save status
-   if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
-       return;
-   }
-
- // Checks for input and sanitizes/saves if needed
- // if( isset( $_POST[ '_venobox_check' ] ) ) {
- //     update_post_meta( $post_id, '_venobox_check', sanitize_text_field( $_POST[ '_venobox_check' ] ) );
- // }
-
- // Checks for input and saves
- // http://themefoundation.com/wordpress-meta-boxes-guide/
-  if( isset( $_POST[ '_venobox_check' ] ) ) {
-      update_post_meta( $post_id, '_venobox_check', 'yes' );
-  }
-  else {
-      update_post_meta( $post_id, '_venobox_check', '' );
-  }
-}
-add_action('save_post', __NAMESPACE__ . '\\save_custom_meta_box', 10, 2);
-
-/**
- *  Add Metabox per post/page and any registered custom post type
- *
- * @since 1.2.0
- */
-function add_custom_meta_box() {
-
-  $options = get_option( 'venobox_settings' );
-
-//if( !empty( $options['ng_all_images'] ) ){
-//https://thomasgriffin.io/how-to-automatically-add-meta-boxes-to-custom-post-types/
-    $post_types = get_post_types();
-    foreach ( $post_types as $post_type ) {
-    add_meta_box('venobox-meta-box', __('Disable VenoBox Lightbox', 'venobox'), __NAMESPACE__ . '\\meta_box_markup', $post_type, 'side', 'default', null);
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
     }
- // }
+
+    if (
+        !isset( $_POST['venobox_nonce'] ) ||
+        !wp_verify_nonce( $_POST['venobox_nonce'], 'venobox_nonce_' . $post_id )
+    ) {
+        return;
+    }
+
+    if ( !current_user_can( 'edit_post', $post_id ) ) {
+        return;
+    }
+
+    if ( isset( $_POST['_venobox_check'] )) {
+        update_post_meta( $post_id, '_venobox_check', $_POST['_venobox_check'] );
+    } else {
+        delete_post_meta( $post_id, '_venobox_check' );
+    }
+
 }
-add_action('add_meta_boxes', __NAMESPACE__ . '\\add_custom_meta_box');
 
 
 /**

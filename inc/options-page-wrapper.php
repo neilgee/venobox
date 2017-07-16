@@ -13,8 +13,8 @@
 
 		?>
 	<h2 class="nav-tab-wrapper">
-		<a href="?page=venobox&tab=markup_options" class="nav-tab <?php echo $active_tab == 'markup_options' ? 'nav-tab-active' : ''; ?>"><?php esc_attr_e('Markup Instructions', 'venobox-lightbox'); ?></a>
 		<a href="?page=venobox&tab=plugin_options" class="nav-tab <?php echo $active_tab == 'plugin_options' ? 'nav-tab-active' : ''; ?>"><?php esc_attr_e('Plugin Options', 'venobox-lightbox'); ?></a>
+		<a href="?page=venobox&tab=markup_options" class="nav-tab <?php echo $active_tab == 'markup_options' ? 'nav-tab-active' : ''; ?>"><?php esc_attr_e('Markup Instructions', 'venobox-lightbox'); ?></a>
 	</h2>
 
 	<div id="poststuff">

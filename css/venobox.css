@@ -20,7 +20,7 @@
     top: 0;
     bottom: 0;
     right: 0;
-    z-index: 99998;
+    z-index: 99999;
     -webkit-transform:translateZ(1000px);
     transform: translateZ(1000px);
     transform-style: preserve-3d;
