@@ -2,15 +2,15 @@
 
 Contributors: neilgee
 Donate link: https://www.paypal.com/au/cgi-bin/webscr?cmd=_flow&SESSION=UTMvXh9tc4f-d1yspwlf9gW0wyybSe1mzkx1p1to3k1VqHoWE7AulrQABSi&dispatch=5885d80a13c0db1f8e263663d3faee8d64813b57e559a2578463e58274899069
-Tags: lightbox, video, responsive, modal, pop-up
+Tags: lightbox, video, responsive, modal, pop-up, gallery, images
 Requires at least: 4.0
 Tested up to: 4.8
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com
 Description: Responsive video and image pop-up lightbox
 Author: Neil Gee
-Version: 1.4.1
+Version: 1.4.2
 Author URI: http://wpbeaches.com/
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -25,6 +25,8 @@ This plugin adds the VenoBox Responsive Lightbox to links, displaying YouTube an
 Plugin option to open all linked images and galleries in WordPress in Lightbox mode.
 
 The big difference compared to many others plugins like this is that VenoBox calculates the max width of the image displayed and preserves its height if is taller than the window (so in small devices you can scroll down the content, avoiding vertical microscopic resized images).
+
+Option to disable Beaver Builder lightbox plugin.
 
 <a href="http://themes.wpbeaches.com/venobox/">Demo containing images and videos</a>
 
@@ -61,6 +63,10 @@ Ability to enable/disable VenoBox gallery for images on a per post/page/custom p
 
 
 == Changelog ==
+
+= 1.4.2
+* 23/9/17
+* Option to disable Beaver Builder lightbox if using the BB plugin. Note - if you are also using BB Theme itself then additionally you need to disable lightbox in Customizer.
 
 = 1.4.1 =
 * 16/7/17

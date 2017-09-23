@@ -5,7 +5,7 @@ Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com/
 Description: VenoBox Lightbox - responsive lightbox for video, iframe and images
 Author: Neil Gee
-Version: 1.4.1
+Version: 1.4.2
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -69,23 +69,31 @@ $options_default = array(
     'ng_title_select'       => 1,
     'ng_title_position'     => 'top',
     //'ng_border_width'     => 0,
-   // 'ng_border_color'     => '',
+    // 'ng_border_color'     => '',
     'ng_all_videos'         => '',
     'ng_autoplay'           => false,
     'ng_preloader'          => 'double-bounce',
     'ng_nav_elements'       => '#fff',
-    'ng_vb_legacy_markup'       => '',
+    'ng_vb_legacy_markup'   => '',
+    'ng_autoplay'           => false,
+    'ng_bb_lightbox'        => '',
+    
 
 );
 $options = wp_parse_args( $options, $options_default );
 
 
-  wp_enqueue_script( 'venobox-js' );
-  wp_enqueue_style( 'venobox-css' );
-  /* Only enque leagcy data attributes mark up change if checked */
-  if( $options['ng_vb_legacy_markup'] == true ) {
-          wp_enqueue_script( 'legacy-js');
-  }
+    wp_enqueue_script( 'venobox-js' );
+    wp_enqueue_style( 'venobox-css' );
+    /* Only enqueue legacy data attributes mark up change if checked */
+    if( $options['ng_vb_legacy_markup'] == true ) {
+            wp_enqueue_script( 'legacy-js');
+	}
+	/* Disable jQuery MagnificPopUp used on BeaverBuilder */
+	if( $options['ng_bb_lightbox'] == true ) {
+		wp_dequeue_script('jquery-magnificpopup');
+		wp_dequeue_style('jquery-magnificpopup');
+	}
 
      // Creating our jQuery variables here from our database options, these will be passed to jQuery init script via wp_localize_script
      $data = array (
@@ -105,7 +113,9 @@ $options = wp_parse_args( $options, $options_default );
         'ng_overlay'            => $options['ng_overlay'],
         'ng_nav_elements'       => $options['ng_nav_elements'],
         'ng_preloader'          => $options['ng_preloader'],
-        'ng_vb_legacy_markup'   => (bool)$options['ng_vb_legacy_markup'],
+		'ng_vb_legacy_markup'   => (bool)$options['ng_vb_legacy_markup'],
+		'ng_bb_lightbox'        => (bool)$options['ng_bb_lightbox'],
+		
 
       ),
   );
@@ -328,6 +338,14 @@ function plugin_settings() {
         __NAMESPACE__ . '\\ng_vb_legacy_markup_callback', //callback function below
         'venobox', //page that it appears on
         'ng_venobox_section' //settings section declared in add_settings_section
+ );
+
+ add_settings_field(
+	'ng_bb_lightbox', //unique id of field
+	'Disable Beaver Builder Lightbox', //title
+	__NAMESPACE__ . '\\ng_bb_lightbox_callback', //callback function below
+	'venobox', //page that it appears on
+	'ng_venobox_section' //settings section declared in add_settings_section
 );
 
 }
@@ -681,8 +699,28 @@ if( !isset( $options['ng_vb_legacy_markup'] ) ) $options['ng_vb_legacy_markup'] 
 <?php
 }
 
+/**
+* Disable Beaver Builder Lightbox
+*
+*
+* @since 1.4.3
+*/
 
+function ng_bb_lightbox_callback() {
+	$options = get_option( 'venobox_settings' );
+	if( !isset( $options['ng_bb_lightbox'] ) ) $options['ng_bb_lightbox'] = '';
+	
+	?>
+	 <fieldset>
+		 <label for="ng_bb_lightbox">
+				 <input name="venobox_settings[ng_bb_lightbox]" type="checkbox" id="ng_bb_lightbox" value="1"<?php checked( 1, $options['ng_bb_lightbox'], true ); ?> />
+				 <span><?php esc_attr_e( 'Disable Beaver Builder Lightbox', 'venobox_settings' ); ?></span>
+		 </label>
+	 </fieldset>
+	<?php
 
+    }
+    
 
 add_action('post_submitbox_misc_actions',  __NAMESPACE__ . '\\vbmeta_create');
 /**
@@ -740,7 +778,7 @@ function vbmeta_save($post_id) {
 
 }
 
-
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\inline_veno' );
 /**
  *  Adding inline CSS
  *
@@ -792,4 +830,13 @@ function inline_veno() {
   wp_add_inline_style( 'venobox-css', $venobox_custom_css );
 }
 
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\inline_veno' );
+/**
+ *  Remove Beaver Builder Plugin LightBox
+ *
+ *
+ * @since 1.4.2
+ */  
+function no_bb_theme_lightbox() {
+	wp_dequeue_script('jquery-magnificpopup');
+	wp_dequeue_style('jquery-magnificpopup');
+}
