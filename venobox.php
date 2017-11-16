@@ -5,7 +5,7 @@ Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com/
 Description: VenoBox Lightbox - responsive lightbox for video, iframe and images
 Author: Neil Gee
-Version: 1.4.2
+Version: 1.4.3
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -76,6 +76,7 @@ $options_default = array(
     'ng_nav_elements'       => '#fff',
     'ng_vb_legacy_markup'   => '',
     'ng_autoplay'           => false,
+    'ng_overlay'            => '',
     'ng_bb_lightbox'        => '',
     
 
@@ -149,7 +150,7 @@ function admin_venobox($hook) {
     wp_enqueue_style( 'venobox-css' , plugins_url( '/css/venobox.min.css',  __FILE__ ), '' , '1.8.2', 'all' );
     wp_enqueue_script( 'venobox-init-admin' , plugins_url( '/js/venobox-init-admin.js',  __FILE__ ), array( 'venobox-js' ), '1.8.2', false );
     wp_enqueue_style( 'wp-color-picker' );
-    wp_enqueue_script( 'wp-color-picker-alpha', plugins_url( '/js/wp-color-picker-alpha.min.js',  __FILE__ ), array( 'wp-color-picker' ), '1.3.0', true );
+    wp_enqueue_script( 'wp-color-picker-alpha', plugins_url( '/js/wp-color-picker-alpha.min.js',  __FILE__ ), array( 'wp-color-picker' ), '2.1.2', true );
 }
 add_action( 'admin_enqueue_scripts',  __NAMESPACE__ . '\\admin_venobox' );
 
