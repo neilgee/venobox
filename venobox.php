@@ -4,8 +4,8 @@
 Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com/
 Description: VenoBox Lightbox - responsive lightbox for video, iframe and images
-Author: Neil Gee
-Version: 1.4.3
+Author: Neil Gowran
+Version: 1.5.0
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -49,12 +49,15 @@ $post_id = get_the_ID();
 $is_venobox_checked = get_post_meta( $post_id, '_venobox_check', true );
 
 if ( !$is_venobox_checked ) {
-  // wp_register_script( 'venobox-js' , plugins_url( '/js/venobox.js',  __FILE__ ), array( 'jquery' ), '1.8.2', false );
-  wp_register_script( 'venobox-js' , plugins_url( '/js/venobox.min.js',  __FILE__ ), array( 'jquery' ), '1.8.2', false );
-  // wp_register_style( 'venobox-css' , plugins_url( '/css/venobox.css',  __FILE__ ), '' , '1.8.2', 'all' );
-  wp_register_style( 'venobox-css' , plugins_url( '/css/venobox.min.css',  __FILE__ ), '' , '1.8.2', 'all' );
-  wp_register_script( 'venobox-init' , plugins_url( '/js/venobox-init.js',  __FILE__ ), array( 'venobox-js' ), '1.4.1', false );
-  wp_register_script( 'legacy-js' , plugins_url( '/js/venobox-legacy.js',  __FILE__ ), array( 'jquery' ), '1.4.1', true );
+  // wp_register_script( 'venobox-js' , plugins_url( '/js/venobox.js',  __FILE__ ), array( 'jquery' ), '1.8.5', false );
+  wp_register_script( 'venobox-js' , plugins_url( '/js/venobox.min.js',  __FILE__ ), array( 'jquery' ), '1.8.5', false );
+  // wp_register_style( 'venobox-css' , plugins_url( '/css/venobox.css',  __FILE__ ), '' , '1.8.5', 'all' );
+  wp_register_style( 'venobox-css' , plugins_url( '/css/venobox.min.css',  __FILE__ ), '' , '1.8.5', 'all' );
+  wp_register_script( 'venobox-init' , plugins_url( '/js/venobox-init.js',  __FILE__ ), array( 'venobox-js' ), '1.5.0', false );
+  wp_register_script( 'legacy-js' , plugins_url( '/js/venobox-legacy.js',  __FILE__ ), array( 'jquery' ), '1.5.0', true );
+  wp_register_script( 'facetwp-js' , plugins_url( '/js/venobox-facetwp.js',  __FILE__ ), array( 'venobox-js' ), '1.5.0', true );
+  wp_register_script( 'searchfp-js' , plugins_url( '/js/venobox-searchfp.js',  __FILE__ ), array( 'venobox-js' ), '1.5.0', true );
+
 
   }
 
@@ -69,7 +72,7 @@ $options_default = array(
     'ng_title_select'       => 1,
     'ng_title_position'     => 'top',
     //'ng_border_width'     => 0,
-    // 'ng_border_color'     => '',
+    // 'ng_border_color'    => '',
     'ng_all_videos'         => '',
     'ng_autoplay'           => false,
     'ng_preloader'          => 'double-bounce',
@@ -78,6 +81,8 @@ $options_default = array(
     'ng_autoplay'           => false,
     'ng_overlay'            => '',
     'ng_bb_lightbox'        => '',
+    'ng_vb_facetwp'			=> '',
+    'ng_vb_searchfp'		=> '',
     
 
 );
@@ -90,10 +95,19 @@ $options = wp_parse_args( $options, $options_default );
     if( $options['ng_vb_legacy_markup'] == true ) {
             wp_enqueue_script( 'legacy-js');
 	}
+	if( $options['ng_vb_facetwp'] == true ) {
+		wp_enqueue_script( 'facetwp-js');
+	}
+	if( $options['ng_vb_searchfp'] == true ) {
+		wp_enqueue_script( 'searchfp-js');
+	}
 	/* Disable jQuery MagnificPopUp used on BeaverBuilder */
 	if( $options['ng_bb_lightbox'] == true ) {
-		wp_dequeue_script('jquery-magnificpopup');
-		wp_dequeue_style('jquery-magnificpopup');
+        add_action( 'wp_print_scripts', __NAMESPACE__ . '\\remove_magnificpopup' , 100 );
+        function remove_magnificpopup() {
+            wp_dequeue_script('jquery-magnificpopup');
+            wp_dequeue_style('jquery-magnificpopup');
+        }   
 	}
 
      // Creating our jQuery variables here from our database options, these will be passed to jQuery init script via wp_localize_script
@@ -116,7 +130,8 @@ $options = wp_parse_args( $options, $options_default );
         'ng_preloader'          => $options['ng_preloader'],
 		'ng_vb_legacy_markup'   => (bool)$options['ng_vb_legacy_markup'],
 		'ng_bb_lightbox'        => (bool)$options['ng_bb_lightbox'],
-		
+		'ng_vb_facetwp'   		=> (bool)$options['ng_vb_facetwp'],
+		'ng_vb_searchfp'   		=> (bool)$options['ng_vb_searchfp'],
 
       ),
   );
@@ -144,13 +159,13 @@ function admin_venobox($hook) {
         return;
     }
 
-    wp_enqueue_script( 'venobox-js' , plugins_url( '/js/venobox.min.js',  __FILE__ ), array( 'jquery' ), '1.8.2', false );
-    // wp_enqueue_script( 'venobox-js' , plugins_url( '/js/venobox.js',  __FILE__ ), array( 'jquery' ), '1.8.2', false );
-    // wp_enqueue_style( 'venobox-css' , plugins_url( '/css/venobox.css',  __FILE__ ), '' , '1.8.2', 'all' );
-    wp_enqueue_style( 'venobox-css' , plugins_url( '/css/venobox.min.css',  __FILE__ ), '' , '1.8.2', 'all' );
-    wp_enqueue_script( 'venobox-init-admin' , plugins_url( '/js/venobox-init-admin.js',  __FILE__ ), array( 'venobox-js' ), '1.8.2', false );
+    wp_enqueue_script( 'venobox-js' , plugins_url( '/js/venobox.min.js',  __FILE__ ), array( 'jquery' ), '1.8.5', false );
+    // wp_enqueue_script( 'venobox-js' , plugins_url( '/js/venobox.js',  __FILE__ ), array( 'jquery' ), '1.8.5', false );
+    // wp_enqueue_style( 'venobox-css' , plugins_url( '/css/venobox.css',  __FILE__ ), '' , '1.8.5', 'all' );
+    wp_enqueue_style( 'venobox-css' , plugins_url( '/css/venobox.min.css',  __FILE__ ), '' , '1.8.5', 'all' );
+    wp_enqueue_script( 'venobox-init-admin' , plugins_url( '/js/venobox-init-admin.js',  __FILE__ ), array( 'venobox-js' ), '1.8.5', false );
     wp_enqueue_style( 'wp-color-picker' );
-    wp_enqueue_script( 'wp-color-picker-alpha', plugins_url( '/js/wp-color-picker-alpha.min.js',  __FILE__ ), array( 'wp-color-picker' ), '2.1.2', true );
+    wp_enqueue_script( 'wp-color-picker-venobox', plugins_url( '/js/wp-color-picker-alpha.min.js',  __FILE__ ), array( 'wp-color-picker' ), '2.1.3', true );
 }
 add_action( 'admin_enqueue_scripts',  __NAMESPACE__ . '\\admin_venobox' );
 
@@ -340,18 +355,32 @@ function plugin_settings() {
         'venobox', //page that it appears on
         'ng_venobox_section' //settings section declared in add_settings_section
  );
+ 
+   add_settings_field(
+        'ng_vb_facetwp', //unique id of field
+        'Support FacetWP', //title
+        __NAMESPACE__ . '\\ng_vb_facetwp_callback', //callback function below
+        'venobox', //page that it appears on
+        'ng_venobox_section' //settings section declared in add_settings_section
+ );
+ 
+    add_settings_field(
+        'ng_vb_searchfp', //unique id of field
+        'Support Search & Filter Pro', //title
+        __NAMESPACE__ . '\\ng_vb_searchfp_callback', //callback function below
+        'venobox', //page that it appears on
+        'ng_venobox_section' //settings section declared in add_settings_section
+ );
 
- add_settings_field(
-	'ng_bb_lightbox', //unique id of field
-	'Disable Beaver Builder Lightbox', //title
-	__NAMESPACE__ . '\\ng_bb_lightbox_callback', //callback function below
-	'venobox', //page that it appears on
-	'ng_venobox_section' //settings section declared in add_settings_section
-);
+ 	add_settings_field(
+		'ng_bb_lightbox', //unique id of field
+		'Disable Beaver Builder Lightbox', //title
+		__NAMESPACE__ . '\\ng_bb_lightbox_callback', //callback function below
+		'venobox', //page that it appears on
+		'ng_venobox_section' //settings section declared in add_settings_section
+	);
 
 }
-
-
 
 
 
@@ -668,13 +697,18 @@ if( !isset( $options['ng_preloader'] ) ) $options['ng_preloader'] = 'double-boun
 ?>
 <select name="venobox_settings[ng_preloader]" id="ng_preloader">
         <option value="none"<?php selected($options['ng_preloader'], 'none'); ?> >none</option>
-	<option value="double-bounce"<?php selected($options['ng_preloader'], 'double-bounce'); ?> >double-bounce</option>
-	<option value="rotating-plane"<?php selected ($options['ng_preloader'], 'rotating-plane'); ?> >rotating-plane</option>
+	    <option value="double-bounce"<?php selected($options['ng_preloader'], 'double-bounce'); ?> >double-bounce</option>
+	    <option value="rotating-plane"<?php selected ($options['ng_preloader'], 'rotating-plane'); ?> >rotating-plane</option>
         <option value="wave"<?php selected ($options['ng_preloader'], 'wave'); ?> >wave</option>
         <option value="wandering-cubes"<?php selected ($options['ng_preloader'], 'wandering-cubes'); ?> >wandering-cubes</option>
         <option value="spinner-pulse"<?php selected ($options['ng_preloader'], 'spinner-pulse'); ?> >spinner-pulse</option>
         <option value="three-bounce"<?php selected ($options['ng_preloader'], 'three-bounce'); ?> >three-bounce</option>
         <option value="cube-grid"<?php selected ($options['ng_preloader'], 'cube-grid'); ?> >cube-grid</option>
+        <option value="circle"<?php selected ($options['ng_preloader'], 'circle'); ?> >circle</option>
+        <option value="fading-circle"<?php selected ($options['ng_preloader'], 'fading-circle'); ?> >fading-circle</option>
+        <option value="folding-cube"<?php selected ($options['ng_preloader'], 'folding-cube'); ?> >folding-cube</option>
+        <option value="chasing-dots"<?php selected ($options['ng_preloader'], 'chasing-dots'); ?> >chasing-dots</option>
+
 </select>
 <?php
 }
@@ -721,6 +755,48 @@ function ng_bb_lightbox_callback() {
 	<?php
 
     }
+    
+/**
+ * Support for FacetWP
+ *
+ *
+ * @since 1.5.0
+ */
+
+function ng_vb_facetwp_callback() {
+	$options = get_option( 'venobox_settings' );
+	if( !isset( $options['ng_vb_facetwp'] ) ) $options['ng_vb_facetwp'] = '';
+	
+	?>
+	<fieldset>
+	 <label for="ng_vb_facetwp">
+	         <input name="venobox_settings[ng_vb_facetwp]" type="checkbox" id="ng_vb_facetwp" value="1"<?php checked( 1, $options['ng_vb_facetwp'], true ); ?> />
+	         <span><?php esc_attr_e( 'Support for FacetWP', 'venobox_settings' ); ?></span>
+	 </label>
+	</fieldset>
+	<?php
+}
+
+/**
+ * Support for Search & Filter Pro
+ *
+ *
+ * @since 1.5.0
+ */
+
+function ng_vb_searchfp_callback() {
+	$options = get_option( 'venobox_settings' );
+	if( !isset( $options['ng_vb_searchfp'] ) ) $options['ng_vb_searchfp'] = '';
+	
+	?>
+	<fieldset>
+	 <label for="ng_vb_searchfp">
+	         <input name="venobox_settings[ng_vb_searchfp]" type="checkbox" id="ng_vb_searchfp" value="1"<?php checked( 1, $options['ng_vb_searchfp'], true ); ?> />
+	         <span><?php esc_attr_e( 'Support for Search & Filter Pro', 'venobox_settings' ); ?></span>
+	 </label>
+	</fieldset>
+	<?php
+}
     
 
 add_action('post_submitbox_misc_actions',  __NAMESPACE__ . '\\vbmeta_create');

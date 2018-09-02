@@ -5,12 +5,12 @@ Donate link: https://www.paypal.com/au/cgi-bin/webscr?cmd=_flow&SESSION=UTMvXh9t
 Tags: lightbox, video, responsive, modal, pop-up, gallery, images
 Requires at least: 4.0
 Tested up to: 4.9
-Stable tag: 1.4.3
+Stable tag: 1.5.0
 Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com
 Description: Responsive video and image pop-up lightbox
-Author: Neil Gee
-Version: 1.4.3
+Author: Neil Gowran
+Version: 1.5.0
 Author URI: http://wpbeaches.com/
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -64,6 +64,24 @@ Ability to enable/disable VenoBox gallery for images on a per post/page/custom p
 
 == Changelog ==
 
+= 1.5.0
+* 1/9/18
+* Added support for FacetWP and Search & FIlter Pro - when pages are ajax refreshed the lightbox will continue to work - enable in options.
+
+
+= 1.4.5
+* 1/9/18
+* Upgraded to core VenoBox 1.8.5
+
+
+= 1.4.4
+* 14/4/18
+* Update wp-color-picker to 2.1.3
+* Upgraded to core VenoBox 1.8.3
+* Core version has additional spinner kits, spinner is hidden if a modal box is used
+* Updated code on removing Beaver Builder lightbox magnificpopup with a later priority
+
+
 = 1.4.3
 * 17/11/17
 * Update wp-color-picker to 2.1.2 to be compatible with WP 4.9
@@ -73,12 +91,14 @@ Ability to enable/disable VenoBox gallery for images on a per post/page/custom p
 * 23/9/17
 * Option to disable Beaver Builder lightbox if using the BB plugin. Note - if you are also using BB Theme itself then additionally you need to disable lightbox in Customizer.
 
+
 = 1.4.1 =
 * 16/7/17
 * Higher z-index layer on lightbox overlay
 * Re-work post metabox to disable VenoBox on a post/page basis, previous metabox conflict with Beaver Builder. Checkbox now positioned in Publish metabox area.
 * Load minified scripts on admin settings page
 * Swap tab order in settings - Plugin Options / Markup Instructions
+
 
 = 1.4.0 =
 * 7/7/17
@@ -89,9 +109,11 @@ Ability to enable/disable VenoBox gallery for images on a per post/page/custom p
 * Change navigation and title colors.
 * Ability to autoplay videos. Credit @codibit - https://github.com/codibit
 
+
 = 1.3.7 =
 * 12/11/16
 * Changed the way the 'Disable VenoBox' metabox works from the post editor, now when VenoBox is disabled the styles and scripts won't load for that post/page, so better page load overall.
+
 
 = 1.3.6 =
 * 22/07/16
@@ -105,15 +127,18 @@ Ability to enable/disable VenoBox gallery for images on a per post/page/custom p
 * Add option for automatically enabling YouTube and Vimeo videos in lightbox mode.
 * Refactored jQuery code.
 
+
 = 1.3.4 =
 * 12/07/16
 * Fix for iframes scrolling issue on ios.
 * Add support for Jetpack Tiled Galleries.
 
+
 = 1.3.3 =
 * 10/07/16
 * Enhancement - if more than one WordPress gallery is on a page, each gallery will only show their own images when cycling through in the lightbox mode overlay.
 * Fix - call close button more efficiently.
+
 
 = 1.3.2 =
 * 08/07/16
@@ -122,9 +147,11 @@ Ability to enable/disable VenoBox gallery for images on a per post/page/custom p
 * Link to more examples, online documentation.
 * Add options for lightbox content to have a border and a border color.
 
+
 = 1.3.1 =
 * 06/07/16
 * Fix - set text domain correctly.
+
 
 = 1.3.0 =
 * 05/07/16
@@ -134,14 +161,17 @@ Ability to enable/disable VenoBox gallery for images on a per post/page/custom p
 * Added a wp_add_inline_style css.
 * Added a styling option to change the generic lightbox background color supporting alpha transparency, in a rgba format.
 
+
 = 1.2.1 =
 * 03/07/16
 * Added option to choose either alt text, title text or caption text to use as the Title value in lightbox mode for images - alt text is set as default.
+
 
 = 1.2.0 =
 * 02/07/16
 * Added post/page/custom post type metabox with ability to enable/disable VenoBox for images.
   This metabox is only visible if the 'Add Lightbox for all linked images' Plugin Option is enabled.
+
 
 = 1.1.0 =
 * 20/06/16
@@ -149,6 +179,7 @@ Ability to enable/disable VenoBox gallery for images on a per post/page/custom p
  - Option make all existing and future linked images and galleries open in lightbox mode.
  - Option to use and display alt text from image as the title displayed in lightbox.
  - Option to add all images on same page to paginate(show previous and next icons) whilst in lightbox mode.
+
 
 = 1.0.0 =
 * 15/06/16
