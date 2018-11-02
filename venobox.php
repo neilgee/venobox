@@ -5,7 +5,7 @@ Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com/
 Description: VenoBox Lightbox - responsive lightbox for video, iframe and images
 Author: Neil Gowran
-Version: 1.5.0
+Version: 1.5.1
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -107,7 +107,8 @@ $options = wp_parse_args( $options, $options_default );
         function remove_magnificpopup() {
             wp_dequeue_script('jquery-magnificpopup');
             wp_dequeue_style('jquery-magnificpopup');
-        }   
+        }
+        add_filter( 'fl_builder_override_lightbox', '__return_true' );
 	}
 
      // Creating our jQuery variables here from our database options, these will be passed to jQuery init script via wp_localize_script

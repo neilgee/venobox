@@ -5,12 +5,12 @@ Donate link: https://www.paypal.com/au/cgi-bin/webscr?cmd=_flow&SESSION=UTMvXh9t
 Tags: lightbox, video, responsive, modal, pop-up, gallery, images
 Requires at least: 4.0
 Tested up to: 4.9
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com
 Description: Responsive video and image pop-up lightbox
 Author: Neil Gowran
-Version: 1.5.0
+Version: 1.5.1
 Author URI: http://wpbeaches.com/
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -63,6 +63,11 @@ Ability to enable/disable VenoBox gallery for images on a per post/page/custom p
 
 
 == Changelog ==
+
+= 1.5.1
+* 3/11/18
+* Add Beaver Builder filter to override magnificpopup light box
+
 
 = 1.5.0
 * 1/9/18
