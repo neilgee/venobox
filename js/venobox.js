@@ -1,12 +1,12 @@
 /*
  * VenoBox - jQuery Plugin
- * version: 1.8.5
+ * version: 1.8.8
  * @requires jQuery >= 1.7.0
  *
  * Examples at http://veno.es/venobox/
  * License: MIT License
  * License URI: https://github.com/nicolafranchini/VenoBox/blob/master/LICENSE
- * Copyright 2013-2017 Nicola Franchini - @nicolafranchini
+ * Copyright 2013-2020 Nicola Franchini - @nicolafranchini
  *
  */
 
@@ -323,6 +323,11 @@
                         items = $('.vbox-item[data-gall="' + thisgall + '"]');
                     }
 
+                    if (items.length < 2) {
+                        infinigall = false;
+                        numeratio = false;
+                    }
+
                     thenext = items.eq( items.index(obj) + 1 );
                     theprev = items.eq( items.index(obj) - 1 );
 
@@ -331,7 +336,7 @@
                     }
 
                     // update gall numeration
-                    if (items.length > 1) {
+                    if (items.length >= 1) {
                       gallIndex = items.index(obj)+1;
                       blocknum.html(gallIndex + ' / ' + items.length);
                     } else {
@@ -395,14 +400,14 @@
 
                     autoplay = destination.data('autoplay');
 
-                    title = destination.attr(destination.data('titleattr')) || '';
+                    title = (destination.data('titleattr') && destination.attr(destination.data('titleattr'))) || '';
 
                     // swipe out item
                     if (destination === theprev) {
-                      content.addClass('animated').addClass('swipe-right');
+                      content.addClass('vbox-animated').addClass('swipe-right');
                     }
                     if (destination === thenext) {
-                      content.addClass('animated').addClass('swipe-left');
+                      content.addClass('vbox-animated').addClass('swipe-left');
                     }
 
                     $preloader.show();
@@ -414,7 +419,7 @@
                       overlay.css('background',overlayColor);
 
                       content
-                      .removeClass('animated')
+                      .removeClass('vbox-animated')
                       .removeClass('swipe-left')
                       .removeClass('swipe-right')
                       .css({'margin-left': 0,'margin-right': 0});
@@ -498,7 +503,7 @@
                 startouch = false;
 
                 function onDownEvent(e){
-                    content.addClass('animated');
+                    content.addClass('vbox-animated');
                     startY = endY = e.pageY;
                     startX = endX = e.pageX;
                     startouch = true;
@@ -715,14 +720,14 @@
 
                     blocktitle.html(title);
 
-                    content.find(">:first-child").addClass('figlio').css({
+                    content.find(">:first-child").addClass('vbox-figlio').css({
                         'width': framewidth,
                         'height': frameheight,
                         'padding': border,
                         'background': bgcolor
                     });
 
-                    $('img.figlio').on('dragstart', function(event) {
+                    $('img.vbox-figlio').on('dragstart', function(event) {
                         event.preventDefault();
                     });
 

@@ -1,18 +1,11 @@
 jQuery(document).ready(function($){
-
     /* default settings */
     $('.venobox').venobox({
       border: '0',
-      // framewidth: '1600px',        // default: ''
-      // frameheight: '1000px',       // default: ''
-      // bgcolor: '#5dff5e',
       numeratio: true,          // default: false
       infinigall: true,         // default: false
       autoplay: false           // default: false
-
     });
-
-
     /* custom settings */
     $('.venobox_custom').venobox({
         framewidth: '400px',        // default: ''
@@ -23,9 +16,5 @@ jQuery(document).ready(function($){
         numeratio: true,            // default: false
         infinigall: true,          // default: false
         autoplay: false             // default: false
-
     });
-
-    /* auto-open #firstlink on page load */
-    // $("#firstlink").venobox().trigger('click');
 });
