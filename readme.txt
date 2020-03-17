@@ -13,8 +13,6 @@ Tags: lightbox, video, responsive, modal, pop-up, gallery, images
 Author URI: http://wpbeaches.com/
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
-Donate link: https://www.paypal.com/au/cgi-bin/webscr?cmd=_flow&SESSION=UTMvXh9tc4f-d1yspwlf9gW0wyybSe1mzkx1p1to3k1VqHoWE7AulrQABSi&dispatch=5885d80a13c0db1f8e263663d3faee8d64813b57e559a2578463e58274899069
-
 
 This plugin adds the VenoBox Responsive Lightbox to links to display Vimeo and YouTube videos, images, galleries, iframe, inline content in a lightbox.
 
