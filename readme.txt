@@ -27,7 +27,6 @@ The big difference compared to many others plugins like this is that VenoBox cal
 
 Option to disable Beaver Builder lightbox plugin.
 
-<a href="http://themes.wpbeaches.com/venobox/">Demo containing images and videos</a>
 
 == Installation ==
 
@@ -38,7 +37,6 @@ This section describes how to install the plugin:
 3. Options are in Settings => Venobox Lightbox
 
 
-
 == Usage ==
 
 Comprehensive usage is documented in the WP Admin > Dashboard > Settings > VenoBox Lightbox.
@@ -46,8 +44,6 @@ Comprehensive usage is documented in the WP Admin > Dashboard > Settings > VenoB
 There are manual markup instructions for videos and iframes and automated options for images.
 
 Ability to enable/disable VenoBox gallery for images on a per post/page/custom post type level.
-
-<a href="http://themes.wpbeaches.com/venobox/">Demo containing images and videos</a>
 
 
 == Screenshots ==
