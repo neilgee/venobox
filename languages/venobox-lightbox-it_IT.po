@@ -1,14 +1,13 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: VenoBox Lightbox\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-17 01:14+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: \n"
-"Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"PO-Revision-Date: 2020-03-17 01:15+0000\n"
+"Last-Translator: admin <info@veno.es>\n"
+"Language-Team: Italian\n"
+"Language: it_IT\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,136 +16,138 @@ msgstr ""
 
 #: inc/class-venobox-lightbox.php:181
 msgid "VenoBox Lightbox Plugin"
-msgstr ""
+msgstr "VenoBox Lightbox Plugin"
 
 #. $page_title.
 #. Name of the plugin
 #: inc/class-venobox-lightbox.php:182
 msgid "VenoBox Lightbox"
-msgstr ""
+msgstr "VenoBox Lightbox"
 
 #. declare the section id.
 #: inc/class-venobox-lightbox.php:209
 msgid "VenoBox Settings"
-msgstr ""
+msgstr "Impostazioni Venobox"
 
 #. unique id of field.
 #: inc/class-venobox-lightbox.php:215
 msgid "Enable VenoBox for Images"
-msgstr ""
+msgstr "Abilita VenoBox per le immagini"
 
 #: inc/class-venobox-lightbox.php:222
 msgid "Item Title"
-msgstr ""
+msgstr "Titolo Elemento"
 
 #: inc/class-venobox-lightbox.php:229
 msgid "Title Position"
-msgstr ""
+msgstr "Posizione Titolo"
 
 #: inc/class-venobox-lightbox.php:236
 msgid "Gallery Numeration"
-msgstr ""
+msgstr "Numerazione gallerie"
 
 #: inc/class-venobox-lightbox.php:243
 msgid "Numeration Position"
-msgstr ""
+msgstr "Posizione Numerazione"
 
 #: inc/class-venobox-lightbox.php:250
 msgid "Infinite Gallery"
-msgstr ""
+msgstr "Galleria infinita"
 
 #: inc/class-venobox-lightbox.php:257
 msgid "Overlay Color"
-msgstr ""
+msgstr "Colore Sovrapposizione"
 
 #: inc/class-venobox-lightbox.php:264
 msgid "Navigation & Title Color"
-msgstr ""
+msgstr "Navigazione e Colore Titolo"
 
 #: inc/class-venobox-lightbox.php:271
 msgid "Frame Border Thickness"
-msgstr ""
+msgstr "Spessore bordo cornice"
 
 #: inc/class-venobox-lightbox.php:278
 msgid "Frame Border Color"
-msgstr ""
+msgstr "Colore bordo cornice"
 
 #: inc/class-venobox-lightbox.php:285
 msgid "Enable VenoBox for YouTube and Vimeo videos"
-msgstr ""
+msgstr "Abilita VenoBox per i video di YouTube e Vimeo"
 
 #: inc/class-venobox-lightbox.php:292
 msgid "Autoplay"
-msgstr ""
+msgstr "Avvio Automatico"
 
 #: inc/class-venobox-lightbox.php:299
 msgid "Preloader Type"
-msgstr ""
+msgstr "Tipo di Preloader"
 
 #: inc/class-venobox-lightbox.php:306
 msgid "Support FacetWP"
-msgstr ""
+msgstr "Supporto FacetWP"
 
 #: inc/class-venobox-lightbox.php:313
 msgid "Support Search & Filter Pro"
-msgstr ""
+msgstr "Supporto Search & Filter Pro"
 
 #: inc/class-venobox-lightbox.php:320
 msgid "Disable Beaver Builder Lightbox"
-msgstr ""
+msgstr "Disabilita LightBox di Beaver Builder"
 
 #: inc/class-venobox-lightbox.php:327
 msgid "Update Legacy Attributes"
-msgstr ""
+msgstr "Aggiorna attributi vecchia versione"
 
 #: inc/class-venobox-lightbox.php:355
 msgid "Add Lightbox for all linked images & galleries"
-msgstr ""
+msgstr "Aggiungi Lightbox per tutti link collegati a immagini e le gallerie "
 
 #: inc/class-venobox-lightbox.php:371
 msgid "Add Lightbox for all the links to YouTube and Vimeo videos"
-msgstr ""
+msgstr "Aggiungi Lightbox per tutti link collegati video di YouTube e Vimeo"
 
 #: inc/class-venobox-lightbox.php:390
 msgid "Autoplay videos"
-msgstr ""
+msgstr "Riproduzione automatica video"
 
 #: inc/class-venobox-lightbox.php:406
 msgid "ALT text value"
-msgstr ""
+msgstr "Testo Alternativo"
 
 #: inc/class-venobox-lightbox.php:410
 msgid "Title text value"
-msgstr ""
+msgstr "Testo Titolo"
 
 #: inc/class-venobox-lightbox.php:414
 msgid "Caption text value"
-msgstr ""
+msgstr "Testo Didascalia"
 
 #: inc/class-venobox-lightbox.php:418
 msgid "None"
-msgstr ""
+msgstr "Nessuno"
 
 #: inc/class-venobox-lightbox.php:448
 msgid "Show Pagination for Multiple Items"
-msgstr ""
+msgstr "Mostra paginazione per elemento multilpi"
 
 #: inc/class-venobox-lightbox.php:479
 msgid ""
 "Allow continous navigation, jumping from last to first item and vice versa"
 msgstr ""
+"Consenti navigazione continua, saltando dall'ultimo elemento al primo e "
+"viceversa"
 
 #: inc/options-page-wrapper.php:23
 msgid "Plugin Options"
-msgstr ""
+msgstr "Opzioni Plugin"
 
 #: inc/options-page-wrapper.php:24
 msgid "Markup Instructions"
-msgstr ""
+msgstr "Informazioni Tecniche"
 
 #. Description of the plugin
 msgid "VenoBox Lightbox - responsive lightbox for video, iframe and images"
-msgstr ""
+msgstr "VenoBox Lightbox - responsive lightbox for video, iframe and images"
 
 #. URI of the plugin
 msgid "https://wordpress.org/plugins/venobox-lightbox/"
