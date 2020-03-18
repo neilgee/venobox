@@ -58,6 +58,14 @@ Ability to enable/disable VenoBox gallery for images on a per post/page/custom p
 
 == Changelog ==
 
+2.0.1 - 18/03/2020
+
+- Upgraded to core VenoBox 1.8.9
+- New option social share buttons
+- New option title and share bar background color
+- Disable Venobox checkbox for all pages and post types
+- Copyright free images inside markup instructions
+
 2.0.0 - 16/03/2020
 
 - Upgraded to core VenoBox 1.8.8

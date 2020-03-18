@@ -67,14 +67,14 @@
 </pre>
 							<h4>Image Example</h4>
 							
-							<a class="venobox" title="Dark Knight Rises"  data-gall="super" href="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/the-dark-knight-rises.jpg">
-								<img src="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/the-dark-knight-rises-150x150.jpg">
+							<a class="venobox" title="Aerial View of an Island"  data-gall="super" href="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/aerial-view-of-an-island-3857215.jpg">
+								<img src="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/aerial-view-of-an-island-3857215-150x150.jpg">
 							</a>
-							<a class="venobox" title="Captain America"  data-gall="super" href="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/captain-america.jpg">
-								<img src="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/captain-america-150x150.jpg">
+							<a class="venobox" title="Low Angle Photo of Airplane"  data-gall="super" href="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/low-angle-photo-of-airplane-1154619.jpg">
+								<img src="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/low-angle-photo-of-airplane-1154619-150x150.jpg">
 							</a>
-								<a class="venobox" title="The Amazing SpiderMan"  data-gall="super" href="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/spider-man.jpg">
-								<img src="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/spider-man-150x150.jpg">
+								<a class="venobox" title="Road During Daytime"  data-gall="super" href="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/photo-of-road-during-daytime-3295141.jpg">
+								<img src="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/photo-of-road-during-daytime-3295141-150x150.jpg">
 							</a>
 							<p>Image example above has titles, pagination, gallery and infinite gallery.</p>
 
@@ -92,10 +92,10 @@
 </pre>
 							<h4>Overlay colors</h4>
 							<p><strong>Examples:</strong><br>
-								<a class="venobox btn btn-default vbox-item" data-vbtype="inline" data-gall="colors" data-overlay="rgba(95,164,255,0.8)" href="#inline-1" style="background:rgba(95,164,255,0.8); color:#fff;">Color 1</a>
-								<a class="venobox btn btn-default vbox-item" data-vbtype="inline" data-gall="colors" data-overlay="rgba(51,0,255,0.8)" href="#inline-2" style="background:rgba(51,0,255,0.8); color:#fff;">Color 2</a>
-								<a class="venobox btn btn-default vbox-item" data-vbtype="inline" data-gall="colors" data-overlay="rgba(202,45,164, 0.8)" href="#inline-3" style="background:rgba(202,45,164, 0.8); color:#fff;">Color 3</a>
-								<a class="venobox btn btn-default vbox-item" data-vbtype="inline" data-gall="colors" data-overlay="#ffe74c" href="#inline-4" style="background:#ffe74c; color:#fff;">Color 4</a></p>
+								<a class="venobox btn btn-default vbox-item" data-vbtype="inline" data-gall="colors" data-overlay="rgba(95,164,255,0.8)" href="#inline-1" style="background:rgba(95,164,255,0.8); color:#fff; padding:1em; display:inline-block; text-decoration:none;">Color 1</a>
+								<a class="venobox btn btn-default vbox-item" data-vbtype="inline" data-gall="colors" data-overlay="rgba(51,0,255,0.8)" href="#inline-2" style="background:rgba(51,0,255,0.8); color:#fff; padding:1em; display:inline-block; text-decoration:none;">Color 2</a>
+								<a class="venobox btn btn-default vbox-item" data-vbtype="inline" data-gall="colors" data-overlay="rgba(202,45,164, 0.8)" href="#inline-3" style="background:rgba(202,45,164, 0.8); color:#fff; padding:1em; display:inline-block; text-decoration:none;">Color 3</a>
+								<a class="venobox btn btn-default vbox-item" data-vbtype="inline" data-gall="colors" data-overlay="#ffe74c" href="#inline-4" style="background:#ffe74c; color:#fff; padding:1em; display:inline-block; text-decoration:none;">Color 4</a></p>
 
 							<p>Just add a <code>data-overlay</code> attribute value to your links for colored backgrounds</p>
 <pre data-initialized="true" data-gclp-id="9" style="white-space:pre-wrap;">
@@ -150,8 +150,8 @@
 					<div class="postbox">
 						<h2><span>Further Reference', 'venobox-lightbox</span></h2>
 						<div class="inside">
-							<p><a href="http://themes.wpbeaches.com/venobox/">Online examples and documentation</a></p>
-							<p>VenoBox is the work of @NicolaFranchini<br>
+							<p><a href="http://themes.wpbeaches.com/venobox/" target="_blank">Online examples and documentation</a></p>
+							<p>VenoBox.js is the work of @NicolaFranchini<br>
 							More here at <a href="http://veno.es/venobox/" target="_blank">Plugin Home</a> and <a href="https://github.com/nicolafranchini/VenoBox/" target="_blank">Github</a>,
 							</p>
 						</div><!-- .inside -->

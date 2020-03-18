@@ -4,7 +4,7 @@ jQuery(document).ready(function($){
       border: '0',
       numeratio: true,          // default: false
       infinigall: true,         // default: false
-      autoplay: false           // default: false
+      autoplay: true           // default: false
     });
     /* custom settings */
     $('.venobox_custom').venobox({
@@ -15,6 +15,6 @@ jQuery(document).ready(function($){
         titleattr: 'data-title',    // default: 'title'
         numeratio: true,            // default: false
         infinigall: true,          // default: false
-        autoplay: false             // default: false
+        autoplay: true             // default: false
     });
 });
