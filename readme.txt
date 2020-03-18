@@ -4,13 +4,13 @@ Contributors: neilgee
 Donate link: https://www.paypal.com/au/cgi-bin/webscr?cmd=_flow&SESSION=UTMvXh9tc4f-d1yspwlf9gW0wyybSe1mzkx1p1to3k1VqHoWE7AulrQABSi&dispatch=5885d80a13c0db1f8e263663d3faee8d64813b57e559a2578463e58274899069
 Tags: lightbox, video, responsive, modal, pop-up, gallery, images
 Requires at least: 4.0
-Tested up to: 4.9
-Stable tag: 1.5.1
+Tested up to: 5.4
+Stable tag: 1.5.3
 Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com
 Description: Responsive video and image pop-up lightbox
 Author: Neil Gowran
-Version: 1.5.1
+Version: 1.5.3
 Author URI: http://wpbeaches.com/
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -61,25 +61,35 @@ Ability to enable/disable VenoBox gallery for images on a per post/page/custom p
 
 4. Choose between alt, title and caption as the Title for the lightbox Title.
 
-
 == Changelog ==
 
-= 1.5.1
+
+= 1.5.3 =
+* 18/03/20
+* Include WebP format
+
+= 1.5.2 =
+* 11/1/19
+* compatible WP 5.x
+* jQuery code Refactor
+* Fix pagination on single item
+
+= 1.5.1 =
 * 3/11/18
 * Add Beaver Builder filter to override magnificpopup light box
 
 
-= 1.5.0
+= 1.5.0 =
 * 1/9/18
 * Added support for FacetWP and Search & FIlter Pro - when pages are ajax refreshed the lightbox will continue to work - enable in options.
 
 
-= 1.4.5
+= 1.4.5 =
 * 1/9/18
 * Upgraded to core VenoBox 1.8.5
 
 
-= 1.4.4
+= 1.4.4 =
 * 14/4/18
 * Update wp-color-picker to 2.1.3
 * Upgraded to core VenoBox 1.8.3
@@ -87,12 +97,12 @@ Ability to enable/disable VenoBox gallery for images on a per post/page/custom p
 * Updated code on removing Beaver Builder lightbox magnificpopup with a later priority
 
 
-= 1.4.3
+= 1.4.3 =
 * 17/11/17
 * Update wp-color-picker to 2.1.2 to be compatible with WP 4.9
 
 
-= 1.4.2
+= 1.4.2 =
 * 23/9/17
 * Option to disable Beaver Builder lightbox if using the BB plugin. Note - if you are also using BB Theme itself then additionally you need to disable lightbox in Customizer.
 

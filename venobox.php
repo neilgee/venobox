@@ -5,7 +5,7 @@ Plugin Name: VenoBox Lightbox
 Plugin URI: http://wpbeaches.com/
 Description: VenoBox Lightbox - responsive lightbox for video, iframe and images
 Author: Neil Gowran
-Version: 1.5.1
+Version: 1.5.3
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -49,7 +49,7 @@ $post_id = get_the_ID();
 $is_venobox_checked = get_post_meta( $post_id, '_venobox_check', true );
 
 if ( !$is_venobox_checked ) {
-  // wp_register_script( 'venobox-js' , plugins_url( '/js/venobox.js',  __FILE__ ), array( 'jquery' ), '1.8.5', false );
+//   wp_register_script( 'venobox-js' , plugins_url( '/js/venobox.js',  __FILE__ ), array( 'jquery' ), '1.8.5', false );
   wp_register_script( 'venobox-js' , plugins_url( '/js/venobox.min.js',  __FILE__ ), array( 'jquery' ), '1.8.5', false );
   // wp_register_style( 'venobox-css' , plugins_url( '/css/venobox.css',  __FILE__ ), '' , '1.8.5', 'all' );
   wp_register_style( 'venobox-css' , plugins_url( '/css/venobox.min.css',  __FILE__ ), '' , '1.8.5', 'all' );
@@ -72,17 +72,17 @@ $options_default = array(
     'ng_title_select'       => 1,
     'ng_title_position'     => 'top',
     //'ng_border_width'     => 0,
-    // 'ng_border_color'    => '',
-    'ng_all_videos'         => '',
-    'ng_autoplay'           => false,
-    'ng_preloader'          => 'double-bounce',
-    'ng_nav_elements'       => '#fff',
-    'ng_vb_legacy_markup'   => '',
-    'ng_autoplay'           => false,
-    'ng_overlay'            => '',
-    'ng_bb_lightbox'        => '',
-    'ng_vb_facetwp'			=> '',
-    'ng_vb_searchfp'		=> '',
+    //'ng_border_color'    => '',
+    'ng_all_videos'       => '',
+    'ng_autoplay'         => false,
+    'ng_preloader'        => 'double-bounce',
+    'ng_nav_elements'     => '#fff',
+    'ng_vb_legacy_markup' => '',
+    'ng_autoplay'         => false,
+    'ng_overlay'          => '',
+    'ng_bb_lightbox'      => '',
+    'ng_vb_facetwp'       => '',
+    'ng_vb_searchfp'      => '',
     
 
 );
@@ -124,15 +124,15 @@ $options = wp_parse_args( $options, $options_default );
         'ng_title_position'     => $options['ng_title_position'],
        // 'ng_border_width'     => (int)$options['ng_border_width'],
        // 'ng_border_color'     => $options['ng_border_color'],
-        'ng_all_videos'         => (bool)$options['ng_all_videos'],
-        'ng_autoplay'           => (bool)$options['ng_autoplay'],
-        'ng_overlay'            => $options['ng_overlay'],
-        'ng_nav_elements'       => $options['ng_nav_elements'],
-        'ng_preloader'          => $options['ng_preloader'],
-		'ng_vb_legacy_markup'   => (bool)$options['ng_vb_legacy_markup'],
-		'ng_bb_lightbox'        => (bool)$options['ng_bb_lightbox'],
-		'ng_vb_facetwp'   		=> (bool)$options['ng_vb_facetwp'],
-		'ng_vb_searchfp'   		=> (bool)$options['ng_vb_searchfp'],
+        'ng_all_videos'       => (bool)$options['ng_all_videos'],
+        'ng_autoplay'         => (bool)$options['ng_autoplay'],
+        'ng_overlay'          => $options['ng_overlay'],
+        'ng_nav_elements'     => $options['ng_nav_elements'],
+        'ng_preloader'        => $options['ng_preloader'],
+        'ng_vb_legacy_markup' => (bool)$options['ng_vb_legacy_markup'],
+        'ng_bb_lightbox'      => (bool)$options['ng_bb_lightbox'],
+        'ng_vb_facetwp'       => (bool)$options['ng_vb_facetwp'],
+        'ng_vb_searchfp'      => (bool)$options['ng_vb_searchfp'],
 
       ),
   );
