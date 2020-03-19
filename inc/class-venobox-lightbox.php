@@ -21,7 +21,7 @@ class VenoBox_Lightbox {
 	 *
 	 * @var version
 	 */
-	public $version = '1.6.0';
+	public $version = '2.0.0';
 	/**
 	 * VenoBox version
 	 *
