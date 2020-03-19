@@ -148,7 +148,7 @@
 			<div id="postbox-container-1" class="postbox-container">
 				<div class="meta-box-sortables">
 					<div class="postbox">
-						<h2><span>Further Reference', 'venobox-lightbox</span></h2>
+						<h2><span>Further reference: Venobox Lightbox</span></h2>
 						<div class="inside">
 							<p><a href="http://themes.wpbeaches.com/venobox/" target="_blank">Online examples and documentation</a></p>
 							<p>VenoBox.js is the work of @NicolaFranchini<br>
