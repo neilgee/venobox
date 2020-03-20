@@ -2,8 +2,8 @@
 
 Author: Neil Gowran
 Contributors: neilgee, nicolafranchini
-Version: 1.6.0
-Stable tag: 1.6.0
+Version: 2.0.1
+Stable tag: 2.0.1
 Tested up to: 5.3
 Requires at least: 4.0
 Plugin Name: VenoBox Lightbox
@@ -61,8 +61,13 @@ Demo containing images and videos: http://themes.wpbeaches.com/venobox/
 
 == Changelog ==
 
+2.0.1 - 21/03/2020
 
-1.6.0 - 18/03/2020
+- New: Spanish language
+- Update: re-enable .webp extension
+- Fix: load_plugin_textdomain with the right path
+
+2.0.0 - 18/03/2020
 
 - Upgraded to core VenoBox 1.8.9
 - Code refactoring, all functions wrapped in a php class
