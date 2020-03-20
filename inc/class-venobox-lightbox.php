@@ -21,13 +21,13 @@ class VenoBox_Lightbox {
 	 *
 	 * @var version
 	 */
-	public $version = '2.0.0';
+	public $version = '2.0.1';
 	/**
 	 * VenoBox version
 	 *
 	 * @var version
 	 */
-	public $vb_version = '1.8.8';
+	public $vb_version = '1.8.9';
 	/**
 	 * Holds an instance of the object
 	 *
