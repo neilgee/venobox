@@ -67,6 +67,7 @@ Demo containing images and videos: http://themes.wpbeaches.com/venobox/
 - Update: re-enable .webp extension
 - Fix: load_plugin_textdomain with the right path
 
+
 2.0.0 - 18/03/2020
 
 - Upgraded to core VenoBox 1.8.9
