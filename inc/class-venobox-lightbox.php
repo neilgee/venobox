@@ -21,13 +21,13 @@ class VenoBox_Lightbox {
 	 *
 	 * @var version
 	 */
-	public $version = '2.0.0';
+	public $version = '2.0.1';
 	/**
 	 * VenoBox version
 	 *
 	 * @var version
 	 */
-	public $vb_version = '1.8.8';
+	public $vb_version = '1.8.9';
 	/**
 	 * Holds an instance of the object
 	 *
@@ -74,14 +74,14 @@ class VenoBox_Lightbox {
 	 * Add the venobox option metabox to all post types
 	 */
 	public function post_options_metabox() {
-		add_meta_box( 'post_options', __( 'Venobox Lightbox', 'venobox-lightbox' ), array( $this, 'vbmeta_create' ), get_post_types(), 'side', 'low' );
+		add_meta_box( 'post_options', __( 'VenoBox Lightbox', 'venobox-lightbox' ), array( $this, 'vbmeta_create' ), get_post_types(), 'side', 'low' );
 	}
 
 	/**
 	 * Load plugin textdomain.
 	 */
 	public function load_plugin_textdomain() {
-		load_plugin_textdomain( 'venobox-lightbox', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain( 'venobox-lightbox', false, dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages' );
 	}
 
 	/**
@@ -626,7 +626,7 @@ class VenoBox_Lightbox {
 				<span><?php esc_attr_e( 'Download', 'venobox_settings' ); ?></span>
 			</label>
 		</fieldset>
-		<p><?php esc_attr_e( 'Share buttons available for images and videos', 'venobox_settings' ); ?></p>
+		<p><?php esc_attr_e( 'Share buttons available for images and videos', 'venobox-lightbox' ); ?></p>
 		<?php
 	}
 
@@ -640,7 +640,7 @@ class VenoBox_Lightbox {
 		<fieldset>
 			<label for="ng_vb_legacy_markup">
 				<input name="venobox_settings[ng_vb_legacy_markup]" type="checkbox" id="ng_vb_legacy_markup" value="1" <?php checked( 1, $ng_vb_legacy_markup, true ); ?> />
-				<span><?php esc_attr_e( 'Update legacy Data Attributes', 'venobox_settings' ); ?></span>
+				<span><?php esc_attr_e( 'Update legacy Data Attributes', 'venobox-lightbox' ); ?></span>
 			</label>
 		</fieldset>
 		<?php
@@ -656,7 +656,7 @@ class VenoBox_Lightbox {
 		<fieldset>
 			<label for="ng_bb_lightbox">
 				<input name="venobox_settings[ng_bb_lightbox]" type="checkbox" id="ng_bb_lightbox" value="1" <?php checked( 1, $ng_bb_lightbox, true ); ?> />
-				<span><?php esc_attr_e( 'Disable Beaver Builder Lightbox', 'venobox_settings' ); ?></span>
+				<span><?php esc_attr_e( 'Disable Beaver Builder Lightbox', 'venobox-lightbox' ); ?></span>
 			</label>
 		</fieldset>
 		<?php
@@ -672,7 +672,7 @@ class VenoBox_Lightbox {
 		<fieldset>
 			<label for="ng_vb_facetwp">
 				<input name="venobox_settings[ng_vb_facetwp]" type="checkbox" id="ng_vb_facetwp" value="1" <?php checked( 1, $ng_vb_facetwp, true ); ?> />
-				<span><?php esc_attr_e( 'Support for FacetWP', 'venobox_settings' ); ?></span>
+				<span><?php esc_attr_e( 'Support for FacetWP', 'venobox-lightbox' ); ?></span>
 			</label>
 		</fieldset>
 		<?php
@@ -688,7 +688,7 @@ class VenoBox_Lightbox {
 		<fieldset>
 			<label for="ng_vb_searchfp">
 				<input name="venobox_settings[ng_vb_searchfp]" type="checkbox" id="ng_vb_searchfp" value="1" <?php checked( 1, $ng_vb_searchfp, true ); ?> />
-				<span><?php esc_attr_e( 'Support for Search & Filter Pro', 'venobox_settings' ); ?></span>
+				<span><?php esc_attr_e( 'Support for Search & Filter Pro', 'venobox-lightbox' ); ?></span>
 			</label>
 		</fieldset>
 		<?php

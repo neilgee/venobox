@@ -53,7 +53,7 @@
 		// Images
 		function imagesVeno() {
 			var boxlinks = $('a[href]').filter(function(){
-				return /[.](png|gif|jpg|jpeg)$/.test(this.href.toLowerCase());
+				return /[.](png|gif|jpg|jpeg|webp)$/.test(this.href.toLowerCase());
 			});
 
 			$(boxlinks).each(function() {

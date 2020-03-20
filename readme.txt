@@ -2,9 +2,9 @@
 
 Author: Neil Gowran
 Contributors: neilgee, nicolafranchini
-Version: 2.0.0
-Stable tag: 1.6.0
-Tested up to: 5.3.2
+Version: 2.0.1
+Stable tag: 2.0.1
+Tested up to: 5.3
 Requires at least: 4.0
 Plugin Name: VenoBox Lightbox
 Plugin URI: https://wordpress.org/plugins/venobox-lightbox/
@@ -60,6 +60,12 @@ Demo containing images and videos: http://themes.wpbeaches.com/venobox/
 4. Choose between alt, title and caption as the Title for the lightbox Title.
 
 == Changelog ==
+
+2.0.1 - 21/03/2020
+
+- New: Spanish language
+- Update: re-enable .webp extension
+- Fix: load_plugin_textdomain with the right path
 
 
 2.0.0 - 18/03/2020
