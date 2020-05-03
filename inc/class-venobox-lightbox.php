@@ -120,9 +120,9 @@ class VenoBox_Lightbox {
 
 		$debug = ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) ? '' : '.min';
 
-		wp_enqueue_style( 'venobox-css', plugin_dir_url( dirname( __FILE__ ) ) . '/css/venobox' . $debug . '.css', array(), $this->vb_version, 'all' );
-		wp_enqueue_script( 'venobox-js', plugin_dir_url( dirname( __FILE__ ) ) . '/js/venobox' . $debug . '.js', array( 'jquery' ), $this->vb_version, true );
-		wp_register_script( 'venobox-init', plugin_dir_url( dirname( __FILE__ ) ) . '/js/venobox-init.js', array( 'venobox-js' ), $this->version, true );
+		wp_enqueue_style( 'venobox-css', plugin_dir_url( dirname( __FILE__ ) ) . 'css/venobox' . $debug . '.css', array(), $this->vb_version, 'all' );
+		wp_enqueue_script( 'venobox-js', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox' . $debug . '.js', array( 'jquery' ), $this->vb_version, true );
+		wp_register_script( 'venobox-init', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox-init.js', array( 'venobox-js' ), $this->version, true );
 
 		// Disable jQuery MagnificPopUp used on BeaverBuilder.
 		if ( $options['ng_bb_lightbox'] ) {
