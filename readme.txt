@@ -2,9 +2,9 @@
 
 Author: Neil Gowran
 Contributors: neilgee, nicolafranchini
-Version: 2.0.1
-Stable tag: 2.0.1
-Tested up to: 5.3
+Version: 2.0.3
+Stable tag: 2.0.3
+Tested up to: 5.4
 Requires at least: 4.0
 Plugin Name: VenoBox Lightbox
 Plugin URI: https://wordpress.org/plugins/venobox-lightbox/
@@ -60,6 +60,15 @@ Demo containing images and videos: http://themes.wpbeaches.com/venobox/
 4. Choose between alt, title and caption as the Title for the lightbox Title.
 
 == Changelog ==
+
+2.0.3 - 23/05/2020
+
+- Upgrade VenoBox JS 1.9.0 reset content scrollTop on change
+- Update default settings
+
+2.0.2 - 07/05/2020
+
+- Fix debug path URLs
 
 2.0.1 - 21/03/2020
 
