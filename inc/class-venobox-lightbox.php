@@ -176,7 +176,7 @@ class VenoBox_Lightbox {
 			return;
 		}
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_script( 'wp-color-picker-venobox', plugin_dir_url( dirname( __FILE__ ) ) . 'js/wp-color-picker-alpha.min.js', array( 'wp-color-picker' ), '2.1.3', true );
+		wp_enqueue_script( 'wp-color-picker-venobox', plugin_dir_url( dirname( __FILE__ ) ) . 'js/wp-color-picker-alpha.min.js', array( 'wp-color-picker' ), '3.0.0', true );
 		wp_enqueue_style( 'venobox-css', plugin_dir_url( dirname( __FILE__ ) ) . 'css/venobox.min.css', array(), $this->vb_version, 'all' );
 		wp_enqueue_script( 'venobox-js', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox.min.js', array( 'jquery' ), $this->vb_version, true );
 		wp_enqueue_script( 'venobox-init-admin', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox-init-admin.js', array( 'venobox-js' ), VENOBOX_LIGHTBOX_VERSION, true );
@@ -514,7 +514,7 @@ class VenoBox_Lightbox {
 		$options = get_option( 'venobox_settings' );
 		$ng_overlay = isset( $options['ng_overlay'] ) ? $options['ng_overlay'] : 'rgba(0,0,0,0.85)';
 		?>
-		<input type="text" class="color-picker" data-alpha="true" data-default-color="rgba(0,0,0,0.85)" name="venobox_settings[ng_overlay]" value="<?php echo esc_attr( $ng_overlay ); ?>"/>
+		<input type="text" class="color-picker" data-alpha-enabled="true" data-default-color="rgba(0,0,0,0.85)" name="venobox_settings[ng_overlay]" value="<?php echo esc_attr( $ng_overlay ); ?>"/>
 		<?php
 	}
 
@@ -525,7 +525,7 @@ class VenoBox_Lightbox {
 		$options = get_option( 'venobox_settings' );
 		$ng_nav_elements = isset( $options['ng_nav_elements'] ) ? $options['ng_nav_elements'] : '#fff';
 		?>
-		<input type="text" class="color-picker" data-alpha="true" data-default-color="rgba(255,255,255,1)" name="venobox_settings[ng_nav_elements]" value="<?php echo esc_attr( $ng_nav_elements ); ?>"/>
+		<input type="text" class="color-picker" data-alpha-enabled="true" data-default-color="rgba(255,255,255,1)" name="venobox_settings[ng_nav_elements]" value="<?php echo esc_attr( $ng_nav_elements ); ?>"/>
 		<?php
 	}
 
@@ -536,7 +536,7 @@ class VenoBox_Lightbox {
 		$options = get_option( 'venobox_settings' );
 		$ng_nav_elements_bg = isset( $options['ng_nav_elements_bg'] ) ? $options['ng_nav_elements_bg'] : 'rgba(0,0,0,0.85)';
 		?>
-		<input type="text" class="color-picker" data-alpha="true" data-default-color="rgba(0,0,0,0.85)" name="venobox_settings[ng_nav_elements_bg]" value="<?php echo esc_attr( $ng_nav_elements_bg ); ?>"/>
+		<input type="text" class="color-picker" data-alpha-enabled="true" data-default-color="rgba(0,0,0,0.85)" name="venobox_settings[ng_nav_elements_bg]" value="<?php echo esc_attr( $ng_nav_elements_bg ); ?>"/>
 		<?php
 	}
 
@@ -558,7 +558,7 @@ class VenoBox_Lightbox {
 		$options = get_option( 'venobox_settings' );
 		$ng_border_color = isset( $options['ng_border_color'] ) ? $options['ng_border_color'] : 'rgba(255,255,255,1)';
 		?>
-		<input type="text" class="color-picker" data-alpha="true" data-default-color="rgba(255,255,255,1)" name="venobox_settings[ng_border_color]" value="<?php echo esc_attr( $ng_border_color ); ?>"/>
+		<input type="text" class="color-picker" data-alpha-enabled="true" data-default-color="rgba(255,255,255,1)" name="venobox_settings[ng_border_color]" value="<?php echo esc_attr( $ng_border_color ); ?>"/>
 		<?php
 	}
 

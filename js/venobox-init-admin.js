@@ -17,4 +17,7 @@ jQuery(document).ready(function($){
         infinigall: true,          // default: false
         autoplay: true             // default: false
     });
+
+    /* Call the Color Picker */
+    $( ".color-picker" ).wpColorPicker();
 });

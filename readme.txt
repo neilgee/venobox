@@ -2,7 +2,7 @@
 
 Author: Neil Gowran
 Contributors: neilgee, nicolafranchini
-Version: 2.0.3
+Version: 2.0.4
 Stable tag: 2.0.3
 Tested up to: 5.4
 Requires at least: 4.0
@@ -60,6 +60,10 @@ Demo containing images and videos: http://themes.wpbeaches.com/venobox/
 4. Choose between alt, title and caption as the Title for the lightbox Title.
 
 == Changelog ==
+
+2.0.4 - 20/11/2020
+
+- Update wp-color-picker-alpha to version 3
 
 2.0.3 - 23/05/2020
 
