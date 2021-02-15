@@ -61,6 +61,10 @@ Demo containing images and videos: http://themes.wpbeaches.com/venobox/
 
 == Changelog ==
 
+2.0.6 - 15/02/2021
+
+- Fix Post Meta box and not load scripts if set to 'Disable Venobox'.
+
 2.0.5 - 30/12/2020
 
 - Update VenoBox.js to version 1.9.2: Remove focus from link to avoid multiple calls with enter key
