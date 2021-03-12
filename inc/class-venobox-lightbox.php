@@ -25,13 +25,13 @@ class VenoBox_Lightbox {
 	/**
 	 * Holds an instance of the object
 	 *
-	 * @var MeMeMe_Plugin
+	 * @var VenoBox_Lightbox
 	 */
 	protected static $instance = null;
 	/**
 	 * Returns the running object
 	 *
-	 * @return MeMeMe_Plugin
+	 * @return VenoBox_Lightbox
 	 */
 	public static function get_instance() {
 		if ( null === self::$instance ) {
@@ -779,7 +779,7 @@ class VenoBox_Lightbox {
 }
 
 /**
- * Helper function to get/return the MeMeMe_Plugin object
+ * Helper function to get/return the VenoBox_Lightbox object
  *
  * @return VenoBox_Lightbox object
  */
