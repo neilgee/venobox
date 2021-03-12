@@ -121,6 +121,7 @@
 		// Default settings
 		function defaultVeno() {
 			$('.venobox').venobox({
+				arrows: venoboxVars.ng_arrows, // default: false
 				border: venoboxVars.ng_border_width,
 				bgcolor: venoboxVars.ng_border_color,
 				numeratio: ng_numeratio, // default: false

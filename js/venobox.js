@@ -414,6 +414,12 @@
                       $('.vbox-prev').css('display', 'none');
                       prevok = false;
                     }
+
+                    if (venoboxVars.ng_arrows==1) {
+                      $('.vbox-prev, .vbox-next ').css('display', 'none');
+                      prevok = false; 
+                    }
+                    
                     // activate swipe
                     if (prevok === true || nextok === true) {
                       content.on(TouchMouseEvent.DOWN, onDownEvent);
