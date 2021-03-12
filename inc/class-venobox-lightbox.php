@@ -58,6 +58,8 @@ class VenoBox_Lightbox {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		add_action( 'admin_menu', array( $this, 'plugin_page' ) );
 		add_action( 'admin_init', array( $this, 'plugin_settings' ) );
+		add_action( 'after_setup_theme', array( $this, 'vb_woocommerce_settings' ), 99 );
+
 
 		// WP 3.0+.
 		add_action( 'add_meta_boxes', array( $this, 'post_options_metabox' ) );
@@ -106,6 +108,7 @@ class VenoBox_Lightbox {
 			'ng_overlay'            => 'rgba(0,0,0,0.85)',
 			'ng_bb_lightbox'        => false,
 			'ng_vb_legacy_markup'   => false,
+			'ng_vb_woocommerce'     => false,
 			'ng_vb_facetwp'         => false,
 			'ng_vb_searchfp'        => false,
 			'ng_vb_share'           => array(),
@@ -148,6 +151,7 @@ class VenoBox_Lightbox {
 			'ng_nav_elements_bg'    => $options['ng_nav_elements_bg'],
 			'ng_preloader'          => $options['ng_preloader'],
 			'ng_vb_legacy_markup'   => (bool) $options['ng_vb_legacy_markup'],
+			'ng_vb_woocommerce'     => (bool) $options['ng_vb_woocommerce'],
 			'ng_bb_lightbox'        => (bool) $options['ng_bb_lightbox'],
 			'ng_vb_facetwp'         => (bool) $options['ng_vb_facetwp'],
 			'ng_vb_searchfp'        => (bool) $options['ng_vb_searchfp'],
@@ -182,6 +186,7 @@ class VenoBox_Lightbox {
 		wp_enqueue_style( 'venobox-css', plugin_dir_url( dirname( __FILE__ ) ) . 'css/venobox.min.css', array(), $this->vb_version, 'all' );
 		wp_enqueue_script( 'venobox-js', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox.min.js', array( 'jquery' ), $this->vb_version, true );
 		wp_enqueue_script( 'venobox-init-admin', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox-init-admin.js', array( 'venobox-js' ), VENOBOX_LIGHTBOX_VERSION, true );
+		
 	}
 
 	/**
@@ -323,6 +328,13 @@ class VenoBox_Lightbox {
 			'ng_vb_share',
 			__( 'Share Buttons', 'venobox-lightbox' ),
 			array( $this, 'ng_vb_share_callback' ),
+			'venobox',
+			'ng_venobox_section'
+		);
+		add_settings_field(
+			'ng_vb_woocommerce',
+			__( 'Support WooCommerce', 'venobox-lightbox' ),
+			array( $this, 'ng_vb_woocommerce_callback' ),
 			'venobox',
 			'ng_venobox_section'
 		);
@@ -688,6 +700,38 @@ class VenoBox_Lightbox {
 			</label>
 		</fieldset>
 		<?php
+	}
+
+	/**
+	 * Support for WooCommerce
+	 */
+	public function ng_vb_woocommerce_callback() {
+		$options = get_option( 'venobox_settings' );
+		$ng_vb_woocommerce = isset( $options['ng_vb_woocommerce'] ) ? $options['ng_vb_woocommerce'] : '';
+		?>
+		<fieldset>
+			<label for="ng_vb_woocommerce">
+				<input name="venobox_settings[ng_vb_woocommerce]" type="checkbox" id="ng_vb_woocommerce" value="1" <?php checked( 1, $ng_vb_woocommerce, true ); ?> />
+				<span><?php esc_attr_e( 'Support for WooCommerce', 'venobox-lightbox' ); ?></span>
+			</label>
+		</fieldset>
+		<?php
+	}
+
+	/**
+	 * Include WooCommerce Settings
+	 * Remove Supports for zoom/slider/gallery
+	 * @since 2.0.7
+	 */
+	public function vb_woocommerce_settings() {
+		$options = get_option( 'venobox_settings' );
+		$ng_vb_woocommerce = isset( $options['ng_vb_woocommerce'] ) ? $options['ng_vb_woocommerce'] : '';
+
+		if ( class_exists( 'WooCommerce' ) && $ng_vb_woocommerce == '1') {
+			remove_theme_support( 'wc-product-gallery-zoom' );
+			remove_theme_support( 'wc-product-gallery-lightbox' );
+			remove_theme_support( 'wc-product-gallery-slider' );
+		}
 	}
 
 	/**

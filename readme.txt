@@ -2,9 +2,9 @@
 
 Author: Neil Gowran
 Contributors: neilgee, nicolafranchini
-Version: 2.0.6
-Stable tag: 2.0.6
-Tested up to: 5.6
+Version: 2.0.7
+Stable tag: 2.0.7
+Tested up to: 5.7
 Requires at least: 4.0
 Plugin Name: VenoBox Lightbox
 Plugin URI: https://wordpress.org/plugins/venobox-lightbox/
@@ -61,36 +61,39 @@ Demo containing images and videos: http://themes.wpbeaches.com/venobox/
 
 == Changelog ==
 
-2.0.6 - 15/02/2021
 
-- Fix Post Meta box and not load scripts if set to 'Disable Venobox'.
+2.0.7 - 12/03/2021
+- Option added for WooCommerce support
+
+
+2.0.6 - 15/02/2021
+- Fix Post Meta box and not load scripts if set to 'Disable Venobox'
+
 
 2.0.5 - 30/12/2020
-
 - Update VenoBox.js to version 1.9.2: Remove focus from link to avoid multiple calls with enter key
 
-2.0.4 - 20/11/2020
 
+2.0.4 - 20/11/2020
 - Update wp-color-picker-alpha to version 3
 
-2.0.3 - 23/05/2020
 
+2.0.3 - 23/05/2020
 - Upgrade VenoBox JS 1.9.0 reset content scrollTop on change
 - Update default settings
 
-2.0.2 - 07/05/2020
 
+2.0.2 - 07/05/2020
 - Fix debug path URLs
 
-2.0.1 - 21/03/2020
 
+2.0.1 - 21/03/2020
 - New: Spanish language
 - Update: re-enable .webp extension
 - Fix: load_plugin_textdomain with the right path
 
 
 2.0.0 - 18/03/2020
-
 - Upgraded to core VenoBox 1.8.9
 - Code refactoring, all functions wrapped in a php class
 - New option social share buttons
