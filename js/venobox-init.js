@@ -107,8 +107,8 @@
 			});
 		}
 
-		// convert valies from 0/1 to false/true
-		var ng_numeratio = false, ng_infinigall = false, ng_autoplay = false;
+		// Convert values from 0/1 to false/true
+		var ng_numeratio = false, ng_infinigall = false, ng_autoplay = false, ng_arrows = false;
 		if (venoboxVars.ng_numeratio ) {
 			ng_numeratio = true;
 		}
@@ -118,10 +118,13 @@
 		if (venoboxVars.ng_autoplay ) {
 			ng_autoplay = true;
 		}
+		if (venoboxVars.ng_arrows ) {
+			ng_arrows = true;
+		}
 		// Default settings
 		function defaultVeno() {
 			$('.venobox').venobox({
-				arrows: venoboxVars.ng_arrows, // default: false
+				noArrows: ng_arrows, // default: false
 				border: venoboxVars.ng_border_width,
 				bgcolor: venoboxVars.ng_border_color,
 				numeratio: ng_numeratio, // default: false

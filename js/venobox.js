@@ -14,7 +14,7 @@
 
 (function($){
     "use strict";
-    var arrows, autoplay, bgcolor, blockleft, blocknum, blockshare, blocktitle, border, core, container, content, dest, extraCss,
+    var noArrows, autoplay, bgcolor, blockleft, blocknum, blockshare, blocktitle, border, core, container, content, dest, extraCss,
         framewidth, frameheight, gallItems, infinigall, items, keyNavigationDisabled, margine, numeratio,
         overlayColor, overlay, title, thisgall, thenext, theprev, nextok, prevok, preloader, $preloader, navigation,
         obj, gallIndex, startouch, vbheader, images, startY, startX, endY, endX, diff, diffX, diffY, threshold,
@@ -33,7 +33,7 @@
             // default options
             var defaults = {
                 arrowsColor : '#B6B6B6',
-                arrows: false,
+                noArrows: true,
                 autoplay : false, // same as data-autoplay - thanks @codibit
                 bgcolor: '#fff',
                 border: '0',
@@ -95,7 +95,7 @@
                 obj.data('numeratio', option.numeratio);
                 obj.data('gallItems', option.gallItems);
                 obj.data('infinigall', option.infinigall);
-                obj.data('arrows', option.arrows);
+                obj.data('noArrows', option.noArrows);
                 obj.data('overlaycolor', option.overlayColor);
                 obj.data('titleattr', option.titleattr);
                 obj.data('share', option.share);
@@ -348,7 +348,7 @@
                     gallItems = obj.data('gallItems');
                     infinigall = obj.data('infinigall');
                     share = obj.data('share');
-                    arrows = obj.data('arrows');
+                    noArrows = obj.data('noArrows');
                     blockshare.html('');
                     if ( obj.data('vbtype') !== 'iframe' && obj.data('vbtype') !== 'inline' && obj.data('vbtype') !== 'ajax' ) {
                         sharelinks = { 
@@ -418,12 +418,10 @@
                       prevok = false;
                     }
 
-                     if (arrows ==1) {
+                     if (noArrows == true) {
                       $('.vbox-prev, .vbox-next ').css('display', 'none');
                       prevok = false; 
                     }
-                    // console.log(venoboxVars.ng_arrows);
-                    // console.log(arrows);
                     
                     // activate swipe
                     if (prevok === true || nextok === true) {

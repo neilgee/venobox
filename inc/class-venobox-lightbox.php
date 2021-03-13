@@ -100,7 +100,6 @@ class VenoBox_Lightbox {
 			'ng_all_videos'         => '',
 			'ng_border_width'       => '',
 			'ng_border_color'       => 'rgba(255,255,255,1)',
-			'ng_autoplay'           => false,
 			'ng_preloader'          => 'double-bounce',
 			'ng_nav_elements'       => '#fff',
 			'ng_nav_elements_bg'    => 'rgba(0,0,0,0.85)',
@@ -111,7 +110,7 @@ class VenoBox_Lightbox {
 			'ng_vb_woocommerce'     => false,
 			'ng_vb_facetwp'         => false,
 			'ng_vb_searchfp'        => false,
-			'ng_arrows'        		=> false,
+			'ng_arrows'        		=> '',
 			'ng_vb_share'           => array(),
 		);
 		$options = wp_parse_args( $options, $options_default );
