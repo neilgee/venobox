@@ -14,8 +14,8 @@
 
 (function($){
     "use strict";
-    var noArrows, autoplay, bgcolor, blockleft, blocknum, blockshare, blocktitle, border, core, container, content, dest, extraCss,
-        framewidth, frameheight, gallItems, infinigall, items, keyNavigationDisabled, margine, numeratio,
+    var autoplay, bgcolor, blockleft, blocknum, blockshare, blocktitle, border, core, container, content, dest, extraCss,
+        framewidth, frameheight, gallItems, infinigall, items, keyNavigationDisabled, margine, noArrows, numeratio,
         overlayColor, overlay, title, thisgall, thenext, theprev, nextok, prevok, preloader, $preloader, navigation,
         obj, gallIndex, startouch, vbheader, images, startY, startX, endY, endX, diff, diffX, diffY, threshold,
         share, sharelinks, vbfooter, sharepos;
