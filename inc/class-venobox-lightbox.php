@@ -271,7 +271,7 @@ class VenoBox_Lightbox {
 		);
 		add_settings_field(
 			'ng_arrows',
-			__( 'Disable Previous & Next Arrow Navigation', 'venobox-lightbox' ),
+			__( 'Disable Arrow Navigation', 'venobox-lightbox' ),
 			array( $this, 'ng_arrows_callback' ),
 			'venobox',
 			'ng_venobox_section'
@@ -506,7 +506,7 @@ class VenoBox_Lightbox {
 		<fieldset>
 			<label for="ng_arrows">
 				<input name="venobox_settings[ng_arrows]" type="checkbox" id="ng_arrows" value="1" <?php checked( 1, $ng_arrows, true ); ?> />
-				<span><?php esc_attr_e( 'Disable Previous & Next Arrow Navigation', 'venobox-lightbox' ); ?></span>
+				<span><?php esc_attr_e( 'Disable Previous & Next Arrows', 'venobox-lightbox' ); ?></span>
 			</label>
 		</fieldset>
 		<?php
