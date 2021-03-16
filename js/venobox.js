@@ -421,6 +421,7 @@
                      if (noArrows == true) {
                       $('.vbox-prev, .vbox-next ').css('display', 'none');
                       prevok = false; 
+                      nextok = false;
                     }
                     
                     // activate swipe
