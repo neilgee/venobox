@@ -2,8 +2,8 @@
 
 Author: Neil Gowran
 Contributors: neilgee, nicolafranchini
-Version: 2.0.7
-Stable tag: 2.0.7
+Version: 2.0.8
+Stable tag: 2.0.8
 Tested up to: 5.7
 Requires at least: 4.0
 Plugin Name: VenoBox Lightbox
@@ -60,6 +60,10 @@ Demo containing images and videos: http://themes.wpbeaches.com/venobox/
 4. Choose between alt, title and caption as the Title for the lightbox Title.
 
 == Changelog ==
+
+2.0.8 - 17/03/2021
+- Update to Venobox 1.9.3
+- Option to disable previous & next arrow navigation
 
 
 2.0.7 - 12/03/2021

@@ -21,7 +21,7 @@ class VenoBox_Lightbox {
 	 *
 	 * @var version
 	 */
-	public $vb_version = '1.9.0';
+	public $vb_version = '1.9.3';
 	/**
 	 * Holds an instance of the object
 	 *
@@ -100,7 +100,6 @@ class VenoBox_Lightbox {
 			'ng_all_videos'         => '',
 			'ng_border_width'       => '',
 			'ng_border_color'       => 'rgba(255,255,255,1)',
-			'ng_autoplay'           => false,
 			'ng_preloader'          => 'double-bounce',
 			'ng_nav_elements'       => '#fff',
 			'ng_nav_elements_bg'    => 'rgba(0,0,0,0.85)',
@@ -111,6 +110,7 @@ class VenoBox_Lightbox {
 			'ng_vb_woocommerce'     => false,
 			'ng_vb_facetwp'         => false,
 			'ng_vb_searchfp'        => false,
+			'ng_arrows'        		=> '',
 			'ng_vb_share'           => array(),
 		);
 		$options = wp_parse_args( $options, $options_default );
@@ -155,6 +155,7 @@ class VenoBox_Lightbox {
 			'ng_bb_lightbox'        => (bool) $options['ng_bb_lightbox'],
 			'ng_vb_facetwp'         => (bool) $options['ng_vb_facetwp'],
 			'ng_vb_searchfp'        => (bool) $options['ng_vb_searchfp'],
+			'ng_arrows'        		=> (bool) $options['ng_arrows'],
 			'ng_vb_share'           => $options['ng_vb_share'],
 
 		);
@@ -265,6 +266,13 @@ class VenoBox_Lightbox {
 			'ng_infinigall',
 			__( 'Infinite Gallery', 'venobox-lightbox' ),
 			array( $this, 'ng_infinigall_callback' ),
+			'venobox',
+			'ng_venobox_section'
+		);
+		add_settings_field(
+			'ng_arrows',
+			__( 'Disable Arrow Navigation', 'venobox-lightbox' ),
+			array( $this, 'ng_arrows_callback' ),
 			'venobox',
 			'ng_venobox_section'
 		);
@@ -483,6 +491,22 @@ class VenoBox_Lightbox {
 			<label for="ng_numeratio">
 				<input name="venobox_settings[ng_numeratio]" type="checkbox" id="ng_numeratio" value="1" <?php checked( 1, $ng_numeratio, true ); ?> />
 				<span><?php esc_attr_e( 'Show Pagination for Multiple Items', 'venobox-lightbox' ); ?></span>
+			</label>
+		</fieldset>
+		<?php
+	}
+
+	/**
+	 *  Disable Arrow Previous & Next
+	 */
+	public function ng_arrows_callback() {
+		$options = get_option( 'venobox_settings' );
+		$ng_arrows = isset( $options['ng_arrows'] ) ? $options['ng_arrows'] : '';
+		?>
+		<fieldset>
+			<label for="ng_arrows">
+				<input name="venobox_settings[ng_arrows]" type="checkbox" id="ng_arrows" value="1" <?php checked( 1, $ng_arrows, true ); ?> />
+				<span><?php esc_attr_e( 'Disable Previous & Next Arrows', 'venobox-lightbox' ); ?></span>
 			</label>
 		</fieldset>
 		<?php
