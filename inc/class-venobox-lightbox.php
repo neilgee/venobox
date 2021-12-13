@@ -21,7 +21,7 @@ class VenoBox_Lightbox {
 	 *
 	 * @var version
 	 */
-	public $vb_version = '1.9.3';
+	public $vb_version = '2.0.2';
 	/**
 	 * Holds an instance of the object
 	 *
@@ -60,7 +60,6 @@ class VenoBox_Lightbox {
 		add_action( 'admin_init', array( $this, 'plugin_settings' ) );
 		add_action( 'after_setup_theme', array( $this, 'vb_woocommerce_settings' ), 99 );
 
-
 		// WP 3.0+.
 		add_action( 'add_meta_boxes', array( $this, 'post_options_metabox' ) );
 		add_action( 'save_post', array( $this, 'vbmeta_save' ) );
@@ -92,15 +91,19 @@ class VenoBox_Lightbox {
 		$options = get_option( 'venobox_settings' );
 		$options_default = array(
 			'ng_numeratio'          => '',
-			'ng_numeratio_position' => 'top',
 			'ng_infinigall'         => '',
+			'ng_share_style'         => 'pill',
+			'ng_title_style'         => 'bar',
+			'ng_nav_keyboard' => '',
+			'ng_nav_touch' => '',
+			'ng_nav_speed' => 300,
 			'ng_all_images'         => '',
 			'ng_title_select'       => 1,
 			'ng_title_position'     => 'top',
 			'ng_all_videos'         => '',
 			'ng_border_width'       => '',
 			'ng_border_color'       => 'rgba(255,255,255,1)',
-			'ng_preloader'          => 'double-bounce',
+			'ng_preloader'          => 'bounce',
 			'ng_nav_elements'       => '#fff',
 			'ng_nav_elements_bg'    => 'rgba(0,0,0,0.85)',
 			'ng_autoplay'           => false,
@@ -110,17 +113,17 @@ class VenoBox_Lightbox {
 			'ng_vb_woocommerce'     => false,
 			'ng_vb_facetwp'         => false,
 			'ng_vb_searchfp'        => false,
-			'ng_arrows'        		=> '',
-			'ng_vb_share'           => array(),
+			'ng_arrows'             => '',
+			'ng_vb_share'           => false,
 		);
 		$options = wp_parse_args( $options, $options_default );
 
 		$debug = ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) ? '' : '.min';
-		
-		if( $disable_venobox=='' ){
-		wp_enqueue_style( 'venobox-css', plugin_dir_url( dirname( __FILE__ ) ) . 'css/venobox' . $debug . '.css', array(), $this->vb_version, 'all' );
-		wp_enqueue_script( 'venobox-js', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox' . $debug . '.js', array( 'jquery' ), $this->vb_version, true );
-		wp_register_script( 'venobox-init', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox-init.js', array( 'venobox-js' ), VENOBOX_LIGHTBOX_VERSION, true );
+
+		if ( '' === $disable_venobox ) {
+			wp_enqueue_style( 'venobox', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox/dist/venobox' . $debug . '.css', array(), $this->vb_version, 'all' );
+			wp_enqueue_script( 'venobox', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox/dist/venobox' . $debug . '.js', array(), $this->vb_version, true );
+			wp_register_script( 'venobox-init', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox-init.js', array( 'venobox' ), VENOBOX_LIGHTBOX_VERSION, true );
 		}
 
 		// Disable jQuery MagnificPopUp used on BeaverBuilder.
@@ -129,35 +132,37 @@ class VenoBox_Lightbox {
 			add_filter( 'fl_builder_override_lightbox', '__return_true' );
 		}
 
-		 // Creating our jQuery variables here from our database options, these will be passed to jQuery init script via wp_localize_script.
-
 		// adjust number to px value.
 		$ng_border_width = isset( $options['ng_border_width'] ) ? $options['ng_border_width'] . 'px' : '';
 
 		$data = array(
 			'disabled' => $disable_venobox,
-			'ng_numeratio'          => (bool) $options['ng_numeratio'],
-			'ng_numeratio_position' => $options['ng_numeratio_position'],
+			'ng_autoplay'           => (bool) $options['ng_autoplay'],
+			'ng_border_color'       => $options['ng_border_color'],
+			'ng_border_width'       => $ng_border_width,
 			'ng_infinigall'         => (bool) $options['ng_infinigall'],
-			'ng_all_images'         => (bool) $options['ng_all_images'],
+			'ng_max_width'       => $options['ng_max_width'],
+			'ng_arrows'             => (bool) $options['ng_arrows'], // navigation.
+			'ng_nav_keyboard'      => (bool) $options['ng_nav_keyboard'],
+			'ng_nav_touch'      => (bool) $options['ng_nav_touch'],
+			'ng_nav_speed'      => $options['ng_nav_speed'],
+			'ng_numeratio'          => (bool) $options['ng_numeratio'],
+			'ng_overlay'            => $options['ng_overlay'],
+			'ng_vb_share'           => (bool) $options['ng_vb_share'],
+			'ng_share_style'           => $options['ng_share_style'],
+			'ng_preloader'          => $options['ng_preloader'],
 			'ng_title_select'       => (int) $options['ng_title_select'],
 			'ng_title_position'     => $options['ng_title_position'],
+			'ng_title_style'        => $options['ng_title_position'],
+			'ng_all_images'         => (bool) $options['ng_all_images'],
 			'ng_all_videos'         => (bool) $options['ng_all_videos'],
-			'ng_border_width'       => $ng_border_width,
-			'ng_border_color'       => $options['ng_border_color'],
-			'ng_autoplay'           => (bool) $options['ng_autoplay'],
-			'ng_overlay'            => $options['ng_overlay'],
 			'ng_nav_elements'       => $options['ng_nav_elements'],
 			'ng_nav_elements_bg'    => $options['ng_nav_elements_bg'],
-			'ng_preloader'          => $options['ng_preloader'],
 			'ng_vb_legacy_markup'   => (bool) $options['ng_vb_legacy_markup'],
 			'ng_vb_woocommerce'     => (bool) $options['ng_vb_woocommerce'],
 			'ng_bb_lightbox'        => (bool) $options['ng_bb_lightbox'],
 			'ng_vb_facetwp'         => (bool) $options['ng_vb_facetwp'],
 			'ng_vb_searchfp'        => (bool) $options['ng_vb_searchfp'],
-			'ng_arrows'        		=> (bool) $options['ng_arrows'],
-			'ng_vb_share'           => $options['ng_vb_share'],
-
 		);
 
 		// Access variables from venobox-init using venoboxVars.
@@ -184,10 +189,9 @@ class VenoBox_Lightbox {
 		}
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_script( 'wp-color-picker-venobox', plugin_dir_url( dirname( __FILE__ ) ) . 'js/wp-color-picker-alpha.min.js', array( 'wp-color-picker' ), '3.0.0', true );
-		wp_enqueue_style( 'venobox-css', plugin_dir_url( dirname( __FILE__ ) ) . 'css/venobox.min.css', array(), $this->vb_version, 'all' );
-		wp_enqueue_script( 'venobox-js', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox.min.js', array( 'jquery' ), $this->vb_version, true );
+		wp_enqueue_style( 'venobox-css', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox/dist/venobox.min.css', array(), $this->vb_version, 'all' );
+		wp_enqueue_script( 'venobox-js', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox/dist/venobox.min.js', array(), $this->vb_version, true );
 		wp_enqueue_script( 'venobox-init-admin', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox-init-admin.js', array( 'venobox-js' ), VENOBOX_LIGHTBOX_VERSION, true );
-		
 	}
 
 	/**
@@ -235,6 +239,20 @@ class VenoBox_Lightbox {
 			'ng_venobox_section' // settings section declared in add_settings_section.
 		);
 		add_settings_field(
+			'ng_all_videos',
+			__( 'Enable VenoBox for videos', 'venobox-lightbox' ),
+			array( $this, 'ng_all_videos_callback' ),
+			'venobox',
+			'ng_venobox_section'
+		);
+		add_settings_field(
+			'ng_autoplay',
+			__( 'Autoplay', 'venobox-lightbox' ),
+			array( $this, 'ng_autoplay_callback' ),
+			'venobox',
+			'ng_venobox_section'
+		);
+		add_settings_field(
 			'ng_title_select',
 			__( 'Item Title', 'venobox-lightbox' ),
 			array( $this, 'ng_title_select_callback' ),
@@ -256,13 +274,6 @@ class VenoBox_Lightbox {
 			'ng_venobox_section'
 		);
 		add_settings_field(
-			'ng_numeratio_position',
-			__( 'Numeration Position', 'venobox-lightbox' ),
-			array( $this, 'ng_numeratio_position_callback' ),
-			'venobox',
-			'ng_venobox_section'
-		);
-		add_settings_field(
 			'ng_infinigall',
 			__( 'Infinite Gallery', 'venobox-lightbox' ),
 			array( $this, 'ng_infinigall_callback' ),
@@ -273,6 +284,27 @@ class VenoBox_Lightbox {
 			'ng_arrows',
 			__( 'Disable Arrow Navigation', 'venobox-lightbox' ),
 			array( $this, 'ng_arrows_callback' ),
+			'venobox',
+			'ng_venobox_section'
+		);
+		add_settings_field(
+			'ng_nav_keyboard',
+			__( 'Disable keyboard navigation', 'venobox-lightbox' ),
+			array( $this, 'ng_nav_keyboard_callback' ),
+			'venobox',
+			'ng_venobox_section'
+		);
+		add_settings_field(
+			'ng_nav_touch',
+			__( 'Disable touch swipe navigation', 'venobox-lightbox' ),
+			array( $this, 'ng_nav_touch_callback' ),
+			'venobox',
+			'ng_venobox_section'
+		);
+		add_settings_field(
+			'ng_nav_speed',
+			__( 'Navigation speed (ms)', 'venobox-lightbox' ),
+			array( $this, 'ng_nav_speed_callback' ),
 			'venobox',
 			'ng_venobox_section'
 		);
@@ -298,6 +330,13 @@ class VenoBox_Lightbox {
 			'ng_venobox_section'
 		);
 		add_settings_field(
+			'ng_max_width',
+			__( 'Max item width', 'venobox-lightbox' ),
+			array( $this, 'ng_max_width_callback' ),
+			'venobox',
+			'ng_venobox_section'
+		);
+		add_settings_field(
 			'ng_border_width',
 			__( 'Frame Border Thickness', 'venobox-lightbox' ),
 			array( $this, 'ng_border_width_callback' ),
@@ -312,20 +351,6 @@ class VenoBox_Lightbox {
 			'ng_venobox_section'
 		);
 		add_settings_field(
-			'ng_all_videos',
-			__( 'Enable VenoBox for YouTube and Vimeo videos', 'venobox-lightbox' ),
-			array( $this, 'ng_all_videos_callback' ),
-			'venobox',
-			'ng_venobox_section'
-		);
-		add_settings_field(
-			'ng_autoplay',
-			__( 'Autoplay', 'venobox-lightbox' ),
-			array( $this, 'ng_autoplay_callback' ),
-			'venobox',
-			'ng_venobox_section'
-		);
-		add_settings_field(
 			'ng_preloader',
 			__( 'Preloader Type', 'venobox-lightbox' ),
 			array( $this, 'ng_preloader_callback' ),
@@ -336,6 +361,20 @@ class VenoBox_Lightbox {
 			'ng_vb_share',
 			__( 'Share Buttons', 'venobox-lightbox' ),
 			array( $this, 'ng_vb_share_callback' ),
+			'venobox',
+			'ng_venobox_section'
+		);
+		add_settings_field(
+			'ng_share_style',
+			__( 'Share style', 'venobox-lightbox' ),
+			array( $this, 'ng_share_style_callback' ),
+			'venobox',
+			'ng_venobox_section'
+		);
+		add_settings_field(
+			'ng_title_style',
+			__( 'Title style', 'venobox-lightbox' ),
+			array( $this, 'ng_title_style_callback' ),
 			'venobox',
 			'ng_venobox_section'
 		);
@@ -384,8 +423,6 @@ class VenoBox_Lightbox {
 
 	}
 
-
-
 	/**
 	 *  Add Lightbox for all images and galleries
 	 */
@@ -413,7 +450,7 @@ class VenoBox_Lightbox {
 		<fieldset>
 			<label for="ng_all_videos">
 				<input name="venobox_settings[ng_all_videos]" type="checkbox" id="ng_all_videos" value="1" <?php checked( 1, $ng_all_videos, true ); ?> />
-				<span><?php esc_attr_e( 'Add Lightbox for all the links to YouTube and Vimeo videos', 'venobox-lightbox' ); ?></span>
+				<span><?php esc_attr_e( 'Add Lightbox for all the links to YouTube, Vimeo, and .mp4, .webm, .ogg videos', 'venobox-lightbox' ); ?></span>
 			</label>
 		</fieldset>
 		<?php
@@ -443,7 +480,7 @@ class VenoBox_Lightbox {
 	 */
 	public function ng_title_select_callback() {
 		$options = get_option( 'venobox_settings' );
-		$ng_title_select = isset( $options['ng_title_select'] ) ? $options['ng_title_select'] : '';
+		$ng_title_select = isset( $options['ng_title_select'] ) ? $options['ng_title_select'] : '4';
 		?>
 		<fieldset>
 			<label title='g:i a'>
@@ -481,6 +518,38 @@ class VenoBox_Lightbox {
 	}
 
 	/**
+	 *  Share style
+	 */
+	public function ng_share_style_callback() {
+		$options = get_option( 'venobox_settings' );
+		$ng_share_style = isset( $options['ng_share_style'] ) ? $options['ng_share_style'] : 'pill'; // 'bar' | 'block' | 'pill' | 'transparent'
+		?>
+		<select name="venobox_settings[ng_share_style]" id="ng_share_style">
+			<option value="bar" <?php selected( $ng_share_style, 'bar' ); ?>>bar</option>
+			<option value="block" <?php selected( $ng_share_style, 'block' ); ?>>block</option>
+			<option value="pill" <?php selected( $ng_share_style, 'pill' ); ?>>pill</option>
+			<option value="transparent" <?php selected( $ng_share_style, 'transparent' ); ?>>transparent</option>
+		</select>
+		<?php
+	}
+
+	/**
+	 *  Title style
+	 */
+	public function ng_title_style_callback() {
+		$options = get_option( 'venobox_settings' );
+		$ng_title_style = isset( $options['ng_title_style'] ) ? $options['ng_title_style'] : 'bar'; // 'bar' | 'block' | 'pill' | 'transparent'
+		?>
+		<select name="venobox_settings[ng_title_style]" id="ng_title_style">
+			<option value="bar" <?php selected( $ng_title_style, 'bar' ); ?>>bar</option>
+			<option value="block" <?php selected( $ng_title_style, 'block' ); ?>>block</option>
+			<option value="pill" <?php selected( $ng_title_style, 'pill' ); ?>>pill</option>
+			<option value="transparent" <?php selected( $ng_title_style, 'transparent' ); ?>>transparent</option>
+		</select>
+		<?php
+	}
+
+	/**
 	 *  Add Pagination to Lightbox Head for multiple items on page
 	 */
 	public function ng_numeratio_callback() {
@@ -512,18 +581,46 @@ class VenoBox_Lightbox {
 		<?php
 	}
 
+	/**
+	 *  Disable keyboard navigation
+	 */
+	public function ng_nav_keyboard_callback() {
+		$options = get_option( 'venobox_settings' );
+		$ng_nav_keyboard = isset( $options['ng_nav_keyboard'] ) ? $options['ng_nav_keyboard'] : '';
+		?>
+		<fieldset>
+			<label for="ng_nav_keyboard">
+				<input name="venobox_settings[ng_nav_keyboard]" type="checkbox" id="ng_nav_keyboard" value="1" <?php checked( 1, $ng_nav_keyboard, true ); ?> />
+				<span><?php esc_attr_e( 'Disable keyboard navigation', 'venobox-lightbox' ); ?></span>
+			</label>
+		</fieldset>
+		<?php
+	}
 
 	/**
-	 *  Position Pagination - top or bottom
+	 *  Disable touch swipe navigation
 	 */
-	public function ng_numeratio_position_callback() {
+	public function ng_nav_touch_callback() {
 		$options = get_option( 'venobox_settings' );
-		$ng_numeratio_position = isset( $options['ng_numeratio_position'] ) ? $options['ng_numeratio_position'] : 'top';
+		$ng_nav_touch = isset( $options['ng_nav_touch'] ) ? $options['ng_nav_touch'] : '';
 		?>
-		<select name="venobox_settings[ng_numeratio_position]" id="ng_numeratio_position">
-			<option value="top" <?php selected( $ng_numeratio_position, 'top' ); ?>>top</option>
-			<option value="bottom" <?php selected( $ng_numeratio_position, 'bottom' ); ?>>bottom</option>
-		</select>
+		<fieldset>
+			<label for="ng_nav_touch">
+				<input name="venobox_settings[ng_nav_touch]" type="checkbox" id="ng_nav_touch" value="1" <?php checked( 1, $ng_nav_touch, true ); ?> />
+				<span><?php esc_attr_e( 'Disable touch swipe navigation', 'venobox-lightbox' ); ?></span>
+			</label>
+		</fieldset>
+		<?php
+	}
+
+	/**
+	 *  Navigation speed
+	 */
+	public function ng_nav_speed_callback() {
+		$options = get_option( 'venobox_settings' );
+		$ng_nav_speed = isset( $options['ng_nav_speed'] ) ? $options['ng_nav_speed'] : 300;
+		?>
+		<input type="number" class="regular-text" name="venobox_settings[ng_nav_speed]" value="<?php echo esc_attr( $ng_nav_speed ); ?>"/>
 		<?php
 	}
 
@@ -601,30 +698,37 @@ class VenoBox_Lightbox {
 	}
 
 	/**
+	 *  Add default max width for content
+	 */
+	public function ng_max_width_callback() {
+		$options = get_option( 'venobox_settings' );
+		$ng_max_width = isset( $options['ng_max_width'] ) ? $options['ng_max_width'] : '100%';
+		?>
+		<input type="text" class="regular-text" name="venobox_settings[ng_max_width]" value="<?php echo esc_attr( $ng_max_width ); ?>"/>
+		<?php
+	}
+
+	/**
 	 *  Add Preloader Icon
 	 */
 	public function ng_preloader_callback() {
+
 		$options = get_option( 'venobox_settings' );
-		$ng_preloader = isset( $options['ng_preloader'] ) ? $options['ng_preloader'] : '';
+		$ng_preloader = isset( $options['ng_preloader'] ) ? $options['ng_preloader'] : 'bounce';
 		?>
 		<select name="venobox_settings[ng_preloader]" id="ng_preloader">
-			<option value="none"<?php selected( $ng_preloader, 'none' ); ?> >none</option>
-			<option value="double-bounce"<?php selected( $ng_preloader, 'double-bounce' ); ?>>double-bounce</option>
-			<option value="rotating-plane"<?php selected( $ng_preloader, 'rotating-plane' ); ?>>rotating-plane</option>
-			<option value="wave"<?php selected( $ng_preloader, 'wave' ); ?> >wave</option>
-			<option value="wandering-cubes"<?php selected( $ng_preloader, 'wandering-cubes' ); ?>>wandering-cubes</option>
-			<option value="spinner-pulse"<?php selected( $ng_preloader, 'spinner-pulse' ); ?>>spinner-pulse</option>
-			<option value="three-bounce"<?php selected( $ng_preloader, 'three-bounce' ); ?>>three-bounce</option>
-			<option value="cube-grid"<?php selected( $ng_preloader, 'cube-grid' ); ?>>cube-grid</option>
-			<option value="chasing-dots"<?php selected( $ng_preloader, 'chasing-dots' ); ?>>chasing-dots</option>
-			<?php
-			/**
-			 * // Disable these because we cant assign custom color via js to :after pseudo elements
+			<option value="bounce"<?php selected( $ng_preloader, 'bounce' ); ?>>bounce</option>
+			<option value="chase"<?php selected( $ng_preloader, 'chase' ); ?>>chase</option>
 			<option value="circle"<?php selected( $ng_preloader, 'circle' ); ?>>circle</option>
-			<option value="fading-circle"<?php selected( $ng_preloader, 'fading-circle' ); ?>>fading-circle</option>
-			<option value="folding-cube"<?php selected( $ng_preloader, 'folding-cube' ); ?>>folding-cube</option>
-			 */
-			?>
+			<option value="circle-fade"<?php selected( $ng_preloader, 'circle-fade' ); ?>>circle-fade</option>
+			<option value="flow"<?php selected( $ng_preloader, 'flow' ); ?>>flow</option>
+			<option value="fold"<?php selected( $ng_preloader, 'fold' ); ?>>fold</option>
+			<option value="grid"<?php selected( $ng_preloader, 'grid' ); ?>>grid</option>
+			<option value="plane"<?php selected( $ng_preloader, 'plane' ); ?>>plane</option>
+			<option value="pulse"<?php selected( $ng_preloader, 'pulse' ); ?>>pulse</option>
+			<option value="swing"<?php selected( $ng_preloader, 'swing' ); ?>>swing</option>
+			<option value="wander"<?php selected( $ng_preloader, 'wander' ); ?>>wander</option>
+			<option value="wave"<?php selected( $ng_preloader, 'wave' ); ?> >wave</option>
 		</select>
 		<?php
 	}
@@ -634,31 +738,18 @@ class VenoBox_Lightbox {
 	 */
 	public function ng_vb_share_callback() {
 		$options = get_option( 'venobox_settings' );
-		$ng_vb_share = isset( $options['ng_vb_share'] ) ? (array) $options['ng_vb_share'] : [];
+		$ng_vb_share = isset( $options['ng_vb_share'] ) ? $options['ng_vb_share'] : '';
 		?>
+
+
 		<fieldset>
-			<label for="ng_vb_share_facebook">
-				<input type='checkbox' name='venobox_settings[ng_vb_share][]' id="ng_vb_share_facebook" <?php checked( in_array( 'facebook', $ng_vb_share ), 1 ); ?> value='facebook'>
-				<span><?php esc_attr_e( 'Facebook', 'venobox_settings' ); ?></span>
-			</label><br>
-			<label for="ng_vb_share_twitter">
-				<input type='checkbox' name='venobox_settings[ng_vb_share][]' id="ng_vb_share_twitter" <?php checked( in_array( 'twitter', $ng_vb_share ), 1 ); ?> value='twitter'>
-				<span><?php esc_attr_e( 'Twitter', 'venobox_settings' ); ?></span>
-			</label><br>
-			<label for="ng_vb_share_pinterest">
-				<input type='checkbox' name='venobox_settings[ng_vb_share][]' id="ng_vb_share_pinterest" <?php checked( in_array( 'pinterest', $ng_vb_share ), 1 ); ?> value='pinterest'>
-				<span><?php esc_attr_e( 'Pinterest', 'venobox_settings' ); ?></span>
-			</label><br>
-			<label for="ng_vb_share_linkedin">
-				<input type='checkbox' name='venobox_settings[ng_vb_share][]' id="ng_vb_share_linkedin" <?php checked( in_array( 'linkedin', $ng_vb_share ), 1 ); ?> value='linkedin'>
-				<span><?php esc_attr_e( 'LinkedIn', 'venobox_settings' ); ?></span>
-			</label><br>
-			<label for="ng_vb_share_download">
-				<input type='checkbox' name='venobox_settings[ng_vb_share][]' id="ng_vb_share_download" <?php checked( in_array( 'download', $ng_vb_share ), 1 ); ?> value='download'>
-				<span><?php esc_attr_e( 'Download', 'venobox_settings' ); ?></span>
+			<label for="ng_vb_share">
+				<input type='checkbox' name='venobox_settings[ng_vb_share]' id="ng_vb_share" <?php checked( 1, $ng_vb_share, true ); ?> value='1'>
+				<span><?php esc_attr_e( 'Share buttons', 'venobox_settings' ); ?></span>
 			</label>
 		</fieldset>
-		<p><?php esc_attr_e( 'Share buttons available for images and videos', 'venobox-lightbox' ); ?></p>
+
+		<p><?php esc_attr_e( 'Available for images and videos', 'venobox-lightbox' ); ?></p>
 		<?php
 	}
 
@@ -745,13 +836,14 @@ class VenoBox_Lightbox {
 	/**
 	 * Include WooCommerce Settings
 	 * Remove Supports for zoom/slider/gallery
+	 *
 	 * @since 2.0.7
 	 */
 	public function vb_woocommerce_settings() {
 		$options = get_option( 'venobox_settings' );
 		$ng_vb_woocommerce = isset( $options['ng_vb_woocommerce'] ) ? $options['ng_vb_woocommerce'] : '';
 
-		if ( class_exists( 'WooCommerce' ) && $ng_vb_woocommerce == '1') {
+		if ( class_exists( 'WooCommerce' ) && '1' == $ng_vb_woocommerce ) {
 			remove_theme_support( 'wc-product-gallery-zoom' );
 			remove_theme_support( 'wc-product-gallery-lightbox' );
 			remove_theme_support( 'wc-product-gallery-slider' );

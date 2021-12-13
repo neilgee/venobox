@@ -1,0 +1,32 @@
+{
+  "name": "venobox",
+  "version": "2.0.3",
+  "description": "Responsive javascript modal window plugin, touch swipe gallery",
+  "main": "dist/venobox.min.js",
+  "module": "src/venobox.esm.js",
+  "browser": "dist/venobox.min.js",
+  "style": "dist/venobox.min.css",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolafranchini/VenoBox.git"
+  },
+  "keywords": [
+    "lightbox",
+    "modal",
+    "responsive",
+    "plugin",
+    "popup",
+    "gallery",
+    "window",
+    "no-jquery",
+    "vanilla",
+    "touch",
+    "swipe"
+  ],
+  "author": "Nicola Franchini (https://veno.es/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicolafranchini/VenoBox/issues"
+  },
+  "homepage": "https://veno.es/venobox/"
+}

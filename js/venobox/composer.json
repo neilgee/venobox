@@ -1,0 +1,43 @@
+{
+    "name": "nicolafranchini/venobox",
+    "description": "Responsive JavaScript modal window plugin, touch swipe gallery",
+    "version": "2.0.3",
+    "keywords": [
+        "lightbox",
+        "modal",
+        "responsive",
+        "plugin",
+        "popup",
+        "gallery",
+        "window",
+        "no-jquery",
+        "vanilla",
+        "touch",
+        "swipe"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nicola Franchini",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/nicolafranchini/VenoBox/issues",
+        "source": "https://github.com/nicolafranchini/VenoBox/releases"
+    },
+    "extra": {
+        "component": {
+            "scripts": [
+                "dist/venobox.min.js"
+            ],
+            "styles": [
+                "dist/venobox.min.css"
+            ],
+            "files": [
+                "dist/venobox.min.js",
+                "dist/venobox.min.css"
+            ]
+        }
+    }
+}

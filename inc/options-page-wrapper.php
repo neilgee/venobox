@@ -92,10 +92,10 @@
 </pre>
 							<h4>Overlay colors</h4>
 							<p><strong>Examples:</strong><br>
-								<a class="venobox btn btn-default vbox-item" data-vbtype="inline" data-gall="colors" data-overlay="rgba(95,164,255,0.8)" href="#inline-1" style="background:rgba(95,164,255,0.8); color:#fff; padding:1em; display:inline-block; text-decoration:none;">Color 1</a>
-								<a class="venobox btn btn-default vbox-item" data-vbtype="inline" data-gall="colors" data-overlay="rgba(51,0,255,0.8)" href="#inline-2" style="background:rgba(51,0,255,0.8); color:#fff; padding:1em; display:inline-block; text-decoration:none;">Color 2</a>
-								<a class="venobox btn btn-default vbox-item" data-vbtype="inline" data-gall="colors" data-overlay="rgba(202,45,164, 0.8)" href="#inline-3" style="background:rgba(202,45,164, 0.8); color:#fff; padding:1em; display:inline-block; text-decoration:none;">Color 3</a>
-								<a class="venobox btn btn-default vbox-item" data-vbtype="inline" data-gall="colors" data-overlay="#ffe74c" href="#inline-4" style="background:#ffe74c; color:#fff; padding:1em; display:inline-block; text-decoration:none;">Color 4</a></p>
+								<a class="venobox btn btn-default" data-vbtype="inline" data-gall="colors" data-overlay="rgba(95,164,255,0.8)" href="#inline-1" style="background:rgba(95,164,255,0.8); color:#fff; padding:1em; display:inline-block; text-decoration:none;">Color 1</a>
+								<a class="venobox btn btn-default" data-vbtype="inline" data-gall="colors" data-overlay="rgba(51,0,255,0.8)" href="#inline-2" style="background:rgba(51,0,255,0.8); color:#fff; padding:1em; display:inline-block; text-decoration:none;">Color 2</a>
+								<a class="venobox btn btn-default" data-vbtype="inline" data-gall="colors" data-overlay="rgba(202,45,164, 0.8)" href="#inline-3" style="background:rgba(202,45,164, 0.8); color:#fff; padding:1em; display:inline-block; text-decoration:none;">Color 3</a>
+								<a class="venobox btn btn-default" data-vbtype="inline" data-gall="colors" data-overlay="#ffe74c" href="#inline-4" style="background:#ffe74c; color:#fff; padding:1em; display:inline-block; text-decoration:none;">Color 4</a></p>
 
 							<p>Just add a <code>data-overlay</code> attribute value to your links for colored backgrounds</p>
 <pre data-initialized="true" data-gclp-id="9" style="white-space:pre-wrap;">

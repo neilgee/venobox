@@ -1,149 +1,222 @@
-(function($){
-	if ( ! venoboxVars.disabled ) {
-		$(document).ready(function($){
+var VenoboxWP = (function(){
+    "use strict";
 
-			// legacy data attributes mark up change if checked.
-			if(venoboxVars.ng_vb_legacy_markup) {
-				$('a[data-type="youtube"]').removeAttr( "data-type", "youtube" ).attr("data-vbtype","video");
-				$('a[data-type="vimeo"]').removeAttr( "data-type", "vimeo" ).attr("data-vbtype","video");
-				$('a[data-type="iframe"]').removeAttr( "data-type", "iframe" ).attr("data-vbtype","iframe");
-				$('a[data-type="inline"]').removeAttr( "data-type", "inline" ).attr("data-vbtype","inline");
-				$('a[data-type="ajax"]').removeAttr( "data-type", "ajax" ).attr("data-vbtype","ajax");
-			}
+	// Convert values from 0/1 to false/true
+	var ng_numeratio = false, ng_infinigall = false, ng_autoplay = false, ng_arrows = true, ng_nav_keyboard = true, ng_nav_touch = true;
+	if (venoboxVars.ng_numeratio ) {
+		ng_numeratio = true;
+	}
+	if (venoboxVars.ng_infinigall ) {
+		ng_infinigall = true;
+	}
+	if (venoboxVars.ng_autoplay ) {
+		ng_autoplay = true;
+	}
+	if (venoboxVars.ng_arrows ) {
+		ng_arrows = false;
+	}
+	if (venoboxVars.ng_nav_keyboard ) {
+		ng_nav_keyboard = false;
+	}
+	if (venoboxVars.ng_nav_touch ) {
+		ng_nav_touch = false;
+	}
 
-			// Init main Venobox
-			if(venoboxVars.ng_all_images) {
-				imagesVeno();
-				galleryVeno();
+	// Detects the end of an ajax request being made for Search & Filter Pro
+	if(venoboxVars.ng_vb_searchfp) {
+		document.addEventListener('sf:ajaxfinish', enableVenoBox);
+		document.addEventListener('.searchandfilter', enableVenoBox);
+	}
+
+	// Detects the end of an ajax request being made for Facet WP
+	if(venoboxVars.ng_vb_facetwp) {
+		document.addEventListener('facetwp-loaded', enableVenoBox);
+	}
+
+	function checkURL(url) {
+	    return(url.match(/\.(jpeg|jpg|gif|png|webp)$/) != null);
+	}
+
+	// Images
+	function imagesVeno() {
+		var linklist = [];
+		var boxlinks = document.querySelectorAll('a[href]');
+
+		for (var i=0,l=boxlinks.length; i<l; i++) {
+		
+			if (boxlinks[i].getAttribute('href')) {
+				if ( checkURL(boxlinks[i].getAttribute('href')) ) {
+					linklist.push(boxlinks[i]);
+				}
 			}
-			if(venoboxVars.ng_all_videos) {
-				videoVeno();
+		}
+
+		Array.prototype.forEach.call(linklist, function(el, i){
+
+			if (el.href.indexOf('?') < 0) {
+				el.classList.add('venobox');
+
+				var imgSelector = el.querySelector("img");
+
+				if ( ! el.hasAttribute('data-gall') ) {
+					el.dataset.gall = 'gallery';
+				}
+
+				// Set Title from one of three options
+				switch (venoboxVars.ng_title_select) {
+					case 1:
+				    	el.setAttribute("title", imgSelector.getAttribute("alt"));
+				    	break;
+					case 2:
+						el.setAttribute("title", imgSelector.getAttribute("title"));
+				  		break;
+					case 3:
+						var gallItem = el.closest('.wp-caption, .gallery-item');
+						if (gallItem) {
+							var caption = gallItem.querySelector(".wp-caption-text").innerText;
+							if (caption) {
+								el.setAttribute("title", caption);
+							}
+						}
+				    break;
+						default:
+				    return;
+				}
 			}
-			defaultVeno();
+		});
+	}
+
+	// Galleries
+	function galleryVeno() {
+
+		// Set galleries to have unique data-gall sets
+		var galleries = document.querySelectorAll('div[id^="gallery"], .gallery-row');
+		
+		Array.prototype.forEach.call(galleries, function(gall, i){
+			var links = gall.querySelectorAll('a');
+			Array.prototype.forEach.call(links, function(link, i){
+				link.dataset.gall = 'venoset-'+i;
+			});
 		});
 
-		// Detects the end of an ajax request being made for Search & Filter Pro
-		if(venoboxVars.ng_vb_searchfp) {
-			$(document).on('sf:ajaxfinish', '.searchandfilter', function() {
-				if(venoboxVars.ng_all_images) {
-					imagesVeno();
-					galleryVeno();
-				}
-				if(venoboxVars.ng_all_videos) {
-					videoVeno();
-				}
-				defaultVeno();
-			});
-		}
-
-		// Detects the end of an ajax request being made for Facet WP
-		if(venoboxVars.ng_vb_facetwp) {
-			$(document).on('facetwp-loaded', function() {
-				if(venoboxVars.ng_all_images) {
-					imagesVeno();
-					galleryVeno();
-				}
-				if(venoboxVars.ng_all_videos) {
-					videoVeno();
-				}
-				defaultVeno();
-			});
-		}
-
-		// Images
-		function imagesVeno() {
-			var boxlinks = $('a[href]').filter(function(){
-				return /[.](png|gif|jpg|jpeg|webp)$/.test(this.href.toLowerCase());
-			});
-
-			$(boxlinks).each(function() {
-				if (this.href.indexOf('?') < 0) {
-					boxlinks.addClass('venobox');
-					// Dont replace the data-gall if already set
-					if( !$(this).attr('data-gall') ) {
-						$(this).attr('data-gall', 'gallery' );
-					}
-					// Set Title from one of three options
-					if(venoboxVars.ng_title_select == 1) {
-						$(this).attr("title", $(this).find("img").attr("alt"));
-					}
-					else if (venoboxVars.ng_title_select == 2){
-						$(this).attr("title", $(this).find("img").attr("title"));
-					}
-					else if (venoboxVars.ng_title_select == 3){
-						$(this).attr("title", $(this).closest('.wp-caption, .gallery-item').find(".wp-caption-text").text());
-					}
-					else {
-						return;
+		// Jetpacks caption as title
+		if (venoboxVars.ng_title_select == 3) {
+			var tiledgalleries = document.querySelectorAll('.tiled-gallery-item a');
+			Array.prototype.forEach.call(tiledgalleries, function(tiledgall, i){
+				var gallItem = tiledgall.closest('.tiled-gallery-item');
+				if (gallItem) {
+					var caption = gallItem.querySelector(".tiled-gallery-caption").innerText;
+					if (caption) {
+						tiledgall.setAttribute("title", caption);
 					}
 				}
 			});
 		}
+	}
 
-		// Galleries
-		function galleryVeno() {
-			// Set galleries to have unique data-gall sets
-			$('div[id^="gallery"], .gallery-row').each(function(index) {
-				$(this).find('a').attr('data-gall', 'venoset-'+index);
-			});
-			// Jetpacks caption as title
-			$('.tiled-gallery-item a').each( function() {
-				if (venoboxVars.ng_title_select == 3) {
-				$(this).attr("title", $(this).parent('.tiled-gallery-item').find(".tiled-gallery-caption").text());
+	function checkURLvid(url) {
+	    if (url.search(/.+\.mp4|og[gv]|webm/) !== -1 || url.match(/(http:|https:|)\/\/(player.|www.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com))\/(video\/|embed\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(\&\S+)?/)) {
+	    	return true;
+	    }
+	    return false;
+	}
+
+	// Videos
+	function videoVeno() {
+
+		var vidlist = [];
+		var vidlinks = document.querySelectorAll('a[href]');
+
+		for (var i=0,l=vidlinks.length; i<l; i++) {
+		
+			if (vidlinks[i].getAttribute('href')) {
+				if ( checkURLvid(vidlinks[i].getAttribute('href')) ) {
+					vidlist.push(vidlinks[i]);
 				}
+			}
+		}
+		Array.prototype.forEach.call(vidlist, function(el, i){
+			el.classList.add('venobox');
+			el.dataset.vbtype = 'video';
+			// Dont replace the data-gall if already set
+			if ( ! el.hasAttribute('data-gall')) {
+				el.dataset.gall = 'gallery';
+			}
+		});
+	}
 
-			});
+	// Default settings
+	function defaultVeno() {
+
+		new VenoBox({
+			maxWidth: venoboxVars.ng_max_width,
+
+			navigation: ng_arrows, // default: false
+			navKeyboard: ng_nav_keyboard,
+			navTouch: ng_nav_touch,
+			navSpeed: venoboxVars.ng_nav_speed,
+			titleStyle: venoboxVars.ng_title_style,
+			shareStyle: venoboxVars.ng_share_style,
+			toolsBackground: venoboxVars.ng_nav_elements_bg, // 'transparent'
+			toolsColor: venoboxVars.ng_nav_elements,
+			bgcolor: venoboxVars.ng_border_color,
+			border: venoboxVars.ng_border_width,
+			numeration: ng_numeratio, // default: false
+			infinigall: ng_infinigall, // default: false
+			autoplay: ng_autoplay, // default: false
+			overlayColor: venoboxVars.ng_overlay,
+			spinner: venoboxVars.ng_preloader,
+			titlePosition: venoboxVars.ng_title_position,
+			spinColor: venoboxVars.ng_nav_elements,
+			share: venoboxVars.ng_vb_share
+		});
+	}
+
+	function enableVenoBox(){
+		if (venoboxVars.ng_all_images) {
+			imagesVeno();
+			galleryVeno();
+		}
+		if (venoboxVars.ng_all_videos) {
+			videoVeno();
+		}
+		defaultVeno();
+	}
+
+	function setNewDataGall(selectors, type){
+		Array.prototype.forEach.call(selectors, function(el, i){
+			el.dataset.vbtype = type;
+		});
+	}
+
+	function init(){
+		// legacy data attributes mark up change if checked.
+		if (venoboxVars.ng_vb_legacy_markup) {
+			var datayt = document.querySelectorAll('a[data-type="youtube"]');
+			setNewDataGall(datayt, 'video');
+
+			var datavimeo = document.querySelectorAll('a[data-type="vimeo"]');
+			setNewDataGall(datavimeo, 'video');
+
+			var dataiframe = document.querySelectorAll('a[data-type="iframe"]');
+			setNewDataGall(dataiframe, 'iframe');
+
+			var datainline = document.querySelectorAll('a[data-type="inline"]');
+			setNewDataGall(datainline, 'inline');
+
+			var dataajax = document.querySelectorAll('a[data-type="ajax"]');
+			setNewDataGall(dataajax, 'ajax');
 		}
 
-		// Videos
-		function videoVeno() {
-			var vidlinks =  $('a[href]').filter('[href*="//vimeo.com"], [href*="//youtu"]');
-			$(vidlinks).each(function() {
-				vidlinks.addClass('venobox').attr( 'data-vbtype', 'video');
-				// Dont replace the data-gall if already set
-				if(!$(this).attr('data-gall')) {
-					$(this).attr('data-gall', 'gallery' );
-				}
-			});
-		}
+		enableVenoBox();
+		// Init main Venobox
+	}
 
-		// Convert values from 0/1 to false/true
-		var ng_numeratio = false, ng_infinigall = false, ng_autoplay = false, ng_arrows = false;
-		if (venoboxVars.ng_numeratio ) {
-			ng_numeratio = true;
-		}
-		if (venoboxVars.ng_infinigall ) {
-			ng_infinigall = true;
-		}
-		if (venoboxVars.ng_autoplay ) {
-			ng_autoplay = true;
-		}
-		if (venoboxVars.ng_arrows ) {
-			ng_arrows = true;
-		}
-		// Default settings
-		function defaultVeno() {
-			$('.venobox').venobox({
-				noArrows: ng_arrows, // default: false
-				border: venoboxVars.ng_border_width,
-				bgcolor: venoboxVars.ng_border_color,
-				numeratio: ng_numeratio, // default: false
-				numerationPosition: venoboxVars.ng_numeratio_position,
-				infinigall: ng_infinigall, // default: false
-				autoplay: ng_autoplay, // default: false
-				overlayColor: venoboxVars.ng_overlay,
-				closeBackground: 'transparent',
-				numerationBackground: 'transparent',
-				titleBackground:  venoboxVars.ng_nav_elements_bg,
-				spinner: venoboxVars.ng_preloader,
-				titlePosition: venoboxVars.ng_title_position,
-				arrowsColor: venoboxVars.ng_nav_elements,
-				closeColor: venoboxVars.ng_nav_elements,
-				numerationColor: venoboxVars.ng_nav_elements,
-				titleColor: venoboxVars.ng_nav_elements,
-				spinColor: venoboxVars.ng_nav_elements,
-				share: venoboxVars.ng_vb_share
-			});
-		}
-	} // end if disabled
-})(jQuery);
+	return {
+        init
+    };
+})();
+	
+if ( ! venoboxVars.disabled ) {
+	VenoboxWP.init();
+}

@@ -2,9 +2,9 @@
 
 Author: Neil Gowran
 Contributors: neilgee, nicolafranchini
-Version: 2.0.8
-Stable tag: 2.0.8
-Tested up to: 5.7
+Version: 2.0.9
+Stable tag: 2.0.9
+Tested up to: 5.8
 Requires at least: 4.0
 Plugin Name: VenoBox Lightbox
 Plugin URI: https://wordpress.org/plugins/venobox-lightbox/
@@ -60,6 +60,15 @@ Demo containing images and videos: http://themes.wpbeaches.com/venobox/
 4. Choose between alt, title and caption as the Title for the lightbox Title.
 
 == Changelog ==
+
+2.0.9 - 13/12/2021
+- Update to Venobox.js 2.0.3 (Vanilla JS, no jQuery)
+- New preload spinners
+- New fast gallery navigation
+- New option: Disable keyboard navigation
+- New option: Disable touch swipe navigation
+- New option: Navigation speed
+- New: Support local videos (.mp4, .webm, .ogg)
 
 2.0.8 - 17/03/2021
 - Update to Venobox 1.9.3
