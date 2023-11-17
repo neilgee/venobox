@@ -16,12 +16,7 @@
  * @since  1.0.0
  */
 class VenoBox_Lightbox {
-	/**
-	 * VenoBox js version
-	 *
-	 * @var version
-	 */
-	public $vb_version = '2.0.2';
+
 	/**
 	 * Holds an instance of the object
 	 *
@@ -121,9 +116,9 @@ class VenoBox_Lightbox {
 		$debug = ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) ? '' : '.min';
 
 		if ( '' === $disable_venobox ) {
-			wp_enqueue_style( 'venobox', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox/dist/venobox' . $debug . '.css', array(), $this->vb_version, 'all' );
-			wp_enqueue_script( 'venobox', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox/dist/venobox' . $debug . '.js', array(), $this->vb_version, true );
-			wp_register_script( 'venobox-init', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox-init.js', array( 'venobox' ), VENOBOX_LIGHTBOX_VERSION, true );
+			wp_enqueue_style( 'venobox', plugin_dir_url( __DIR__ ) . 'js/venobox/dist/venobox' . $debug . '.css', array(), VENOBOX_LIGHTBOX_VERSION, 'all' );
+			wp_enqueue_script( 'venobox', plugin_dir_url( __DIR__ ) . 'js/venobox/dist/venobox' . $debug . '.js', array(), VENOBOX_LIGHTBOX_VERSION, true );
+			wp_register_script( 'venobox-init', plugin_dir_url( __DIR__ ) . 'js/venobox-init.js', array( 'venobox' ), VENOBOX_LIGHTBOX_VERSION, true );
 		}
 
 		// Disable jQuery MagnificPopUp used on BeaverBuilder.
@@ -188,10 +183,10 @@ class VenoBox_Lightbox {
 			return;
 		}
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_script( 'wp-color-picker-venobox', plugin_dir_url( dirname( __FILE__ ) ) . 'js/wp-color-picker-alpha.min.js', array( 'wp-color-picker' ), '3.0.0', true );
-		wp_enqueue_style( 'venobox-css', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox/dist/venobox.min.css', array(), $this->vb_version, 'all' );
-		wp_enqueue_script( 'venobox-js', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox/dist/venobox.min.js', array(), $this->vb_version, true );
-		wp_enqueue_script( 'venobox-init-admin', plugin_dir_url( dirname( __FILE__ ) ) . 'js/venobox-init-admin.js', array( 'venobox-js' ), VENOBOX_LIGHTBOX_VERSION, true );
+		wp_enqueue_script( 'wp-color-picker-venobox', plugin_dir_url( __DIR__ ) . 'js/wp-color-picker-alpha.min.js', array( 'wp-color-picker' ), '3.0.0', true );
+		wp_enqueue_style( 'venobox-css', plugin_dir_url( __DIR__ ) . 'js/venobox/dist/venobox.min.css', array(), VENOBOX_LIGHTBOX_VERSION, 'all' );
+		wp_enqueue_script( 'venobox-js', plugin_dir_url( __DIR__ ) . 'js/venobox/dist/venobox.min.js', array(), VENOBOX_LIGHTBOX_VERSION, true );
+		wp_enqueue_script( 'venobox-init-admin', plugin_dir_url( __DIR__ ) . 'js/venobox-init-admin.js', array( 'venobox-js' ), VENOBOX_LIGHTBOX_VERSION, true );
 	}
 
 	/**
@@ -214,7 +209,7 @@ class VenoBox_Lightbox {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( "Hall and Oates 'Say No Go'" );
 		}
-		require_once dirname( __FILE__ ) . '/options-page-wrapper.php';
+		require_once __DIR__ . '/options-page-wrapper.php';
 	}
 
 	/**
@@ -420,7 +415,6 @@ class VenoBox_Lightbox {
 	 * (not much happening here)
 	 */
 	public function ng_venobox_section_callback() {
-
 	}
 
 	/**
@@ -846,7 +840,7 @@ class VenoBox_Lightbox {
 		if ( class_exists( 'WooCommerce' ) && '1' == $ng_vb_woocommerce ) {
 			remove_theme_support( 'wc-product-gallery-zoom' );
 			remove_theme_support( 'wc-product-gallery-lightbox' );
-			remove_theme_support( 'wc-product-gallery-slider' );
+			// remove_theme_support( 'wc-product-gallery-slider' );
 		}
 	}
 
@@ -876,7 +870,7 @@ class VenoBox_Lightbox {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
-		$venobox_nonce = filter_input( INPUT_POST, 'venobox_nonce', FILTER_SANITIZE_STRING );
+		$venobox_nonce = filter_input( INPUT_POST, 'venobox_nonce', FILTER_SANITIZE_SPECIAL_CHARS );
 		if ( ! $venobox_nonce || ! wp_verify_nonce( $venobox_nonce, 'venobox_nonce_' . $post_id ) ) {
 			return;
 		}
@@ -884,21 +878,13 @@ class VenoBox_Lightbox {
 			return;
 		}
 
-		$venobox_check = filter_input( INPUT_POST, '_venobox_check', FILTER_SANITIZE_STRING );
+		$venobox_check = filter_input( INPUT_POST, '_venobox_check', FILTER_SANITIZE_SPECIAL_CHARS );
 		if ( $venobox_check ) {
 			update_post_meta( $post_id, '_venobox_check', $venobox_check );
 		} else {
 			delete_post_meta( $post_id, '_venobox_check' );
 		}
 	}
-
 }
 
-/**
- * Helper function to get/return the VenoBox_Lightbox object
- *
- * @return VenoBox_Lightbox object
- */
-function venobox_lightbox() {
-	return VenoBox_Lightbox::get_instance();
-}
+VenoBox_Lightbox::get_instance();

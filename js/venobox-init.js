@@ -43,7 +43,6 @@ var VenoboxWP = (function(){
 		var boxlinks = document.querySelectorAll('a[href]');
 
 		for (var i=0,l=boxlinks.length; i<l; i++) {
-		
 			if (boxlinks[i].getAttribute('href')) {
 				if ( checkURL(boxlinks[i].getAttribute('href')) ) {
 					linklist.push(boxlinks[i]);
@@ -115,7 +114,12 @@ var VenoboxWP = (function(){
 	}
 
 	function checkURLvid(url) {
-	    if (url.search(/.+\.mp4|og[gv]|webm/) !== -1 || url.match(/(http:|https:|)\/\/(player.|www.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com))\/(video\/|embed\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(\&\S+)?/)) {
+		var regYt = /(https?:\/\/)?((www\.)?(youtube(-nocookie)?|youtube.googleapis)\.com.*(v\/|v=|vi=|vi\/|e\/|embed\/|user\/.*\/u\/\d+\/)|youtu\.be\/)([_0-9a-z-]+)/i;
+		var regVim = /^.*(vimeo\.com\/)((channels\/[A-z]+\/)|(groups\/[A-z]+\/videos\/))?([0-9]+)/;
+	    if (
+	    	url.search(/.+\.mp4|og[gv]|webm/) !== -1 || 
+	    	url.match(regYt) || url.match(regVim)
+	    ) {
 	    	return true;
 	    }
 	    return false;
@@ -147,10 +151,8 @@ var VenoboxWP = (function(){
 
 	// Default settings
 	function defaultVeno() {
-
 		new VenoBox({
 			maxWidth: venoboxVars.ng_max_width,
-
 			navigation: ng_arrows, // default: false
 			navKeyboard: ng_nav_keyboard,
 			navTouch: ng_nav_touch,

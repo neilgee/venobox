@@ -16,7 +16,7 @@
 	<div id="icon-options-general" class="icon32"></div>
 	<h1>VenoBox</h1>
 	<?php
-	$active_tab = filter_input( INPUT_GET, 'tab', FILTER_SANITIZE_STRING );
+	$active_tab = filter_input( INPUT_GET, 'tab', FILTER_SANITIZE_SPECIAL_CHARS );
 	$active_tab = $active_tab ? $active_tab : 'plugin_options';
 	?>
 	<h2 class="nav-tab-wrapper">
@@ -49,7 +49,7 @@
 							</pre>
 							<h4>Video - Vimeo Example</h4>
 							<a class="venobox" data-vbtype="video" href="https://vimeo.com/1084537">
-								<img src="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/bunny.jpg">
+								<img src="<?php echo esc_url( plugin_dir_url( __DIR__ ) ); ?>images/bunny.jpg">
 							</a>
 							<p>When clicked the lightbox will execute showing the linked content.</p>
 
@@ -67,14 +67,14 @@
 </pre>
 							<h4>Image Example</h4>
 							
-							<a class="venobox" title="Aerial View of an Island"  data-gall="super" href="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/aerial-view-of-an-island-3857215.jpg">
-								<img src="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/aerial-view-of-an-island-3857215-150x150.jpg">
+							<a class="venobox" title="Aerial View of an Island"  data-gall="super" href="<?php echo esc_url( plugin_dir_url( __DIR__ ) ); ?>images/aerial-view-of-an-island-3857215.jpg">
+								<img src="<?php echo esc_url( plugin_dir_url( __DIR__ ) ); ?>images/aerial-view-of-an-island-3857215-150x150.jpg">
 							</a>
-							<a class="venobox" title="Low Angle Photo of Airplane"  data-gall="super" href="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/low-angle-photo-of-airplane-1154619.jpg">
-								<img src="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/low-angle-photo-of-airplane-1154619-150x150.jpg">
+							<a class="venobox" title="Low Angle Photo of Airplane"  data-gall="super" href="<?php echo esc_url( plugin_dir_url( __DIR__ ) ); ?>images/low-angle-photo-of-airplane-1154619.jpg">
+								<img src="<?php echo esc_url( plugin_dir_url( __DIR__ ) ); ?>images/low-angle-photo-of-airplane-1154619-150x150.jpg">
 							</a>
-								<a class="venobox" title="Road During Daytime"  data-gall="super" href="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/photo-of-road-during-daytime-3295141.jpg">
-								<img src="<?php echo esc_url( plugin_dir_url( dirname( __FILE__ ) ) ); ?>images/photo-of-road-during-daytime-3295141-150x150.jpg">
+								<a class="venobox" title="Road During Daytime"  data-gall="super" href="<?php echo esc_url( plugin_dir_url( __DIR__ ) ); ?>images/photo-of-road-during-daytime-3295141.jpg">
+								<img src="<?php echo esc_url( plugin_dir_url( __DIR__ ) ); ?>images/photo-of-road-during-daytime-3295141-150x150.jpg">
 							</a>
 							<p>Image example above has titles, pagination, gallery and infinite gallery.</p>
 

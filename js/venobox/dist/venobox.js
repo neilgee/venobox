@@ -5,13 +5,13 @@
 }(this, (function () { 'use strict';
 
    /**
-    * VenoBox 2.0.2
-    * Copyright 2013-2021 Nicola Franchini
+    * VenoBox 2.0.6
+    * Copyright 2013-2023 Nicola Franchini
     * @license: https://github.com/nicolafranchini/VenoBox/blob/master/LICENSE
     */
    let backdrop, blocknum, blockshare, blocktitle, core, container, content, current_item, current_index, diffX, diffY, endY, elPreloader, elPreloaderInner;
    let gallIndex, images, infinigall, items, navigationDisabled, newcontent, numeratio, nextok, prevok, overlay;
-   let set_maxWidth, set_overlayColor, set_ratio, set_autoplay, set_href, startY, title, thisgall, thenext, theprev, throttle;
+   let set_maxWidth, set_overlayColor, set_ratio, set_autoplay, set_href, set_customclass, startY, thenext, theprev, thisborder, thisgall, title, throttle;
 
    const svgOpen = '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor">';
    const svgClose = '</svg>';
@@ -48,6 +48,7 @@
        autoplay : false,
        bgcolor: '#fff',
        border: '0',
+       customClass: false,
        infinigall: false,
        maxWidth: '100%',
        navigation: true,
@@ -75,6 +76,7 @@
        onContentLoaded: function(){}, // Return: newcontent
        onInit: function(){}, // Return: plugin obj
        jQuerySelectors: false,
+       focusItem: false
    };
 
    /**
@@ -168,16 +170,23 @@
     * Parse Youtube or Vimeo videos and get host & ID
     */
    function parseVideo(url) {
-       url.match(/(http:|https:|)\/\/(player.|www.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com))\/(video\/|embed\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(\&\S+)?/);
-       let type;
-       if (RegExp.$3.indexOf('youtu') > -1) {
+       let type, match, vid;
+       let regYt = /(https?:\/\/)?((www\.)?(youtube(-nocookie)?|youtube.googleapis)\.com.*(v\/|v=|vi=|vi\/|e\/|embed\/|user\/.*\/u\/\d+\/)|youtu\.be\/)([_0-9a-z-]+)/i;
+       match = url.match(regYt);
+       if (match && match[7]) {
            type = 'youtube';
-       } else if (RegExp.$3.indexOf('vimeo') > -1) {
-           type = 'vimeo';
+           vid = match[7];
+       } else {
+           let regVim = /^.*(vimeo\.com\/)((channels\/[A-z]+\/)|(groups\/[A-z]+\/videos\/))?([0-9]+)/;
+           match = url.match(regVim);
+           if (match && match[5]) {
+               type = 'vimeo';
+               vid = match[5];
+           }
        }
        return {
            type: type,
-           id: RegExp.$6
+           id: vid
        };
    }
 
@@ -225,7 +234,9 @@
        set_ratio = obj.getAttribute("data-ratio") || obj.settings.ratio;
        set_autoplay = obj.getAttribute("data-autoplay") || obj.settings.autoplay;
        set_href = obj.getAttribute("data-href") || obj.getAttribute('href');
+       set_customclass = obj.getAttribute("data-customclass") || obj.settings.customClass;
        title = obj.getAttribute(obj.settings.titleattr) || '';
+       thisborder = obj.getAttribute("data-border") || obj.settings.border;
    }
 
    /**
@@ -244,7 +255,10 @@
        document.body.removeEventListener('keydown', keyboardHandler);
        document.body.classList.remove('vbox-open');
 
-       current_item.focus();
+       if (current_item.settings.focusItem) {
+           current_item.focus();
+       }
+
        animate({
            duration: 200,
            timing: timingLinear,
@@ -302,7 +316,7 @@
        let vboxChild = content.querySelector(":first-child");
 
        vboxChild.classList.add('vbox-child');
-       vboxChild.style.padding = current_item.settings.border;
+
        vboxChild.style.backgroundColor = current_item.settings.bgcolor;
        vboxChild.style.maxWidth = set_maxWidth;
        vboxChild.style.transform = 'scale(0.9)';
@@ -320,6 +334,20 @@
        // reset content scroll
        container.scrollTo(0, 0);
        vboxChild.style.transform = 'scale(1)';
+
+       overlay.style.setProperty('--vbox-padding', thisborder);
+
+       // Reset custom classes.
+       forEach(overlay.classList, function(obj){
+           if (obj !== 'vbox-overlay') {
+              overlay.classList.remove(obj);
+           }
+       });
+
+       // Set custom class.
+       if (set_customclass){
+           overlay.classList.add(set_customclass);
+       }
 
        animate({
            duration: 200,
@@ -682,7 +710,10 @@
     */
    function updateOverlay(destination){
 
-       // overlay.style.backgroundColor = set_overlayColor;
+       if (!destination) {
+           return false;
+       }
+
        backdrop.style.backgroundColor = set_overlayColor;
 
        // Custom preloader color.
